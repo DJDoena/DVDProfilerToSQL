@@ -12,12 +12,10 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class vStudioGrouped
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string Studio { get; set; }
+        public string CollectionType { get; set; }
+        public Nullable<int> Count { get; set; }
     }
 }

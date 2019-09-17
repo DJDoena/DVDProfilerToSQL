@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
@@ -8,9 +7,9 @@ using Entity = DoenaSoft.DVDProfiler.SQLDatabase;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
-    internal sealed class BaseDataInserter
+    internal sealed class BaseDataInserter : IBaseData, IProgressReporter
     {
-        private readonly CollectionCache _cache;
+        private readonly ICollectionCache _cache;
 
         private readonly Entity.CollectionEntities _context;
 
@@ -48,7 +47,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public Dictionary<string, Entity.tCountryOfOrigin> CountryOfOrigin { get; private set; }
 
-        public Dictionary<string, Entity.tLocality> Locality { get; private set; }
+        public Dictionary<LocalityKey, Entity.tLocality> Locality { get; private set; }
 
         public Dictionary<string, Entity.tCreditType> CreditType { get; private set; }
 
@@ -58,19 +57,19 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public Dictionary<PluginKey, Entity.tPluginData> PluginData { get; private set; }
 
-        public BaseDataInserter(CollectionCache cache, Entity.CollectionEntities context)
+        public BaseDataInserter(ICollectionCache cache, Entity.CollectionEntities context)
         {
             _cache = cache;
             _context = context;
         }
 
-        internal event EventHandler<EventArgs<int>> ProgressMaxChanged;
+        public event EventHandler<EventArgs<int>> ProgressMaxChanged;
 
-        internal event EventHandler<EventArgs<int>> ProgressValueChanged;
+        public event EventHandler<EventArgs<int>> ProgressValueChanged;
 
-        internal event EventHandler<EventArgs<string>> Feedback;
+        public event EventHandler<EventArgs<string>> Feedback;
 
-        public void Insert()
+        internal void Insert()
         {
             InitializeHashes();
 
@@ -129,7 +128,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
             LinkCategory = new Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory>(_cache.LinkCategory.Count);
 
-            Locality = new Dictionary<string, Entity.tLocality>(_cache.Locality.Count);
+            Locality = new Dictionary<LocalityKey, Entity.tLocality>(_cache.Locality.Count);
 
             CollectionType = new Dictionary<Collection.CollectionType, Entity.tCollectionType>(_cache.CollectionType.Count);
 
@@ -166,42 +165,24 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             PurchasePlace = new Dictionary<PurchasePlaceKey, Entity.tPurchasePlace>(_cache.PurchasePlace.Count);
         }
 
-        private void ReportStart(IDictionary dictionary, string section)
-        {
-            ProgressMaxChanged?.Invoke(this, new EventArgs<int>(dictionary.Count));
-
-            Feedback?.Invoke(this, new EventArgs<string>(section));
-        }
-
-        private void ReportCurrent(ref int current)
-        {
-            ProgressValueChanged?.Invoke(this, new EventArgs<int>(current++));
-        }
-
-        private void ReportFinish()
-        {
-            ProgressMaxChanged?.Invoke(this, new EventArgs<int>(0));
-        }
-
         private void InsertAudioChannels()
         {
             ReportStart(_cache.AudioChannels, "Audio Channels");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.AudioChannels)
+            foreach (var item in _cache.AudioChannels)
             {
                 var entity = new Entity.tAudioChannels()
                 {
-                    AudioChannelsId = kvp.Value,
-                    Channels = kvp.Key,
+                    Channels = item,
                 };
 
                 _context.tAudioChannels.Add(entity);
 
-                AudioChannels.Add(kvp.Key, entity);
+                AudioChannels.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -211,21 +192,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.AudioContent, "Audio Content");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.AudioContent)
+            foreach (var item in _cache.AudioContent)
             {
                 var entity = new Entity.tAudioContent()
                 {
-                    AudioContentId = kvp.Value,
-                    Content = kvp.Key,
+                    Content = item,
                 };
 
                 _context.tAudioContent.Add(entity);
 
-                AudioContent.Add(kvp.Key, entity);
+                AudioContent.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -235,21 +215,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.AudioFormat, "Audio Format");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.AudioFormat)
+            foreach (var item in _cache.AudioFormat)
             {
                 var entity = new Entity.tAudioFormat()
                 {
-                    AudioFormatId = kvp.Value,
-                    Format = kvp.Key,
+                    Format = item,
                 };
 
                 _context.tAudioFormat.Add(entity);
 
-                AudioFormat.Add(kvp.Key, entity);
+                AudioFormat.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -259,21 +238,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.CaseType, "Case Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CaseType)
+            foreach (var item in _cache.CaseType)
             {
                 var entity = new Entity.tCaseType()
                 {
-                    CaseTypeId = kvp.Value,
-                    Type = kvp.Key,
+                    Type = item,
                 };
 
                 _context.tCaseType.Add(entity);
 
-                CaseType.Add(kvp.Key, entity);
+                CaseType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -283,15 +261,14 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.CastAndCrew, "Cast & Crew");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CastAndCrew)
+            foreach (var item in _cache.CastAndCrew)
             {
-                var key = kvp.Key.KeyData;
+                var key = item.KeyData;
 
                 var entity = new Entity.tCastAndCrew()
                 {
-                    CastAndCrewId = kvp.Value,
                     LastName = key.LastName,
                     MiddleName = key.MiddleName,
                     FirstName = key.FirstName,
@@ -300,9 +277,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 _context.tCastAndCrew.Add(entity);
 
-                CastAndCrew.Add(kvp.Key, entity);
+                CastAndCrew.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -312,24 +289,23 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.CollectionType, "Collection Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CollectionType)
+            foreach (var item in _cache.CollectionType)
             {
-                var collectionType = kvp.Key;
+                var collectionType = item;
 
                 var entity = new Entity.tCollectionType()
                 {
-                    CollectionTypeId = kvp.Value,
                     Type = collectionType.Value,
                     IsPartOfOwnedCollection = collectionType.IsPartOfOwnedCollection,
                 };
 
                 _context.tCollectionType.Add(entity);
 
-                CollectionType.Add(kvp.Key, entity);
+                CollectionType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -339,21 +315,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.CountryOfOrigin, "Country of Origin");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CountryOfOrigin)
+            foreach (var item in _cache.CountryOfOrigin)
             {
                 var entity = new Entity.tCountryOfOrigin()
                 {
-                    CountryOfOriginId = kvp.Value,
-                    Country = kvp.Key,
+                    Country = item,
                 };
 
                 _context.tCountryOfOrigin.Add(entity);
 
-                CountryOfOrigin.Add(kvp.Key, entity);
+                CountryOfOrigin.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -363,21 +338,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.CreditType, "Credit Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CreditType)
+            foreach (var item in _cache.CreditType)
             {
                 var entity = new Entity.tCreditType()
                 {
-                    CreditTypeId = kvp.Value,
-                    Type = kvp.Key,
+                    Type = item,
                 };
 
                 _context.tCreditType.Add(entity);
 
-                CreditType.Add(kvp.Key, entity);
+                CreditType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -391,38 +365,37 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
             Feedback?.Invoke(this, new EventArgs<string>("Credit Subtype"));
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.CreditSubtype)
+            foreach (var item in _cache.CreditSubtype)
             {
-                var creditTypeEntity = CreditType[kvp.Key];
+                var creditTypeEntity = CreditType[item.Key];
 
-                var creditSubtype = InsertCreditSubtypes(creditTypeEntity, kvp.Value, ref current);
+                var creditSubtype = InsertCreditSubtypes(creditTypeEntity, item.Value, ref currentProgress);
 
-                CreditSubtype.Add(kvp.Key, creditSubtype);
+                CreditSubtype.Add(item.Key, creditSubtype);
             }
 
             ReportFinish();
         }
 
-        private Dictionary<string, Entity.tCreditSubtype> InsertCreditSubtypes(Entity.tCreditType creditTypeEntity, Hashtable<string> creditSubtypeCache, ref int current)
+        private Dictionary<string, Entity.tCreditSubtype> InsertCreditSubtypes(Entity.tCreditType creditTypeEntity, Hash<string> creditSubtypeCache, ref int currentProgress)
         {
             var creditSubtype = new Dictionary<string, Entity.tCreditSubtype>(10);
 
-            foreach (var kvp in creditSubtypeCache)
+            foreach (var item in creditSubtypeCache)
             {
                 var entity = new Entity.tCreditSubtype()
                 {
-                    CreditSubtypeId = kvp.Value,
                     tCreditType = creditTypeEntity,
-                    Subtype = kvp.Key,
+                    Subtype = item,
                 };
 
                 _context.tCreditSubtype.Add(entity);
 
-                creditSubtype.Add(kvp.Key, entity);
+                creditSubtype.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             return creditSubtype;
@@ -432,21 +405,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.DVDIdType, "DVD Id Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.DVDIdType)
+            foreach (var item in _cache.DVDIdType)
             {
                 var entity = new Entity.tDVDIdType()
                 {
-                    DVDIdTypeId = kvp.Value,
-                    Type = Enum.GetName(typeof(Collection.DVDID_Type), kvp.Key),
+                    Type = Enum.GetName(typeof(Collection.DVDID_Type), item),
                 };
 
                 _context.tDVDIdType.Add(entity);
 
-                DVDIdType.Add(kvp.Key, entity);
+                DVDIdType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -456,21 +428,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.EventType, "Event Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.EventType)
+            foreach (var item in _cache.EventType)
             {
                 var entity = new Entity.tEventType()
                 {
-                    EventTypeId = kvp.Value,
-                    Type = Enum.GetName(typeof(Collection.EventType), kvp.Key),
+                    Type = Enum.GetName(typeof(Collection.EventType), item),
                 };
 
                 _context.tEventType.Add(entity);
 
-                EventType.Add(kvp.Key, entity);
+                EventType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -480,21 +451,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.Genre, "Genre");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.Genre)
+            foreach (var item in _cache.Genre)
             {
                 var entity = new Entity.tGenre()
                 {
-                    GenreId = kvp.Value,
-                    Genre = kvp.Key,
+                    Genre = item,
                 };
 
                 _context.tGenre.Add(entity);
 
-                Genre.Add(kvp.Key, entity);
+                Genre.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -504,21 +474,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.LinkCategory, "Link Category");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.LinkCategory)
+            foreach (var item in _cache.LinkCategory)
             {
                 var entity = new Entity.tLinkCategory()
                 {
-                    LinkCategoryId = kvp.Value,
-                    Category = Enum.GetName(typeof(Collection.CategoryRestriction), kvp.Key),
+                    Category = Enum.GetName(typeof(Collection.CategoryRestriction), item),
                 };
 
                 _context.tLinkCategory.Add(entity);
 
-                LinkCategory.Add(kvp.Key, entity);
+                LinkCategory.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -528,21 +497,21 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.Locality, "Locality");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.Locality)
+            foreach (var item in _cache.Locality)
             {
                 var entity = new Entity.tLocality()
                 {
-                    LocalityId = kvp.Value,
-                    Locality = kvp.Key,
+                    LocalityId = item.Id,
+                    Locality = item.Description,
                 };
 
                 _context.tLocality.Add(entity);
 
-                Locality.Add(kvp.Key, entity);
+                Locality.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -552,21 +521,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.MediaType, "Media Type");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.MediaType)
+            foreach (var item in _cache.MediaType)
             {
                 var entity = new Entity.tMediaType()
                 {
-                    MediyTypeId = kvp.Value,
-                    Type = kvp.Key,
+                    Type = item,
                 };
 
                 _context.tMediaType.Add(entity);
 
-                MediaType.Add(kvp.Key, entity);
+                MediaType.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -576,24 +544,21 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.PluginData, "Plugin Data");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.PluginData)
+            foreach (var item in _cache.PluginData)
             {
-                var pluginData = kvp.Key.PluginData;
-
                 var entity = new Entity.tPluginData()
                 {
-                    PluginDataId = kvp.Value,
-                    Guid = Guid.Parse(pluginData.ClassID),
-                    Name = pluginData.Name,
+                    Guid = item.ClassId,
+                    Name = item.Name,
                 };
 
                 _context.tPluginData.Add(entity);
 
-                PluginData.Add(kvp.Key, entity);
+                PluginData.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -603,15 +568,14 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.PurchasePlace, "Purchase Place");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.PurchasePlace)
+            foreach (var item in _cache.PurchasePlace)
             {
-                var key = kvp.Key;
+                var key = item;
 
                 var entity = new Entity.tPurchasePlace()
                 {
-                    PurchasePlaceId = kvp.Value,
                     Place = key.Place,
                     Type = key.Type,
                     Website = key.Website,
@@ -621,7 +585,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 PurchasePlace.Add(key, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -631,21 +595,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.StudioAndMediaCompany, "Studio & Media Company");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.StudioAndMediaCompany)
+            foreach (var item in _cache.StudioAndMediaCompany)
             {
                 var entity = new Entity.tStudioAndMediaCompany()
                 {
-                    StudioAndMediaCompanyId = kvp.Value,
-                    Name = kvp.Key,
+                    Name = item,
                 };
 
                 _context.tStudioAndMediaCompany.Add(entity);
 
-                StudioAndMediaCompany.Add(kvp.Key, entity);
+                StudioAndMediaCompany.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -655,21 +618,20 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.Subtitle, "Subtitle");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.Subtitle)
+            foreach (var item in _cache.Subtitle)
             {
                 var entity = new Entity.tSubtitle()
                 {
-                    SubtitleId = kvp.Value,
-                    Subtitle = kvp.Key,
+                    Subtitle = item,
                 };
 
                 _context.tSubtitle.Add(entity);
 
-                Subtitle.Add(kvp.Key, entity);
+                Subtitle.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -679,24 +641,21 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.Tag, "Tag");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.Tag)
+            foreach (var item in _cache.Tag)
             {
-                var tag = kvp.Key.Tag;
-
                 var entity = new Entity.tTag()
                 {
-                    TagId = kvp.Value,
-                    FullName = tag.FullName,
-                    Name = tag.Name,
+                    FullName = item.FullName,
+                    Name = item.Name,
                 };
 
                 _context.tTag.Add(entity);
 
-                Tag.Add(kvp.Key, entity);
+                Tag.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -706,26 +665,23 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.User, "User");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.User)
+            foreach (var item in _cache.User)
             {
-                var user = kvp.Key.User;
-
                 var entity = new Entity.tUser()
                 {
-                    UserId = kvp.Value,
-                    LastName = user.LastName,
-                    FirstName = user.FirstName,
-                    EMailAddress = user.EmailAddress,
-                    PhoneNumber = user.PhoneNumber,
+                    LastName = item.LastName,
+                    FirstName = item.FirstName,
+                    EMailAddress = item.EmailAddress,
+                    PhoneNumber = item.PhoneNumber,
                 };
 
                 _context.tUser.Add(entity);
 
-                User.Add(kvp.Key, entity);
+                User.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -735,24 +691,40 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             ReportStart(_cache.VideoStandard, "Video Standard");
 
-            var current = 0;
+            var currentProgress = 0;
 
-            foreach (var kvp in _cache.VideoStandard)
+            foreach (var item in _cache.VideoStandard)
             {
                 var entity = new Entity.tVideoStandard()
                 {
-                    VideoStandardId = kvp.Value,
-                    VideoStandard = Enum.GetName(typeof(Collection.VideoStandard), kvp.Key),
+                    VideoStandard = Enum.GetName(typeof(Collection.VideoStandard), item),
                 };
 
                 _context.tVideoStandard.Add(entity);
 
-                VideoStandard.Add(kvp.Key, entity);
+                VideoStandard.Add(item, entity);
 
-                ReportCurrent(ref current);
+                ReportCurrent(ref currentProgress);
             }
 
             ReportFinish();
+        }
+
+        private void ReportStart<T>(IEnumerable<T> enumerable, string section)
+        {
+            ProgressMaxChanged?.Invoke(this, new EventArgs<int>(enumerable.Count()));
+
+            Feedback?.Invoke(this, new EventArgs<string>(section));
+        }
+
+        private void ReportCurrent(ref int currentProgress)
+        {
+            ProgressValueChanged?.Invoke(this, new EventArgs<int>(currentProgress++));
+        }
+
+        private void ReportFinish()
+        {
+            ProgressMaxChanged?.Invoke(this, new EventArgs<int>(0));
         }
     }
 }

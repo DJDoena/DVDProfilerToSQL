@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tLoanInfo
     {
+        public int LoanInfoId { get; set; }
         public string DVDId { get; set; }
         public bool Loaned { get; set; }
         public Nullable<System.DateTime> Due { get; set; }

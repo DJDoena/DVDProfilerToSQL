@@ -9,28 +9,24 @@ using DoenaSoft.DVDProfiler.SQLDatabase;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
-    internal sealed class EntityProcessor
+    internal sealed class EntityProcessor : IProgressReporter
     {
         private const string DVDProfilerSchemaVersion = "4.0.0.0";
 
         private CollectionEntities _context;
 
-        internal static int IdCounter { get; set; }
-
         static EntityProcessor()
         {
-            IdCounter = 1;
-
             FormatInfo = CultureInfo.GetCultureInfo("en-US").NumberFormat;
         }
 
         internal static NumberFormatInfo FormatInfo { get; }
 
-        internal event EventHandler<EventArgs<int>> ProgressMaxChanged;
+        public event EventHandler<EventArgs<int>> ProgressMaxChanged;
 
-        internal event EventHandler<EventArgs<int>> ProgressValueChanged;
+        public event EventHandler<EventArgs<int>> ProgressValueChanged;
 
-        internal event EventHandler<EventArgs<string>> Feedback;
+        public event EventHandler<EventArgs<string>> Feedback;
 
         internal ExceptionXml Process(string collectionFile, string mdfTargetFile)
         {
@@ -61,7 +57,10 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                         CheckDbVersion();
 
                         //Phase 3: Fill Basic Data Into Database
-                        InsertBaseData(cache);
+                        var baseData = InsertBaseData(cache);
+
+                        //Phase 4: Fill DVDs into Database
+                        InsertData(collection, baseData);
 
                         //Phase 5: Save & Exit
                         _context.ChangeTracker.DetectChanges();
@@ -71,55 +70,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                     }
                 }
 
-
-
-                //using (connection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + targetFile + ";Persist Security Info=True"))
-                //{
-                //    connection.Open();
-
-                //    using (transaction = connection.BeginTransaction())
-                //    {
-                //        using (Command = connection.CreateCommand())
-                //        {
-                //            Command.Transaction = transaction;
-
-                //            CheckDBVersion();
-
-                //            InsertBaseData(LocalityHash, "tLocality");
-                //            InsertBaseData(DVDIdTypeHash, "tDVDIdType");
-                //            InsertBaseData(AudioChannelsHash, "tAudioChannels");
-                //            InsertBaseData(AudioContentHash, "tAudioContent");
-                //            InsertBaseData(AudioFormatHash, "tAudioFormat");
-                //            InsertBaseData(CaseTypeHash, "tCaseType");
-                //            InsertBaseData(CollectionTypeHash, "tCollectionType");
-                //            InsertBaseData(EventTypeHash, "tEventType");
-                //            InsertBaseData(VideoStandardHash, "tVideoStandard");
-                //            InsertBaseData(GenreHash, "tGenre");
-                //            InsertBaseData(SubtitleHash, "tSubtitle");
-                //            InsertBaseData(MediaTypeHash, "tMediaType");
-                //            InsertBaseData(CastAndCrewHash, "tCastAndCrew");
-                //            InsertBaseData(LinkCategoryHash, "tLinkCategory");
-                //            InsertBaseData(CountryOfOriginHash, "tCountryOfOrigin");
-
-                //            InsertBaseData();
-
-                //            //Phase 4: Fill DVDs into Database
-                //            InsertData();
-
-                //            //Phase 5: Save & Exit
-                //            transaction.Commit();
-                //        }
-                //    }
-
-                //    connection.Close();
-                //}
-
-                if (collection.DVDList != null)
-                {
-                    Feedback?.Invoke(this, new EventArgs<string>($"{collection.DVDList.Length:#,##0} profiles transformed."));
-                }
-
-                Feedback?.Invoke(this, new EventArgs<string>($"{IdCounter:#,##0} database entries created."));
+                Feedback?.Invoke(this, new EventArgs<string>($"{(collection.DVDList?.Length ?? 0):#,##0} profiles transformed."));
             }
             catch (Exception exception)
             {
@@ -173,7 +124,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             File.SetAttributes(targetFile, FileAttributes.Normal | FileAttributes.Archive);
         }
 
-        private void InsertBaseData(CollectionCache cache)
+        private IBaseData InsertBaseData(ICollectionCache cache)
         {
             BaseDataInserter inserter = null;
 
@@ -186,6 +137,31 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 inserter.Feedback += OnFeedback;
 
                 inserter.Insert();
+            }
+            finally
+            {
+                if (inserter != null)
+                {
+                    inserter.ProgressMaxChanged -= OnProgressMaxChanged;
+                    inserter.ProgressValueChanged -= OnProgressValueChanged;
+                    inserter.Feedback -= OnFeedback;
+                }
+            }
+
+            return inserter;
+        }
+
+        private void InsertData(Collection collection, IBaseData baseData)
+        {
+            DataInserter inserter = null;
+
+            try
+            {
+                inserter = new DataInserter(baseData, _context);
+
+                var dvds = collection.DVDList ?? Enumerable.Empty<DVD>();
+
+                inserter.Insert(dvds);
             }
             finally
             {

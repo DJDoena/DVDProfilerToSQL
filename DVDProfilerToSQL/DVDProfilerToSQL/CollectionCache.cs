@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
@@ -6,53 +7,53 @@ using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
-    internal sealed class CollectionCache
+    internal sealed class CollectionCache : ICollectionCache
     {
         private readonly Collection _collection;
 
-        public Hashtable<string> AudioChannels { get; private set; }
+        public Hash<string> AudioChannels { get; private set; }
 
-        public Hashtable<string> AudioContent { get; private set; }
+        public Hash<string> AudioContent { get; private set; }
 
-        public Hashtable<string> AudioFormat { get; private set; }
+        public Hash<string> AudioFormat { get; private set; }
 
-        public Hashtable<string> CaseType { get; private set; }
+        public Hash<string> CaseType { get; private set; }
 
-        public Hashtable<CollectionType> CollectionType { get; private set; }
+        public Hash<CollectionType> CollectionType { get; private set; }
 
-        public Hashtable<EventType> EventType { get; private set; }
+        public Hash<EventType> EventType { get; private set; }
 
-        public Hashtable<DVDID_Type> DVDIdType { get; private set; }
+        public Hash<DVDID_Type> DVDIdType { get; private set; }
 
-        public Hashtable<VideoStandard> VideoStandard { get; private set; }
+        public Hash<VideoStandard> VideoStandard { get; private set; }
 
-        public Hashtable<string> Genre { get; private set; }
+        public Hash<string> Genre { get; private set; }
 
-        public Hashtable<string> Subtitle { get; private set; }
+        public Hash<string> Subtitle { get; private set; }
 
-        public Hashtable<string> MediaType { get; private set; }
+        public Hash<string> MediaType { get; private set; }
 
-        public PersonHashtable CastAndCrew { get; private set; }
+        public PersonHash CastAndCrew { get; private set; }
 
-        public Hashtable<string> StudioAndMediaCompany { get; private set; }
+        public Hash<string> StudioAndMediaCompany { get; private set; }
 
-        public TagHashtable Tag { get; private set; }
+        public TagHash Tag { get; private set; }
 
-        public UserHashtable User { get; private set; }
+        public UserHash User { get; private set; }
 
-        public Hashtable<CategoryRestriction> LinkCategory { get; private set; }
+        public Hash<CategoryRestriction> LinkCategory { get; private set; }
 
-        public Hashtable<string> CountryOfOrigin { get; private set; }
+        public Hash<string> CountryOfOrigin { get; private set; }
 
-        public Hashtable<string> Locality { get; private set; }
+        public Hash<LocalityKey> Locality { get; private set; }
 
-        public Hashtable<string> CreditType { get; private set; }
+        public Hash<string> CreditType { get; private set; }
 
-        public Dictionary<string, Hashtable<string>> CreditSubtype { get; private set; }
+        public Dictionary<string, Hash<string>> CreditSubtype { get; private set; }
 
-        public Hashtable<PurchasePlaceKey> PurchasePlace { get; private set; }
+        public Hash<PurchasePlaceKey> PurchasePlace { get; private set; }
 
-        public PluginHashtable PluginData { get; private set; }
+        public PluginHash PluginData { get; private set; }
 
         public CollectionCache(Collection collection)
         {
@@ -69,13 +70,13 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             FillDynamicHash();
         }
 
-        private Hashtable<T> FillStaticHash<T>() where T : struct
+        private Hash<T> FillStaticHash<T>() where T : Enum
         {
             var fieldInfos = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Static);
 
             if (fieldInfos?.Length > 0)
             {
-                var hash = new Hashtable<T>(fieldInfos.Length);
+                var hash = new Hash<T>();
 
                 foreach (var fieldInfo in fieldInfos)
                 {
@@ -86,7 +87,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
             else
             {
-                return new Hashtable<T>(0);
+                return new Hash<T>();
             }
         }
 
@@ -94,97 +95,96 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             InitializeHashes();
 
-            if (_collection.DVDList?.Length > 0)
+            var dvds = _collection.DVDList ?? Enumerable.Empty<DVD>();
+
+            foreach (var dvd in dvds)
             {
-                foreach (var dvd in _collection.DVDList)
+                if (string.IsNullOrEmpty(dvd.ID))
                 {
-                    if (string.IsNullOrEmpty(dvd.ID))
-                    {
-                        continue;
-                    }
-
-                    FillLocalityHash(dvd);
-
-                    FillCollectionTypeHash(dvd);
-
-                    FillCastHash(dvd);
-
-                    FillCrewHash(dvd);
-
-                    FillUserHashFromLoanInfo(dvd);
-
-                    FillUserHashFromEvents(dvd);
-
-                    FillStudioHash(dvd);
-
-                    FillMediaCompanyHash(dvd);
-
-                    FillTagHash(dvd);
-
-                    FillAudioHashes(dvd);
-
-                    FillCaseTypeHash(dvd);
-
-                    FillGenreHash(dvd);
-
-                    FillSubtitleHash(dvd);
-
-                    FillMediaTypeHash(dvd);
-
-                    FillCountryOfOriginHash(dvd);
-
-                    FillPluginHash(dvd);
-
-                    FillCreditTypeAndSubtypeHash(dvd);
-
-                    FillPurchasePlaceHash(dvd);
+                    continue;
                 }
 
-                foreach (var dvd in _collection.DVDList)
-                {
-                    //second iteration for data that is less complete
-                    FillUserHashFromPurchaseInfo(dvd);
-                }
+                FillLocalityHash(dvd);
+
+                FillCollectionTypeHash(dvd);
+
+                FillCastHash(dvd);
+
+                FillCrewHash(dvd);
+
+                FillUserHashFromLoanInfo(dvd);
+
+                FillUserHashFromEvents(dvd);
+
+                FillStudioHash(dvd);
+
+                FillMediaCompanyHash(dvd);
+
+                FillTagHash(dvd);
+
+                FillAudioHashes(dvd);
+
+                FillCaseTypeHash(dvd);
+
+                FillGenreHash(dvd);
+
+                FillSubtitleHash(dvd);
+
+                FillMediaTypeHash(dvd);
+
+                FillCountryOfOriginHash(dvd);
+
+                FillPluginHash(dvd);
+
+                FillCreditTypeAndSubtypeHash(dvd);
+
+                FillPurchasePlaceHash(dvd);
+            }
+
+            foreach (var dvd in dvds)
+            {
+                //second iteration for data that is less complete
+                FillUserHashFromPurchaseInfo(dvd);
             }
         }
 
         private void InitializeHashes()
         {
-            Locality = new Hashtable<string>(5);
+            Locality = new Hash<LocalityKey>();
 
-            CollectionType = new Hashtable<CollectionType>(5);
+            CollectionType = new Hash<CollectionType>();
 
-            CastAndCrew = new PersonHashtable(_collection.DVDList.Length * 50);
+            CastAndCrew = new PersonHash();
 
-            StudioAndMediaCompany = new Hashtable<string>(100);
+            StudioAndMediaCompany = new Hash<string>();
 
-            AudioChannels = new Hashtable<string>(20);
+            AudioChannels = new Hash<string>();
 
-            AudioContent = new Hashtable<string>(20);
+            AudioContent = new Hash<string>();
 
-            AudioFormat = new Hashtable<string>(20);
+            AudioFormat = new Hash<string>();
 
-            CaseType = new Hashtable<string>(20);
+            CaseType = new Hash<string>();
 
-            Tag = new TagHashtable(50);
+            Tag = new TagHash();
 
-            User = new UserHashtable(20);
+            User = new UserHash();
 
-            Genre = new Hashtable<string>(30);
+            Genre = new Hash<string>();
 
-            Subtitle = new Hashtable<string>(30);
+            Subtitle = new Hash<string>();
 
-            MediaType = new Hashtable<string>(5);
+            MediaType = new Hash<string>();
 
-            CountryOfOrigin = new Hashtable<string>(20);
+            CountryOfOrigin = new Hash<string>();
 
-            PluginData = new PluginHashtable(5);
+            PluginData = new PluginHash();
 
-            CreditType = new Hashtable<string>(10);
+            CreditType = new Hash<string>();
 
-            CreditSubtype = new Dictionary<string, Hashtable<string>>(10);
+            CreditSubtype = new Dictionary<string, Hash<string>>();
 
-            PurchasePlace = new Hashtable<PurchasePlaceKey>(10);
+            PurchasePlace = new Hash<PurchasePlaceKey>();
         }
 
         private void FillUserHashFromPurchaseInfo(DVD dvd)
@@ -313,12 +313,12 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                         AudioContent.Add(audioTrack.Content);
                     }
 
-                    if (AudioFormat.ContainsKey(audioTrack.Format) == false)
+                    if (string.IsNullOrEmpty(audioTrack.Format) == false && AudioFormat.ContainsKey(audioTrack.Format) == false)
                     {
                         AudioFormat.Add(audioTrack.Format);
                     }
 
-                    if (AudioChannels.ContainsKey(audioTrack.Channels) == false)
+                    if (string.IsNullOrEmpty(audioTrack.Channels) == false && AudioChannels.ContainsKey(audioTrack.Channels) == false)
                     {
                         AudioChannels.Add(audioTrack.Channels);
                     }
@@ -427,13 +427,15 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         private void FillLocalityHash(DVD dvd)
         {
-            if (Locality.ContainsKey(dvd.ID_LocalityDesc) == false)
+            var key = new LocalityKey(dvd);
+
+            if (Locality.ContainsKey(key) == false)
             {
-                Locality.Add(dvd.ID_LocalityDesc);
+                Locality.Add(key);
             }
         }
 
-        private void FillDynamicHash<T>(PersonHashtable personHash, T person) where T : class, IPerson
+        private void FillDynamicHash<T>(PersonHash personHash, T person) where T : class, IPerson
         {
             if (personHash.ContainsKey(person) == false)
             {
@@ -462,7 +464,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             {
                 CreditType.Add(creditType);
 
-                CreditSubtype.Add(creditType, new Hashtable<string>(10));
+                CreditSubtype.Add(creditType, new Hash<string>());
             }
 
             var creditSubTypes = CreditSubtype[creditType];
@@ -477,9 +479,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
         {
             if (string.IsNullOrEmpty(dvd.PurchaseInfo?.Place) == false)
             {
-                var pi = dvd.PurchaseInfo;
-
-                var key = new PurchasePlaceKey(pi.Place, pi.Type, pi.Website);
+                var key = new PurchasePlaceKey(dvd.PurchaseInfo);
 
                 if (PurchasePlace.ContainsKey(key) == false)
                 {

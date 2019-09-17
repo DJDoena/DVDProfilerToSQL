@@ -5,49 +5,39 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DoenaSoft.DVDProfiler.CollectionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="tAudioChannels">
           <Key>
             <PropertyRef Name="AudioChannelsId" />
           </Key>
-          <Property Name="AudioChannelsId" Type="int" Nullable="false" />
+          <Property Name="AudioChannelsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Channels" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tAudioContent">
           <Key>
             <PropertyRef Name="AudioContentId" />
           </Key>
-          <Property Name="AudioContentId" Type="int" Nullable="false" />
+          <Property Name="AudioContentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tAudioFormat">
           <Key>
             <PropertyRef Name="AudioFormatId" />
           </Key>
-          <Property Name="AudioFormatId" Type="int" Nullable="false" />
+          <Property Name="AudioFormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Format" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tCaseType">
           <Key>
             <PropertyRef Name="CaseTypeId" />
           </Key>
-          <Property Name="CaseTypeId" Type="int" Nullable="false" />
+          <Property Name="CaseTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tCastAndCrew">
           <Key>
             <PropertyRef Name="CastAndCrewId" />
           </Key>
-          <Property Name="CastAndCrewId" Type="int" Nullable="false" />
+          <Property Name="CastAndCrewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="150" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="148" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -57,7 +47,7 @@
           <Key>
             <PropertyRef Name="CollectionTypeId" />
           </Key>
-          <Property Name="CollectionTypeId" Type="int" Nullable="false" />
+          <Property Name="CollectionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="255" />
           <Property Name="IsPartOfOwnedCollection" Type="bit" Nullable="false" />
         </EntityType>
@@ -65,14 +55,14 @@
           <Key>
             <PropertyRef Name="CountryOfOriginId" />
           </Key>
-          <Property Name="CountryOfOriginId" Type="int" Nullable="false" />
+          <Property Name="CountryOfOriginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Country" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tCreditSubtype">
           <Key>
             <PropertyRef Name="CreditSubtypeId" />
           </Key>
-          <Property Name="CreditSubtypeId" Type="int" Nullable="false" />
+          <Property Name="CreditSubtypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreditTypeId" Type="int" Nullable="false" />
           <Property Name="Subtype" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -80,7 +70,7 @@
           <Key>
             <PropertyRef Name="CreditTypeId" />
           </Key>
-          <Property Name="CreditTypeId" Type="int" Nullable="false" />
+          <Property Name="CreditTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tDBVersion">
@@ -91,8 +81,9 @@
         </EntityType>
         <EntityType Name="tDigitalDownloadInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="DigitalDownloadInfoId" />
           </Key>
+          <Property Name="DigitalDownloadInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Company" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Code" Type="ntext" Nullable="false" />
@@ -112,8 +103,8 @@
           <Property Name="Released" Type="date" />
           <Property Name="RunningTime" Type="int" />
           <Property Name="Rating" Type="nvarchar" MaxLength="50" />
-          <Property Name="CaseTypeId" Type="int" Nullable="false" />
-          <Property Name="CaseSlipCover" Type="bit" Nullable="false" />
+          <Property Name="CaseTypeId" Type="int" />
+          <Property Name="CaseSlipCover" Type="bit" />
           <Property Name="SRPDenomination" Type="nvarchar" MaxLength="50" />
           <Property Name="SRPValue" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Overview" Type="ntext" />
@@ -125,12 +116,12 @@
         </EntityType>
         <EntityType Name="tDVDId">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="DVDIdId" />
           </Key>
+          <Property Name="DVDIdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdBase" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="VariantNum" Type="smallint" Nullable="false" />
-          <Property Name="LocalityNum" Type="smallint" Nullable="false" />
+          <Property Name="VariantNum" Type="int" Nullable="false" />
           <Property Name="LocalityId" Type="int" Nullable="false" />
           <Property Name="IdType" Type="int" Nullable="false" />
         </EntityType>
@@ -138,24 +129,24 @@
           <Key>
             <PropertyRef Name="DVDIdTypeId" />
           </Key>
-          <Property Name="DVDIdTypeId" Type="int" Nullable="false" />
+          <Property Name="DVDIdTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tDVDxAudio">
           <Key>
             <PropertyRef Name="DVDxAudioId" />
           </Key>
-          <Property Name="DVDxAudioId" Type="int" Nullable="false" />
+          <Property Name="DVDxAudioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AudioContentId" Type="int" Nullable="false" />
-          <Property Name="AudioFormatId" Type="int" Nullable="false" />
-          <Property Name="AudioChannelsId" Type="int" Nullable="false" />
+          <Property Name="AudioFormatId" Type="int" />
+          <Property Name="AudioChannelsId" Type="int" />
         </EntityType>
         <EntityType Name="tDVDxCast">
           <Key>
             <PropertyRef Name="DVDxCastId" />
           </Key>
-          <Property Name="DVDxCastId" Type="int" Nullable="false" />
+          <Property Name="DVDxCastId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CastId" Type="int" Nullable="false" />
           <Property Name="Role" Type="nvarchar" MaxLength="255" />
@@ -170,7 +161,7 @@
           <Key>
             <PropertyRef Name="DVDxCountryOfOriginId" />
           </Key>
-          <Property Name="DVDxCountryOfOriginId" Type="int" Nullable="false" />
+          <Property Name="DVDxCountryOfOriginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CountryOfOriginId" Type="int" Nullable="false" />
         </EntityType>
@@ -178,7 +169,7 @@
           <Key>
             <PropertyRef Name="DVDxCrewId" />
           </Key>
-          <Property Name="DVDxCrewId" Type="int" Nullable="false" />
+          <Property Name="DVDxCrewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CrewId" Type="int" Nullable="false" />
           <Property Name="CreditSubtypeId" Type="int" Nullable="false" />
@@ -191,7 +182,7 @@
           <Key>
             <PropertyRef Name="DVDxDiscId" />
           </Key>
-          <Property Name="DVDxDiscId" Type="int" Nullable="false" />
+          <Property Name="DVDxDiscId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DescriptionSideA" Type="nvarchar" MaxLength="255" />
           <Property Name="DescriptionSideB" Type="nvarchar" MaxLength="255" />
@@ -209,7 +200,7 @@
           <Key>
             <PropertyRef Name="DVDxEventId" />
           </Key>
-          <Property Name="DVDxEventId" Type="int" Nullable="false" />
+          <Property Name="DVDxEventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EventTypeId" Type="int" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
@@ -220,7 +211,7 @@
           <Key>
             <PropertyRef Name="DVDxGenreId" />
           </Key>
-          <Property Name="DVDxGenreId" Type="int" Nullable="false" />
+          <Property Name="DVDxGenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GenreId" Type="int" Nullable="false" />
         </EntityType>
@@ -228,7 +219,7 @@
           <Key>
             <PropertyRef Name="DVDxMediaCompanyId" />
           </Key>
-          <Property Name="DVDxMediaCompanyId" Type="int" Nullable="false" />
+          <Property Name="DVDxMediaCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MediaCompanyId" Type="int" Nullable="false" />
         </EntityType>
@@ -236,7 +227,7 @@
           <Key>
             <PropertyRef Name="DVDxMediaTypeId" />
           </Key>
-          <Property Name="DVDxMediaTypeId" Type="int" Nullable="false" />
+          <Property Name="DVDxMediaTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDid" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MediaTypeId" Type="int" Nullable="false" />
         </EntityType>
@@ -244,7 +235,7 @@
           <Key>
             <PropertyRef Name="DVDxMyLinkId" />
           </Key>
-          <Property Name="DVDxMyLinkId" Type="int" Nullable="false" />
+          <Property Name="DVDxMyLinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Url" Type="ntext" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
@@ -254,7 +245,7 @@
           <Key>
             <PropertyRef Name="DVDxPluginDataId" />
           </Key>
-          <Property Name="DVDxPluginDataId" Type="int" Nullable="false" />
+          <Property Name="DVDxPluginDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PluginDataId" Type="int" Nullable="false" />
           <Property Name="PluginData" Type="ntext" />
@@ -263,7 +254,7 @@
           <Key>
             <PropertyRef Name="DVDxRegionId" />
           </Key>
-          <Property Name="DVDxRegionId" Type="int" Nullable="false" />
+          <Property Name="DVDxRegionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Region" Type="nvarchar" MaxLength="1" Nullable="false" />
         </EntityType>
@@ -271,7 +262,7 @@
           <Key>
             <PropertyRef Name="DVDxStudioId" />
           </Key>
-          <Property Name="DVDxStudioId" Type="int" Nullable="false" />
+          <Property Name="DVDxStudioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="StudioId" Type="int" Nullable="false" />
         </EntityType>
@@ -279,7 +270,7 @@
           <Key>
             <PropertyRef Name="DVDxSubtitleId" />
           </Key>
-          <Property Name="DVDxSubtitleId" Type="int" Nullable="false" />
+          <Property Name="DVDxSubtitleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SubtitleId" Type="int" Nullable="false" />
         </EntityType>
@@ -287,14 +278,15 @@
           <Key>
             <PropertyRef Name="DVDxTagId" />
           </Key>
-          <Property Name="DVDxTagId" Type="int" Nullable="false" />
+          <Property Name="DVDxTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDid" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TagId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tEnhancedFeatures">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedFeatureId" />
           </Key>
+          <Property Name="EnhancedFeatureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Feature1" Type="bit" Nullable="false" />
           <Property Name="Feature2" Type="bit" Nullable="false" />
@@ -339,8 +331,9 @@
         </EntityType>
         <EntityType Name="tEnhancedNotes">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedNotesId" />
           </Key>
+          <Property Name="EnhancedNotesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Note1" Type="ntext" />
           <Property Name="Note1isHtml" Type="bit" Nullable="false" />
@@ -355,8 +348,9 @@
         </EntityType>
         <EntityType Name="tEnhancedPurchaseInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedPurchaseInfoId" />
           </Key>
+          <Property Name="EnhancedPurchaseInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OriginalPriceDenomination" Type="nvarchar" MaxLength="50" />
           <Property Name="OriginalPriceValue" Type="decimal" Precision="18" Scale="2" />
@@ -384,8 +378,9 @@
         </EntityType>
         <EntityType Name="tEnhancedTitles">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedTitlesId" />
           </Key>
+          <Property Name="EnhancedTitlesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title1" Type="ntext" />
           <Property Name="Title2" Type="ntext" />
@@ -397,13 +392,14 @@
           <Key>
             <PropertyRef Name="EventTypeId" />
           </Key>
-          <Property Name="EventTypeId" Type="int" Nullable="false" />
+          <Property Name="EventTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="tFeatures">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="FeaturesId" />
           </Key>
+          <Property Name="FeaturesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SceneAccess" Type="bit" Nullable="false" />
           <Property Name="Commentary" Type="bit" Nullable="false" />
@@ -433,8 +429,9 @@
         </EntityType>
         <EntityType Name="tFormat">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="FormatId" />
           </Key>
+          <Property Name="FormatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AspectRatio" Type="nvarchar" MaxLength="50" />
           <Property Name="VideoStandardId" Type="int" />
@@ -458,20 +455,21 @@
           <Key>
             <PropertyRef Name="GenreId" />
           </Key>
-          <Property Name="GenreId" Type="int" Nullable="false" />
+          <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Genre" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tLinkCategory">
           <Key>
             <PropertyRef Name="LinkCategoryId" />
           </Key>
-          <Property Name="LinkCategoryId" Type="int" Nullable="false" />
+          <Property Name="LinkCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tLoanInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="LoanInfoId" />
           </Key>
+          <Property Name="LoanInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Loaned" Type="bit" Nullable="false" />
           <Property Name="Due" Type="date" />
@@ -486,8 +484,9 @@
         </EntityType>
         <EntityType Name="tLock">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="LockId" />
           </Key>
+          <Property Name="LockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Entire" Type="bit" Nullable="false" />
           <Property Name="Covers" Type="bit" Nullable="false" />
@@ -516,14 +515,14 @@
           <Key>
             <PropertyRef Name="MediyTypeId" />
           </Key>
-          <Property Name="MediyTypeId" Type="int" Nullable="false" />
+          <Property Name="MediyTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tParentDVDxChildDVD">
           <Key>
             <PropertyRef Name="ParentDVDxChildDVDId" />
           </Key>
-          <Property Name="ParentDVDxChildDVDId" Type="int" Nullable="false" />
+          <Property Name="ParentDVDxChildDVDId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentDVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ChildDVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -531,14 +530,15 @@
           <Key>
             <PropertyRef Name="PluginDataId" />
           </Key>
-          <Property Name="PluginDataId" Type="int" Nullable="false" />
+          <Property Name="PluginDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tPurchase">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="PurchaseId" />
           </Key>
+          <Property Name="PurchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PriceDenomination" Type="nvarchar" MaxLength="50" />
           <Property Name="PriceValue" Type="decimal" Precision="18" Scale="2" />
@@ -551,15 +551,16 @@
           <Key>
             <PropertyRef Name="PurchasePlaceId" />
           </Key>
-          <Property Name="PurchasePlaceId" Type="int" Nullable="false" />
+          <Property Name="PurchasePlaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Place" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Website" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tReview">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="ReviewId" />
           </Key>
+          <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Film" Type="int" Nullable="false" />
           <Property Name="Video" Type="int" Nullable="false" />
@@ -570,21 +571,21 @@
           <Key>
             <PropertyRef Name="StudioAndMediaCompanyId" />
           </Key>
-          <Property Name="StudioAndMediaCompanyId" Type="int" Nullable="false" />
+          <Property Name="StudioAndMediaCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tSubtitle">
           <Key>
             <PropertyRef Name="SubtitleId" />
           </Key>
-          <Property Name="SubtitleId" Type="int" Nullable="false" />
+          <Property Name="SubtitleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subtitle" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tTag">
           <Key>
             <PropertyRef Name="TagId" />
           </Key>
-          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
@@ -592,7 +593,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="EMailAddress" Type="nvarchar" MaxLength="255" />
@@ -602,11 +603,11 @@
           <Key>
             <PropertyRef Name="VideoStandardId" />
           </Key>
-          <Property Name="VideoStandardId" Type="int" Nullable="false" />
+          <Property Name="VideoStandardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VideoStandard" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vCastGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vCastGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vCastGrouped">
           <Key>
             <PropertyRef Name="FirstName" />
@@ -619,7 +620,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vCastGrouped
           <Property Name="Count" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vCollectionTypeGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vCollectionTypeGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vCollectionTypeGrouped">
           <Key>
             <PropertyRef Name="IsPartOfOwnedCollection" />
@@ -629,7 +630,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vCollectionT
           <Property Name="Count" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDigitalDownloadInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDigitalDownloadInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDigitalDownloadInfo">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -645,7 +646,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDigitalDown
           <Property Name="Code" Type="ntext" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVD">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -655,6 +656,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVD' does n
             <PropertyRef Name="Title" />
             <PropertyRef Name="OriginalTitle" />
             <PropertyRef Name="CaseSlipCover" />
+            <PropertyRef Name="SortTitle" />
             <PropertyRef Name="WishPriority" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -676,30 +678,33 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVD' does n
           <Property Name="SRPValue" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Overview" Type="ntext" />
           <Property Name="EasterEggs" Type="ntext" />
-          <Property Name="SortTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="SortTitle" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="LastEdited" Type="datetime" />
           <Property Name="WishPriority" Type="int" Nullable="false" />
           <Property Name="Notes" Type="ntext" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDId' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDId">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="IdType" />
+            <PropertyRef Name="IdBase" />
             <PropertyRef Name="Locality" />
+            <PropertyRef Name="VariantNum" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="IdType" Type="nvarchar" MaxLength="50" />
-          <Property Name="IdBase" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdBase" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Locality" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="VariantNum" Type="smallint" />
+          <Property Name="VariantNum" Type="smallint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxAudio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxAudio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxAudio">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -714,7 +719,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxAudio' 
           <Property Name="AudioChannels" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCast' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxCast' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxCast">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -741,7 +746,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCast' d
           <Property Name="Puppeteer" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCountryOfOrigin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxCountryOfOrigin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxCountryOfOrigin">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -754,7 +759,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCountry
           <Property Name="CountryOfOrigin" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCrew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxCrew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxCrew">
           <Key>
             <PropertyRef Name="FirstName" />
@@ -779,7 +784,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxCrew' d
           <Property Name="CustomRole" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxDisc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxDisc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxDisc">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -797,11 +802,12 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxDisc' d
           <Property Name="Slot" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxEvent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxEvent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxEvent">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Type" />
             <PropertyRef Name="Timestamp" />
             <PropertyRef Name="LastName" />
             <PropertyRef Name="FirstName" />
@@ -810,7 +816,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxEvent' 
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="225" Nullable="false" />
@@ -819,47 +825,50 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxEvent' 
           <Property Name="Note" Type="ntext" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxGenre' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxGenre' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxGenre">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Genre" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="Genre" Type="nvarchar" MaxLength="255" />
+          <Property Name="Genre" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxMediaCompany' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxMediaCompany' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxMediaCompany">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="MediaCompany" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="MediaCompany" Type="nvarchar" MaxLength="255" />
+          <Property Name="MediaCompany" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxPluginData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxPluginData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxPluginData">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Name" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="PluginData" Type="ntext" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxRegion">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -873,20 +882,21 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxRegion'
           <Property Name="Region" Type="nvarchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxStudio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxStudio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxStudio">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Studio" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="Studio" Type="nvarchar" MaxLength="255" />
+          <Property Name="Studio" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxTag' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxTag' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxTag">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -900,7 +910,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vDVDxTag' do
           <Property Name="Tag" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedFeatures' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedFeatures' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vEnhancedFeatures">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -992,7 +1002,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedFea
           <Property Name="Feature40" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedNotes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedNotes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vEnhancedNotes">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1019,7 +1029,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedNot
           <Property Name="Note15sHtml" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedPurchaseInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedPurchaseInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vEnhancedPurchaseInfo">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1054,7 +1064,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedPur
           <Property Name="AdditionalDate2" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedTitles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedTitles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vEnhancedTitles">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1071,7 +1081,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vEnhancedTit
           <Property Name="Title5" Type="ntext" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vFeatures' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vFeatures' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vFeatures">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1130,7 +1140,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vFeatures' d
           <Property Name="OtherFeatures" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vFormat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vFormat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vFormat">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1170,7 +1180,17 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vFormat' doe
           <Property Name="DolbyVision" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vLoanInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vGenreGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vGenreGrouped">
+          <Key>
+            <PropertyRef Name="Genre" />
+          </Key>
+          <Property Name="Genre" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vLoanInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vLoanInfo">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1189,7 +1209,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vLoanInfo' d
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vLock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vLock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vLock">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1245,7 +1265,17 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vLock' does 
           <Property Name="Rating" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vParentChildDVD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vMediaCompanyGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vMediaCompanyGrouped">
+          <Key>
+            <PropertyRef Name="MediaCompany" />
+          </Key>
+          <Property Name="MediaCompany" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vParentChildDVD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vParentChildDVD">
           <Key>
             <PropertyRef Name="ParentDVDId" />
@@ -1263,7 +1293,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vParentChild
           <Property Name="ChildCollectionType" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vPurchase">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1287,7 +1317,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vPurchase' d
           <Property Name="LastName" Type="nvarchar" MaxLength="225" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vReview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vReview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vReview">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -1307,7 +1337,17 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vReview' doe
           <Property Name="Extras" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vStudioGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vStudioGrouped">
+          <Key>
+            <PropertyRef Name="Studio" />
+          </Key>
+          <Property Name="Studio" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vTagGrouped' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vTagGrouped">
           <Key>
             <PropertyRef Name="Tag" />
@@ -1317,7 +1357,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="Count" Type="int" />
         </EntityType>
         <Association Name="FK_AudioChannels">
-          <End Role="tAudioChannels" Type="Self.tAudioChannels" Multiplicity="1" />
+          <End Role="tAudioChannels" Type="Self.tAudioChannels" Multiplicity="0..1" />
           <End Role="tDVDxAudio" Type="Self.tDVDxAudio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tAudioChannels">
@@ -1341,7 +1381,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AudioFormats">
-          <End Role="tAudioFormat" Type="Self.tAudioFormat" Multiplicity="1" />
+          <End Role="tAudioFormat" Type="Self.tAudioFormat" Multiplicity="0..1" />
           <End Role="tDVDxAudio" Type="Self.tDVDxAudio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tAudioFormat">
@@ -1365,7 +1405,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CaseType">
-          <End Role="tCaseType" Type="Self.tCaseType" Multiplicity="1" />
+          <End Role="tCaseType" Type="Self.tCaseType" Multiplicity="0..1" />
           <End Role="tDVD" Type="Self.tDVD" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tCaseType">
@@ -1497,13 +1537,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DigitalDownloadInfo">
-          <End Role="tDigitalDownloadInfo" Type="Self.tDigitalDownloadInfo" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tDigitalDownloadInfo" Type="Self.tDigitalDownloadInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tDigitalDownloadInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tDigitalDownloadInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1521,13 +1561,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DVDId">
-          <End Role="tDVDId" Type="Self.tDVDId" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tDVDId" Type="Self.tDVDId" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tDVDId">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tDVDId">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1545,49 +1585,49 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedFeatures">
-          <End Role="tEnhancedFeatures" Type="Self.tEnhancedFeatures" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tEnhancedFeatures" Type="Self.tEnhancedFeatures" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedFeatures">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedFeatures">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedNotes">
-          <End Role="tEnhancedNotes" Type="Self.tEnhancedNotes" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tEnhancedNotes" Type="Self.tEnhancedNotes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedNotes">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedNotes">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedPurchaseInfo">
-          <End Role="tEnhancedPurchaseInfo" Type="Self.tEnhancedPurchaseInfo" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tEnhancedPurchaseInfo" Type="Self.tEnhancedPurchaseInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedPurchaseInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedPurchaseInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedTitles">
-          <End Role="tEnhancedTitles" Type="Self.tEnhancedTitles" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tEnhancedTitles" Type="Self.tEnhancedTitles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedTitles">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedTitles">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1629,25 +1669,25 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Features">
-          <End Role="tFeatures" Type="Self.tFeatures" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tFeatures" Type="Self.tFeatures" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tFeatures">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tFeatures">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Format">
-          <End Role="tFormat" Type="Self.tFormat" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tFormat" Type="Self.tFormat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tFormat">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tFormat">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1713,13 +1753,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LoanInfo">
-          <End Role="tLoanInfo" Type="Self.tLoanInfo" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tLoanInfo" Type="Self.tLoanInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tLoanInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tLoanInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1749,13 +1789,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lock">
-          <End Role="tLock" Type="Self.tLock" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tLock" Type="Self.tLock" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tLock">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tLock">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1845,13 +1885,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Purchase">
-          <End Role="tPurchase" Type="Self.tPurchase" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tPurchase" Type="Self.tPurchase" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tPurchase">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tPurchase">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1881,13 +1921,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review">
-          <End Role="tReview" Type="Self.tReview" Multiplicity="1" />
-          <End Role="tDVD" Type="Self.tDVD" Multiplicity="0..1" />
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tReview" Type="Self.tReview" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tReview">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tReview">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1977,7 +2017,6 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DoenaSoftDVDProfilerCollectionModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAudioChannels" EntityType="Self.tAudioChannels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAudioContent" EntityType="Self.tAudioContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tAudioFormat" EntityType="Self.tAudioFormat" Schema="dbo" store:Type="Tables" />
@@ -2403,6 +2442,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
     [vFormat].[DolbyVision] AS [DolbyVision]
     FROM [dbo].[vFormat] AS [vFormat]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vGenreGrouped" EntityType="Self.vGenreGrouped" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vGenreGrouped].[Genre] AS [Genre], 
+    [vGenreGrouped].[CollectionType] AS [CollectionType], 
+    [vGenreGrouped].[Count] AS [Count]
+    FROM [dbo].[vGenreGrouped] AS [vGenreGrouped]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vLoanInfo" EntityType="Self.vLoanInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vLoanInfo].[DVDId] AS [DVDId], 
@@ -2446,6 +2492,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
     [vLock].[Rating] AS [Rating]
     FROM [dbo].[vLock] AS [vLock]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vMediaCompanyGrouped" EntityType="Self.vMediaCompanyGrouped" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vMediaCompanyGrouped].[MediaCompany] AS [MediaCompany], 
+    [vMediaCompanyGrouped].[CollectionType] AS [CollectionType], 
+    [vMediaCompanyGrouped].[Count] AS [Count]
+    FROM [dbo].[vMediaCompanyGrouped] AS [vMediaCompanyGrouped]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vParentChildDVD" EntityType="Self.vParentChildDVD" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vParentChildDVD].[ParentDVDId] AS [ParentDVDId], 
@@ -2486,6 +2539,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
     [vReview].[Audio] AS [Audio], 
     [vReview].[Extras] AS [Extras]
     FROM [dbo].[vReview] AS [vReview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vStudioGrouped" EntityType="Self.vStudioGrouped" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vStudioGrouped].[Studio] AS [Studio], 
+    [vStudioGrouped].[CollectionType] AS [CollectionType], 
+    [vStudioGrouped].[Count] AS [Count]
+    FROM [dbo].[vStudioGrouped] AS [vStudioGrouped]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vTagGrouped" EntityType="Self.vTagGrouped" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2555,36 +2615,36 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxCrew" EntitySet="tDVDxCrew" />
           </AssociationSet>
           <AssociationSet Name="FK_DigitalDownloadInfo" Association="Self.FK_DigitalDownloadInfo">
-            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_DiscList" Association="Self.FK_DiscList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxDisc" EntitySet="tDVDxDisc" />
           </AssociationSet>
           <AssociationSet Name="FK_DVDId" Association="Self.FK_DVDId">
-            <End Role="tDVDId" EntitySet="tDVDId" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
           <AssociationSet Name="FK_DVDIdType" Association="Self.FK_DVDIdType">
             <End Role="tDVDIdType" EntitySet="tDVDIdType" />
             <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedFeatures" Association="Self.FK_EnhancedFeatures">
-            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedNotes" Association="Self.FK_EnhancedNotes">
-            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedPurchaseInfo" Association="Self.FK_EnhancedPurchaseInfo">
-            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedTitles" Association="Self.FK_EnhancedTitles">
-            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
           </AssociationSet>
           <AssociationSet Name="FK_EventList" Association="Self.FK_EventList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2599,12 +2659,12 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_Features" Association="Self.FK_Features">
-            <End Role="tFeatures" EntitySet="tFeatures" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tFeatures" EntitySet="tFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK_Format" Association="Self.FK_Format">
-            <End Role="tFormat" EntitySet="tFormat" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tFormat" EntitySet="tFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_Genre" Association="Self.FK_Genre">
             <End Role="tGenre" EntitySet="tGenre" />
@@ -2627,8 +2687,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxMyLinks" EntitySet="tDVDxMyLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_LoanInfo" Association="Self.FK_LoanInfo">
-            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_LoanInfoUser" Association="Self.FK_LoanInfoUser">
             <End Role="tUser" EntitySet="tUser" />
@@ -2639,8 +2699,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
           <AssociationSet Name="FK_Lock" Association="Self.FK_Lock">
-            <End Role="tLock" EntitySet="tLock" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tLock" EntitySet="tLock" />
           </AssociationSet>
           <AssociationSet Name="FK_MediaCompany" Association="Self.FK_MediaCompany">
             <End Role="tStudioAndMediaCompany" EntitySet="tStudioAndMediaCompany" />
@@ -2671,8 +2731,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase" Association="Self.FK_Purchase">
-            <End Role="tPurchase" EntitySet="tPurchase" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tPurchase" EntitySet="tPurchase" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchasePlace" Association="Self.FK_PurchasePlace">
             <End Role="tPurchasePlace" EntitySet="tPurchasePlace" />
@@ -2683,8 +2743,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxRegion" EntitySet="tDVDxRegion" />
           </AssociationSet>
           <AssociationSet Name="FK_Review" Association="Self.FK_Review">
-            <End Role="tReview" EntitySet="tReview" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tReview" EntitySet="tReview" />
           </AssociationSet>
           <AssociationSet Name="FK_Studio" Association="Self.FK_Studio">
             <End Role="tDVDxStudio" EntitySet="tDVDxStudio" />
@@ -2720,7 +2780,6 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
     <edmx:ConceptualModels>
       <Schema Namespace="DoenaSoft.DVDProfiler.SQLDatabase" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CollectionEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="sysdiagrams" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.sysdiagrams" />
           <EntitySet Name="tAudioChannels" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels" />
           <EntitySet Name="tAudioContent" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioContent" />
           <EntitySet Name="tAudioFormat" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioFormat" />
@@ -2733,7 +2792,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <EntitySet Name="tDBVersion" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDBVersion" />
           <EntitySet Name="tDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" />
           <EntitySet Name="tDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" />
-          <EntitySet Name="tDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" />
+          <EntitySet Name="tDVDIdType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" />
           <EntitySet Name="tDVDxAudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" />
           <EntitySet Name="tDVDxCast" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast" />
           <EntitySet Name="tDVDxCountryOfOrigin" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCountryOfOrigin" />
@@ -2759,10 +2818,10 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <EntitySet Name="tGenre" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tGenre" />
           <EntitySet Name="tLinkCategory" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLinkCategory" />
           <EntitySet Name="tLoanInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" />
-          <EntitySet Name="tLocality" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" />
           <EntitySet Name="tLock" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLock" />
           <EntitySet Name="tMediaType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tMediaType" />
           <EntitySet Name="tParentDVDxChildDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tParentDVDxChildDVD" />
+          <EntitySet Name="tPluginData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" />
           <EntitySet Name="tPurchase" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" />
           <EntitySet Name="tPurchasePlace" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tPurchasePlace" />
           <EntitySet Name="tReview" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tReview" />
@@ -2794,11 +2853,14 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <EntitySet Name="vEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" />
           <EntitySet Name="vFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFeatures" />
           <EntitySet Name="vFormat" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFormat" />
+          <EntitySet Name="vGenreGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vGenreGrouped" />
           <EntitySet Name="vLoanInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vLoanInfo" />
           <EntitySet Name="vLock" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vLock" />
+          <EntitySet Name="vMediaCompanyGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vMediaCompanyGrouped" />
           <EntitySet Name="vParentChildDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vParentChildDVD" />
           <EntitySet Name="vPurchase" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vPurchase" />
           <EntitySet Name="vReview" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vReview" />
+          <EntitySet Name="vStudioGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vStudioGrouped" />
           <EntitySet Name="vTagGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vTagGrouped" />
           <AssociationSet Name="FK_AudioChannels" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioChannels">
             <End Role="tAudioChannels" EntitySet="tAudioChannels" />
@@ -2841,8 +2903,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tCreditSubtype" EntitySet="tCreditSubtype" />
           </AssociationSet>
           <AssociationSet Name="FK_DigitalDownloadInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo">
-            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_AudioList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2868,37 +2930,33 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxDisc" EntitySet="tDVDxDisc" />
           </AssociationSet>
-          <AssociationSet Name="FK_DVDId" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId">
-            <End Role="tDVDId" EntitySet="tDVDId" />
-            <End Role="tDVD" EntitySet="tDVD" />
-          </AssociationSet>
           <AssociationSet Name="FK_EnhancedFeatures" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures">
-            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedNotes" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes">
-            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedPurchaseInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo">
-            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedTitles" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles">
-            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
           </AssociationSet>
           <AssociationSet Name="FK_EventList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_Features" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features">
-            <End Role="tFeatures" EntitySet="tFeatures" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tFeatures" EntitySet="tFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK_Format" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format">
-            <End Role="tFormat" EntitySet="tFormat" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tFormat" EntitySet="tFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_GenreList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2909,12 +2967,12 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxMyLinks" EntitySet="tDVDxMyLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_LoanInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo">
-            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_Lock" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Lock">
-            <End Role="tLock" EntitySet="tLock" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tLock" EntitySet="tLock" />
           </AssociationSet>
           <AssociationSet Name="FK_MediaCompanyList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2933,16 +2991,16 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Purchase">
-            <End Role="tPurchase" EntitySet="tPurchase" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tPurchase" EntitySet="tPurchase" />
           </AssociationSet>
           <AssociationSet Name="FK_RegionList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_RegionList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxRegion" EntitySet="tDVDxRegion" />
           </AssociationSet>
           <AssociationSet Name="FK_Review" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Review">
-            <End Role="tReview" EntitySet="tReview" />
             <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tReview" EntitySet="tReview" />
           </AssociationSet>
           <AssociationSet Name="FK_StudioList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2955,10 +3013,6 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <AssociationSet Name="FK_TagList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxTag" EntitySet="tDVDxTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Locality" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality">
-            <End Role="tLocality" EntitySet="tLocality" />
-            <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
           <AssociationSet Name="FK_EventType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventType">
             <End Role="tEventType" EntitySet="tEventType" />
@@ -2983,6 +3037,10 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <AssociationSet Name="FK_LinkCategory" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkCategory">
             <End Role="tLinkCategory" EntitySet="tLinkCategory" />
             <End Role="tDVDxMyLinks" EntitySet="tDVDxMyLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PluginData" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData">
+            <End Role="tPluginData" EntitySet="tPluginData" />
+            <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
           </AssociationSet>
           <AssociationSet Name="FK_Studio" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Studio">
             <End Role="tDVDxStudio" EntitySet="tDVDxStudio" />
@@ -3012,32 +3070,26 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <End Role="tPurchasePlace" EntitySet="tPurchasePlace" />
             <End Role="tPurchase" EntitySet="tPurchase" />
           </AssociationSet>
-          <EntitySet Name="tPluginData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" />
-          <AssociationSet Name="FK_PluginData" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData">
-            <End Role="tPluginData" EntitySet="tPluginData" />
-            <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
+          <EntitySet Name="tDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" />
+          <EntitySet Name="tLocality" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" />
+          <AssociationSet Name="FK_DVDId" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
-          <EntitySet Name="tDVDIdType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" />
           <AssociationSet Name="FK_DVDIdType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType">
             <End Role="tDVDIdType" EntitySet="tDVDIdType" />
             <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
+          <AssociationSet Name="FK_Locality" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality">
+            <End Role="tLocality" EntitySet="tLocality" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="tAudioChannels">
           <Key>
             <PropertyRef Name="AudioChannelsId" />
           </Key>
-          <Property Name="AudioChannelsId" Type="Int32" Nullable="false" />
+          <Property Name="AudioChannelsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Channels" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioChannels" FromRole="tAudioChannels" ToRole="tDVDxAudio" />
         </EntityType>
@@ -3045,7 +3097,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="AudioContentId" />
           </Key>
-          <Property Name="AudioContentId" Type="Int32" Nullable="false" />
+          <Property Name="AudioContentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioContents" FromRole="tAudioContent" ToRole="tDVDxAudio" />
         </EntityType>
@@ -3053,7 +3105,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="AudioFormatId" />
           </Key>
-          <Property Name="AudioFormatId" Type="Int32" Nullable="false" />
+          <Property Name="AudioFormatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Format" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioFormats" FromRole="tAudioFormat" ToRole="tDVDxAudio" />
         </EntityType>
@@ -3061,7 +3113,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CaseTypeId" />
           </Key>
-          <Property Name="CaseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CaseTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType" FromRole="tCaseType" ToRole="tDVD" />
         </EntityType>
@@ -3069,7 +3121,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CastAndCrewId" />
           </Key>
-          <Property Name="CastAndCrewId" Type="Int32" Nullable="false" />
+          <Property Name="CastAndCrewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="MiddleName" Type="String" MaxLength="148" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -3081,7 +3133,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CollectionTypeId" />
           </Key>
-          <Property Name="CollectionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CollectionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="IsPartOfOwnedCollection" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType" FromRole="tCollectionType" ToRole="tDVD" />
@@ -3090,7 +3142,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CountryOfOriginId" />
           </Key>
-          <Property Name="CountryOfOriginId" Type="Int32" Nullable="false" />
+          <Property Name="CountryOfOriginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOrigin" FromRole="tCountryOfOrigin" ToRole="tDVDxCountryOfOrigin" />
         </EntityType>
@@ -3098,7 +3150,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CreditSubtypeId" />
           </Key>
-          <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" />
+          <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreditTypeId" Type="Int32" Nullable="false" />
           <Property Name="Subtype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype" FromRole="tCreditSubtype" ToRole="tDVDxCrew" />
@@ -3108,7 +3160,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="CreditTypeId" />
           </Key>
-          <Property Name="CreditTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CreditTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tCreditSubtype" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditType" FromRole="tCreditType" ToRole="tCreditSubtype" />
         </EntityType>
@@ -3120,8 +3172,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tDigitalDownloadInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="DigitalDownloadInfoId" />
           </Key>
+          <Property Name="DigitalDownloadInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Company" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -3142,8 +3195,8 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="Released" Type="DateTime" Precision="0" />
           <Property Name="RunningTime" Type="Int32" />
           <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CaseTypeId" Type="Int32" Nullable="false" />
-          <Property Name="CaseSlipCover" Type="Boolean" Nullable="false" />
+          <Property Name="CaseTypeId" Type="Int32" />
+          <Property Name="CaseSlipCover" Type="Boolean" />
           <Property Name="SRPDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SRPValue" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -3161,7 +3214,6 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <NavigationProperty Name="tDVDxCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOriginList" FromRole="tDVD" ToRole="tDVDxCountryOfOrigin" />
           <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVD" ToRole="tDVDxCrew" />
           <NavigationProperty Name="tDVDxDisc" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList" FromRole="tDVD" ToRole="tDVDxDisc" />
-          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
           <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
           <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
           <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
@@ -3183,30 +3235,25 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <NavigationProperty Name="tDVDxStudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVD" ToRole="tDVDxStudio" />
           <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVD" ToRole="tDVDxSubtitle" />
           <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVD" ToRole="tDVDxTag" />
+          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
         </EntityType>
-        <EntityType Name="tDVDId">
+        <EntityType Name="tDVDIdType">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="DVDIdTypeId" />
           </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VariantNum" Type="Int16" Nullable="false" />
-          <Property Name="LocalityNum" Type="Int16" Nullable="false" />
-          <Property Name="LocalityId" Type="Int32" Nullable="false" />
-          <Property Name="IdType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVDId" ToRole="tDVD" />
-          <NavigationProperty Name="tLocality" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tDVDId" ToRole="tLocality" />
-          <NavigationProperty Name="tDVDIdType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDId" ToRole="tDVDIdType" />
+          <Property Name="DVDIdTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDIdType" ToRole="tDVDId" />
         </EntityType>
         <EntityType Name="tDVDxAudio">
           <Key>
             <PropertyRef Name="DVDxAudioId" />
           </Key>
-          <Property Name="DVDxAudioId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxAudioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AudioContentId" Type="Int32" Nullable="false" />
-          <Property Name="AudioFormatId" Type="Int32" Nullable="false" />
-          <Property Name="AudioChannelsId" Type="Int32" Nullable="false" />
+          <Property Name="AudioFormatId" Type="Int32" />
+          <Property Name="AudioChannelsId" Type="Int32" />
           <NavigationProperty Name="tAudioChannels" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioChannels" FromRole="tDVDxAudio" ToRole="tAudioChannels" />
           <NavigationProperty Name="tAudioContent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioContents" FromRole="tDVDxAudio" ToRole="tAudioContent" />
           <NavigationProperty Name="tAudioFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioFormats" FromRole="tDVDxAudio" ToRole="tAudioFormat" />
@@ -3216,7 +3263,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxCastId" />
           </Key>
-          <Property Name="DVDxCastId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxCastId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CastId" Type="Int32" Nullable="false" />
           <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -3233,7 +3280,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxCountryOfOriginId" />
           </Key>
-          <Property Name="DVDxCountryOfOriginId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxCountryOfOriginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CountryOfOriginId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOrigin" FromRole="tDVDxCountryOfOrigin" ToRole="tCountryOfOrigin" />
@@ -3243,7 +3290,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxCrewId" />
           </Key>
-          <Property Name="DVDxCrewId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxCrewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CrewId" Type="Int32" Nullable="false" />
           <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" />
@@ -3259,7 +3306,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxDiscId" />
           </Key>
-          <Property Name="DVDxDiscId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxDiscId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DescriptionSideA" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DescriptionSideB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -3278,7 +3325,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxEventId" />
           </Key>
-          <Property Name="DVDxEventId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxEventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventTypeId" Type="Int32" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
@@ -3292,7 +3339,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxGenreId" />
           </Key>
-          <Property Name="DVDxGenreId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxGenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GenreId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList" FromRole="tDVDxGenre" ToRole="tDVD" />
@@ -3302,7 +3349,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxMediaCompanyId" />
           </Key>
-          <Property Name="DVDxMediaCompanyId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxMediaCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MediaCompanyId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList" FromRole="tDVDxMediaCompany" ToRole="tDVD" />
@@ -3312,7 +3359,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxMediaTypeId" />
           </Key>
-          <Property Name="DVDxMediaTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxMediaTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MediaTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaTypeList" FromRole="tDVDxMediaType" ToRole="tDVD" />
@@ -3322,7 +3369,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxMyLinkId" />
           </Key>
-          <Property Name="DVDxMyLinkId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxMyLinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -3334,7 +3381,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxPluginDataId" />
           </Key>
-          <Property Name="DVDxPluginDataId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxPluginDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PluginDataId" Type="Int32" Nullable="false" />
           <Property Name="PluginData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -3345,7 +3392,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxRegionId" />
           </Key>
-          <Property Name="DVDxRegionId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxRegionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Region" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_RegionList" FromRole="tDVDxRegion" ToRole="tDVD" />
@@ -3354,7 +3401,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxStudioId" />
           </Key>
-          <Property Name="DVDxStudioId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxStudioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StudioId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVDxStudio" ToRole="tDVD" />
@@ -3364,7 +3411,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxSubtitleId" />
           </Key>
-          <Property Name="DVDxSubtitleId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxSubtitleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SubtitleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVDxSubtitle" ToRole="tDVD" />
@@ -3374,7 +3421,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDxTagId" />
           </Key>
-          <Property Name="DVDxTagId" Type="Int32" Nullable="false" />
+          <Property Name="DVDxTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TagId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVDxTag" ToRole="tDVD" />
@@ -3382,8 +3429,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tEnhancedFeatures">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedFeatureId" />
           </Key>
+          <Property Name="EnhancedFeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Feature1" Type="Boolean" Nullable="false" />
           <Property Name="Feature2" Type="Boolean" Nullable="false" />
@@ -3429,8 +3477,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tEnhancedNotes">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedNotesId" />
           </Key>
+          <Property Name="EnhancedNotesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note1isHtml" Type="Boolean" Nullable="false" />
@@ -3446,8 +3495,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tEnhancedPurchaseInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedPurchaseInfoId" />
           </Key>
+          <Property Name="EnhancedPurchaseInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OriginalPriceDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OriginalPriceValue" Type="Decimal" Precision="18" Scale="2" />
@@ -3476,8 +3526,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tEnhancedTitles">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="EnhancedTitlesId" />
           </Key>
+          <Property Name="EnhancedTitlesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -3490,14 +3541,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="EventTypeId" />
           </Key>
-          <Property Name="EventTypeId" Type="Int32" Nullable="false" />
+          <Property Name="EventTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxEvent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventType" FromRole="tEventType" ToRole="tDVDxEvent" />
         </EntityType>
         <EntityType Name="tFeatures">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="FeaturesId" />
           </Key>
+          <Property Name="FeaturesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SceneAccess" Type="Boolean" Nullable="false" />
           <Property Name="Commentary" Type="Boolean" Nullable="false" />
@@ -3528,8 +3580,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tFormat">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="FormatId" />
           </Key>
+          <Property Name="FormatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AspectRatio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VideoStandardId" Type="Int32" />
@@ -3555,7 +3608,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="GenreId" />
           </Key>
-          <Property Name="GenreId" Type="Int32" Nullable="false" />
+          <Property Name="GenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Genre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxGenre" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Genre" FromRole="tGenre" ToRole="tDVDxGenre" />
         </EntityType>
@@ -3563,14 +3616,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="LinkCategoryId" />
           </Key>
-          <Property Name="LinkCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="LinkCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxMyLinks" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkCategory" FromRole="tLinkCategory" ToRole="tDVDxMyLinks" />
         </EntityType>
         <EntityType Name="tLoanInfo">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="LoanInfoId" />
           </Key>
+          <Property Name="LoanInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Loaned" Type="Boolean" Nullable="false" />
           <Property Name="Due" Type="DateTime" Precision="0" />
@@ -3578,18 +3632,11 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo" FromRole="tLoanInfo" ToRole="tDVD" />
           <NavigationProperty Name="tUser" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfoUser" FromRole="tLoanInfo" ToRole="tUser" />
         </EntityType>
-        <EntityType Name="tLocality">
-          <Key>
-            <PropertyRef Name="LocalityId" />
-          </Key>
-          <Property Name="LocalityId" Type="Int32" Nullable="false" />
-          <Property Name="Locality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tLocality" ToRole="tDVDId" />
-        </EntityType>
         <EntityType Name="tLock">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="LockId" />
           </Key>
+          <Property Name="LockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Entire" Type="Boolean" Nullable="false" />
           <Property Name="Covers" Type="Boolean" Nullable="false" />
@@ -3619,7 +3666,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="MediyTypeId" />
           </Key>
-          <Property Name="MediyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MediyTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxMediaType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaType" FromRole="tMediaType" ToRole="tDVDxMediaType" />
         </EntityType>
@@ -3627,16 +3674,26 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="ParentDVDxChildDVDId" />
           </Key>
-          <Property Name="ParentDVDxChildDVDId" Type="Int32" Nullable="false" />
+          <Property Name="ParentDVDxChildDVDId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentDVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChildDVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
           <NavigationProperty Name="tDVD1" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ParentDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
         </EntityType>
+        <EntityType Name="tPluginData">
+          <Key>
+            <PropertyRef Name="PluginDataId" />
+          </Key>
+          <Property Name="PluginDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVDxPluginData" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData" FromRole="tPluginData" ToRole="tDVDxPluginData" />
+        </EntityType>
         <EntityType Name="tPurchase">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="PurchaseId" />
           </Key>
+          <Property Name="PurchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PriceDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PriceValue" Type="Decimal" Precision="18" Scale="2" />
@@ -3652,7 +3709,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="PurchasePlaceId" />
           </Key>
-          <Property Name="PurchasePlaceId" Type="Int32" Nullable="false" />
+          <Property Name="PurchasePlaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Place" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Website" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -3660,8 +3717,9 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
         </EntityType>
         <EntityType Name="tReview">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="ReviewId" />
           </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Film" Type="Int32" Nullable="false" />
           <Property Name="Video" Type="Int32" Nullable="false" />
@@ -3673,7 +3731,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="StudioAndMediaCompanyId" />
           </Key>
-          <Property Name="StudioAndMediaCompanyId" Type="Int32" Nullable="false" />
+          <Property Name="StudioAndMediaCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxMediaCompany" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompany" FromRole="tStudioAndMediaCompany" ToRole="tDVDxMediaCompany" />
           <NavigationProperty Name="tDVDxStudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Studio" FromRole="tStudioAndMediaCompany" ToRole="tDVDxStudio" />
@@ -3682,7 +3740,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="SubtitleId" />
           </Key>
-          <Property Name="SubtitleId" Type="Int32" Nullable="false" />
+          <Property Name="SubtitleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subtitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Subtitle" FromRole="tSubtitle" ToRole="tDVDxSubtitle" />
         </EntityType>
@@ -3690,7 +3748,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="TagId" />
           </Key>
-          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <Property Name="TagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Tag" FromRole="tTag" ToRole="tDVDxTag" />
@@ -3699,7 +3757,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
           <Property Name="EMailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -3712,7 +3770,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="VideoStandardId" />
           </Key>
-          <Property Name="VideoStandardId" Type="Int32" Nullable="false" />
+          <Property Name="VideoStandardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VideoStandard" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_VideoStandard" FromRole="tVideoStandard" ToRole="tFormat" />
         </EntityType>
@@ -3758,6 +3816,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             <PropertyRef Name="Title" />
             <PropertyRef Name="OriginalTitle" />
             <PropertyRef Name="CaseSlipCover" />
+            <PropertyRef Name="SortTitle" />
             <PropertyRef Name="WishPriority" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -3779,7 +3838,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="SRPValue" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EasterEggs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SortTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SortTitle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="LastEdited" Type="DateTime" Precision="3" />
           <Property Name="WishPriority" Type="Int32" Nullable="false" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -3788,16 +3847,19 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="IdType" />
+            <PropertyRef Name="IdBase" />
             <PropertyRef Name="Locality" />
+            <PropertyRef Name="VariantNum" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="IdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdBase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Locality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="VariantNum" Type="Int16" />
+          <Property Name="VariantNum" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="vDVDxAudio">
           <Key>
@@ -3891,6 +3953,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Type" />
             <PropertyRef Name="Timestamp" />
             <PropertyRef Name="LastName" />
             <PropertyRef Name="FirstName" />
@@ -3899,7 +3962,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
@@ -3911,34 +3974,37 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Genre" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Genre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vDVDxMediaCompany">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="MediaCompany" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MediaCompany" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MediaCompany" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vDVDxPluginData">
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Name" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PluginData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vDVDxRegion">
@@ -3957,12 +4023,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="Studio" />
           </Key>
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Studio" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Studio" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vDVDxTag">
           <Key>
@@ -4234,6 +4301,14 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="HDR10" Type="Boolean" />
           <Property Name="DolbyVision" Type="Boolean" />
         </EntityType>
+        <EntityType Name="vGenreGrouped">
+          <Key>
+            <PropertyRef Name="Genre" />
+          </Key>
+          <Property Name="Genre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+        </EntityType>
         <EntityType Name="vLoanInfo">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -4305,6 +4380,14 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="VideoFormats" Type="Boolean" Nullable="false" />
           <Property Name="Rating" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="vMediaCompanyGrouped">
+          <Key>
+            <PropertyRef Name="MediaCompany" />
+          </Key>
+          <Property Name="MediaCompany" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+        </EntityType>
         <EntityType Name="vParentChildDVD">
           <Key>
             <PropertyRef Name="ParentDVDId" />
@@ -4361,6 +4444,14 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="Audio" Type="Int32" Nullable="false" />
           <Property Name="Extras" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="vStudioGrouped">
+          <Key>
+            <PropertyRef Name="Studio" />
+          </Key>
+          <Property Name="Studio" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+        </EntityType>
         <EntityType Name="vTagGrouped">
           <Key>
             <PropertyRef Name="Tag" />
@@ -4370,7 +4461,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           <Property Name="Count" Type="Int32" />
         </EntityType>
         <Association Name="FK_AudioChannels">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels" Role="tAudioChannels" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels" Role="tAudioChannels" Multiplicity="0..1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" Role="tDVDxAudio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tAudioChannels">
@@ -4394,7 +4485,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AudioFormats">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tAudioFormat" Role="tAudioFormat" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tAudioFormat" Role="tAudioFormat" Multiplicity="0..1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" Role="tDVDxAudio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tAudioFormat">
@@ -4406,7 +4497,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CaseType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="0..1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tCaseType">
@@ -4490,13 +4581,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DigitalDownloadInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Role="tDigitalDownloadInfo" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Role="tDigitalDownloadInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tDigitalDownloadInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tDigitalDownloadInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4573,62 +4664,50 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DVDId">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tDVDId">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EnhancedFeatures">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Role="tEnhancedFeatures" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Role="tEnhancedFeatures" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedFeatures">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedFeatures">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedNotes">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Role="tEnhancedNotes" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Role="tEnhancedNotes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedNotes">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedNotes">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedPurchaseInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedPurchaseInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedPurchaseInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EnhancedTitles">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Role="tEnhancedTitles" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Role="tEnhancedTitles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tEnhancedTitles">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tEnhancedTitles">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4646,25 +4725,25 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Features">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" Role="tFeatures" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" Role="tFeatures" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tFeatures">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tFeatures">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Format">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" Role="tFormat" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" Role="tFormat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tFormat">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tFormat">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4694,25 +4773,25 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LoanInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" Role="tLoanInfo" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" Role="tLoanInfo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tLoanInfo">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tLoanInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lock">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLock" Role="tLock" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLock" Role="tLock" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tLock">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tLock">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4766,13 +4845,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Purchase">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tPurchase">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tPurchase">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4790,13 +4869,13 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tReview" Role="tReview" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tReview" Role="tReview" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tReview">
+            <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVD">
+            <Dependent Role="tReview">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4834,18 +4913,6 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             </Principal>
             <Dependent Role="tDVDxTag">
               <PropertyRef Name="DVDid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Locality">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" Role="tLocality" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tLocality">
-              <PropertyRef Name="LocalityId" />
-            </Principal>
-            <Dependent Role="tDVDId">
-              <PropertyRef Name="LocalityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4918,6 +4985,18 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             </Principal>
             <Dependent Role="tDVDxMyLinks">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PluginData">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" Role="tPluginData" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxPluginData" Role="tDVDxPluginData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPluginData">
+              <PropertyRef Name="PluginDataId" />
+            </Principal>
+            <Dependent Role="tDVDxPluginData">
+              <PropertyRef Name="PluginDataId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5005,35 +5084,40 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tPluginData">
+        <EntityType Name="tDVDId">
           <Key>
-            <PropertyRef Name="PluginDataId" />
+            <PropertyRef Name="DVDIdId" />
           </Key>
-          <Property Name="PluginDataId" Type="Int32" Nullable="false" />
-          <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVDxPluginData" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData" FromRole="tPluginData" ToRole="tDVDxPluginData" />
+          <Property Name="DVDIdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VariantNum" Type="Int32" Nullable="false" />
+          <Property Name="LocalityId" Type="Int32" Nullable="false" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVDId" ToRole="tDVD" />
+          <NavigationProperty Name="tDVDIdType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDId" ToRole="tDVDIdType" />
+          <NavigationProperty Name="tLocality" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tDVDId" ToRole="tLocality" />
         </EntityType>
-        <Association Name="FK_PluginData">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" Role="tPluginData" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxPluginData" Role="tDVDxPluginData" Multiplicity="*" />
+        <EntityType Name="tLocality">
+          <Key>
+            <PropertyRef Name="LocalityId" />
+          </Key>
+          <Property Name="LocalityId" Type="Int32" Nullable="false" />
+          <Property Name="Locality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tLocality" ToRole="tDVDId" />
+        </EntityType>
+        <Association Name="FK_DVDId">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tPluginData">
-              <PropertyRef Name="PluginDataId" />
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVDxPluginData">
-              <PropertyRef Name="PluginDataId" />
+            <Dependent Role="tDVDId">
+              <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tDVDIdType">
-          <Key>
-            <PropertyRef Name="DVDIdTypeId" />
-          </Key>
-          <Property Name="DVDIdTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDIdType" ToRole="tDVDId" />
-        </EntityType>
         <Association Name="FK_DVDIdType">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" Role="tDVDIdType" Multiplicity="1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
@@ -5046,23 +5130,24 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Locality">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" Role="tLocality" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tLocality">
+              <PropertyRef Name="LocalityId" />
+            </Principal>
+            <Dependent Role="tDVDId">
+              <PropertyRef Name="LocalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DoenaSoftDVDProfilerCollectionModelStoreContainer" CdmEntityContainer="CollectionEntities" >
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tAudioChannels">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels">
               <MappingFragment StoreEntitySet="tAudioChannels">
@@ -5153,6 +5238,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="DigitalDownloadInfoId" ColumnName="DigitalDownloadInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5183,15 +5269,11 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tDVDId">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId">
-              <MappingFragment StoreEntitySet="tDVDId">
-                <ScalarProperty Name="IdType" ColumnName="IdType" />
-                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
-                <ScalarProperty Name="LocalityNum" ColumnName="LocalityNum" />
-                <ScalarProperty Name="VariantNum" ColumnName="VariantNum" />
-                <ScalarProperty Name="IdBase" ColumnName="IdBase" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+          <EntitySetMapping Name="tDVDIdType">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType">
+              <MappingFragment StoreEntitySet="tDVDIdType">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DVDIdTypeId" ColumnName="DVDIdTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5404,6 +5486,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Feature2" ColumnName="Feature2" />
                 <ScalarProperty Name="Feature1" ColumnName="Feature1" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedFeatureId" ColumnName="EnhancedFeatureId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5421,6 +5504,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Note1isHtml" ColumnName="Note1isHtml" />
                 <ScalarProperty Name="Note1" ColumnName="Note1" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedNotesId" ColumnName="EnhancedNotesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5451,6 +5535,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="OriginalPriceValue" ColumnName="OriginalPriceValue" />
                 <ScalarProperty Name="OriginalPriceDenomination" ColumnName="OriginalPriceDenomination" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedPurchaseInfoId" ColumnName="EnhancedPurchaseInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5463,6 +5548,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Title2" ColumnName="Title2" />
                 <ScalarProperty Name="Title1" ColumnName="Title1" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedTitlesId" ColumnName="EnhancedTitlesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5503,6 +5589,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Commentary" ColumnName="Commentary" />
                 <ScalarProperty Name="SceneAccess" ColumnName="SceneAccess" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="FeaturesId" ColumnName="FeaturesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5527,6 +5614,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="VideoStandardId" ColumnName="VideoStandardId" />
                 <ScalarProperty Name="AspectRatio" ColumnName="AspectRatio" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="FormatId" ColumnName="FormatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5553,14 +5641,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Due" ColumnName="Due" />
                 <ScalarProperty Name="Loaned" ColumnName="Loaned" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tLocality">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tLocality">
-              <MappingFragment StoreEntitySet="tLocality">
-                <ScalarProperty Name="Locality" ColumnName="Locality" />
-                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+                <ScalarProperty Name="LoanInfoId" ColumnName="LoanInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5590,6 +5671,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Covers" ColumnName="Covers" />
                 <ScalarProperty Name="Entire" ColumnName="Entire" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="LockId" ColumnName="LockId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5610,6 +5692,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tPluginData">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData">
+              <MappingFragment StoreEntitySet="tPluginData">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="PluginDataId" ColumnName="PluginDataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tPurchase">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase">
               <MappingFragment StoreEntitySet="tPurchase">
@@ -5620,6 +5711,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="PriceValue" ColumnName="PriceValue" />
                 <ScalarProperty Name="PriceDenomination" ColumnName="PriceDenomination" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5641,6 +5733,7 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="Video" ColumnName="Video" />
                 <ScalarProperty Name="Film" ColumnName="Film" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6107,6 +6200,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vGenreGrouped">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vGenreGrouped">
+              <MappingFragment StoreEntitySet="vGenreGrouped">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vLoanInfo">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vLoanInfo">
               <MappingFragment StoreEntitySet="vLoanInfo">
@@ -6151,6 +6253,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
                 <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
                 <ScalarProperty Name="DVDTitle" ColumnName="DVDTitle" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vMediaCompanyGrouped">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vMediaCompanyGrouped">
+              <MappingFragment StoreEntitySet="vMediaCompanyGrouped">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="MediaCompany" ColumnName="MediaCompany" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6201,6 +6312,15 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vStudioGrouped">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vStudioGrouped">
+              <MappingFragment StoreEntitySet="vStudioGrouped">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="Studio" ColumnName="Studio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vTagGrouped">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vTagGrouped">
               <MappingFragment StoreEntitySet="vTagGrouped">
@@ -6210,20 +6330,23 @@ warning 6002: The table/view 'D:\TFS\DVDDATABASE\COLLECTION.MDF.dbo.vTagGrouped'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tPluginData">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData">
-              <MappingFragment StoreEntitySet="tPluginData">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="PluginDataId" ColumnName="PluginDataId" />
+          <EntitySetMapping Name="tDVDId">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId">
+              <MappingFragment StoreEntitySet="tDVDId">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+                <ScalarProperty Name="VariantNum" ColumnName="VariantNum" />
+                <ScalarProperty Name="IdBase" ColumnName="IdBase" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="DVDIdId" ColumnName="DVDIdId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tDVDIdType">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType">
-              <MappingFragment StoreEntitySet="tDVDIdType">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="DVDIdTypeId" ColumnName="DVDIdTypeId" />
+          <EntitySetMapping Name="tLocality">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tLocality">
+              <MappingFragment StoreEntitySet="tLocality">
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

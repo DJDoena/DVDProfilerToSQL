@@ -12,15 +12,10 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class tReview
+    public partial class vGenreGrouped
     {
-        public int ReviewId { get; set; }
-        public string DVDId { get; set; }
-        public int Film { get; set; }
-        public int Video { get; set; }
-        public int Audio { get; set; }
-        public int Extras { get; set; }
-    
-        public virtual tDVD tDVD { get; set; }
+        public string Genre { get; set; }
+        public string CollectionType { get; set; }
+        public Nullable<int> Count { get; set; }
     }
 }

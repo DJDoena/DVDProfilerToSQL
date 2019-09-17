@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tFormat
     {
+        public int FormatId { get; set; }
         public string DVDId { get; set; }
         public string AspectRatio { get; set; }
         public Nullable<int> VideoStandardId { get; set; }

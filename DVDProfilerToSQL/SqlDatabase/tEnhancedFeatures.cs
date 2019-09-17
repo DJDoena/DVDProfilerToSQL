@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tEnhancedFeatures
     {
+        public int EnhancedFeatureId { get; set; }
         public string DVDId { get; set; }
         public bool Feature1 { get; set; }
         public bool Feature2 { get; set; }

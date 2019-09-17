@@ -1,3 +1,5 @@
+using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal sealed class PurchasePlaceKey
@@ -10,11 +12,11 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         internal string Website { get; }
 
-        internal PurchasePlaceKey(string place, string type, string website)
+        internal PurchasePlaceKey(PurchaseInfo purchaseInfo)
         {
-            Place = place;
-            Type = type;
-            Website = website;
+            Place = purchaseInfo.Place;
+            Type = purchaseInfo.Type;
+            Website = purchaseInfo.Website;
 
             _hashCode = Place.GetHashCode();
         }

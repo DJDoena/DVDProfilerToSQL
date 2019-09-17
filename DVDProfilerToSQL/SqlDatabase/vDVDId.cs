@@ -21,6 +21,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string IdType { get; set; }
         public string IdBase { get; set; }
         public string Locality { get; set; }
-        public Nullable<short> VariantNum { get; set; }
+        public short VariantNum { get; set; }
     }
 }

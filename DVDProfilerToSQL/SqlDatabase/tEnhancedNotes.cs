@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tEnhancedNotes
     {
+        public int EnhancedNotesId { get; set; }
         public string DVDId { get; set; }
         public string Note1 { get; set; }
         public bool Note1isHtml { get; set; }

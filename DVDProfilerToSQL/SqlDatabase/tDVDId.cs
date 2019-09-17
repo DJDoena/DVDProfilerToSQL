@@ -14,15 +14,15 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tDVDId
     {
+        public int DVDIdId { get; set; }
         public string DVDId { get; set; }
         public string IdBase { get; set; }
-        public short VariantNum { get; set; }
-        public short LocalityNum { get; set; }
+        public int VariantNum { get; set; }
         public int LocalityId { get; set; }
         public int IdType { get; set; }
     
         public virtual tDVD tDVD { get; set; }
-        public virtual tLocality tLocality { get; set; }
         public virtual tDVDIdType tDVDIdType { get; set; }
+        public virtual tLocality tLocality { get; set; }
     }
 }

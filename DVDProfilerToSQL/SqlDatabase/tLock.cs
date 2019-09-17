@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tLock
     {
+        public int LockId { get; set; }
         public string DVDId { get; set; }
         public bool Entire { get; set; }
         public bool Covers { get; set; }

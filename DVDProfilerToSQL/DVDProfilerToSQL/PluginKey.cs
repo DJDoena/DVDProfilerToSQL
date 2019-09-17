@@ -1,36 +1,23 @@
+using System;
 using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal sealed class PluginKey
     {
-        private readonly PluginData _pluginData;
-
         private readonly int _hashCode;
 
-        internal PluginData PluginData
-        {
-            get
-            {
-                var pluginData = new PluginData()
-                {
-                    ClassID = _pluginData.ClassID,
-                    Name = _pluginData.Name,
-                };
+        internal Guid ClassId { get; }
 
-                return pluginData;
-            }
-        }
+        internal string Name { get; }
 
         internal PluginKey(PluginData pluginData)
         {
-            _pluginData = new PluginData()
-            {
-                ClassID = pluginData.ClassID,
-                Name = pluginData.Name,
-            };
+            ClassId = Guid.Parse(pluginData.ClassID);
 
-            _hashCode = _pluginData.ClassID.GetHashCode();
+            Name = pluginData.Name;
+
+            _hashCode = ClassId.GetHashCode();
         }
 
         public override int GetHashCode() => _hashCode;
@@ -43,7 +30,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
             else
             {
-                var equals = _pluginData.ClassID == other._pluginData.ClassID;
+                var equals = ClassId == other.ClassId;
 
                 return equals;
             }

@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tDigitalDownloadInfo
     {
+        public int DigitalDownloadInfoId { get; set; }
         public string DVDId { get; set; }
         public string Company { get; set; }
         public string Code { get; set; }

@@ -4,33 +4,18 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal sealed class TagKey
     {
-        private readonly Tag _tag;
-
         private readonly int _hashCode;
 
-        internal Tag Tag
-        {
-            get
-            {
-                var tag = new Tag()
-                {
-                    FullName = _tag.FullName,
-                    Name = _tag.Name,
-                };
+        internal string FullName { get; }
 
-                return tag;
-            }
-        }
+        internal string Name { get; }
 
         internal TagKey(Tag tag)
         {
-            _tag = new Tag()
-            {
-                FullName = tag.FullName,
-                Name = tag.Name,
-            };
+            FullName = tag.FullName;
+            Name = tag.Name;
 
-            _hashCode = _tag.FullName.GetHashCode();
+            _hashCode = FullName.GetHashCode();
         }
 
         public override int GetHashCode() => _hashCode;
@@ -43,7 +28,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
             else
             {
-                var equals = _tag.FullName == other._tag.FullName;
+                var equals = FullName == other.FullName;
 
                 return equals;
             }

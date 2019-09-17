@@ -25,7 +25,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tAudioChannels> tAudioChannels { get; set; }
         public virtual DbSet<tAudioContent> tAudioContent { get; set; }
         public virtual DbSet<tAudioFormat> tAudioFormat { get; set; }
@@ -38,7 +37,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<tDBVersion> tDBVersion { get; set; }
         public virtual DbSet<tDigitalDownloadInfo> tDigitalDownloadInfo { get; set; }
         public virtual DbSet<tDVD> tDVD { get; set; }
-        public virtual DbSet<tDVDId> tDVDId { get; set; }
+        public virtual DbSet<tDVDIdType> tDVDIdType { get; set; }
         public virtual DbSet<tDVDxAudio> tDVDxAudio { get; set; }
         public virtual DbSet<tDVDxCast> tDVDxCast { get; set; }
         public virtual DbSet<tDVDxCountryOfOrigin> tDVDxCountryOfOrigin { get; set; }
@@ -64,10 +63,10 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<tGenre> tGenre { get; set; }
         public virtual DbSet<tLinkCategory> tLinkCategory { get; set; }
         public virtual DbSet<tLoanInfo> tLoanInfo { get; set; }
-        public virtual DbSet<tLocality> tLocality { get; set; }
         public virtual DbSet<tLock> tLock { get; set; }
         public virtual DbSet<tMediaType> tMediaType { get; set; }
         public virtual DbSet<tParentDVDxChildDVD> tParentDVDxChildDVD { get; set; }
+        public virtual DbSet<tPluginData> tPluginData { get; set; }
         public virtual DbSet<tPurchase> tPurchase { get; set; }
         public virtual DbSet<tPurchasePlace> tPurchasePlace { get; set; }
         public virtual DbSet<tReview> tReview { get; set; }
@@ -99,13 +98,16 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<vEnhancedTitles> vEnhancedTitles { get; set; }
         public virtual DbSet<vFeatures> vFeatures { get; set; }
         public virtual DbSet<vFormat> vFormat { get; set; }
+        public virtual DbSet<vGenreGrouped> vGenreGrouped { get; set; }
         public virtual DbSet<vLoanInfo> vLoanInfo { get; set; }
         public virtual DbSet<vLock> vLock { get; set; }
+        public virtual DbSet<vMediaCompanyGrouped> vMediaCompanyGrouped { get; set; }
         public virtual DbSet<vParentChildDVD> vParentChildDVD { get; set; }
         public virtual DbSet<vPurchase> vPurchase { get; set; }
         public virtual DbSet<vReview> vReview { get; set; }
+        public virtual DbSet<vStudioGrouped> vStudioGrouped { get; set; }
         public virtual DbSet<vTagGrouped> vTagGrouped { get; set; }
-        public virtual DbSet<tPluginData> tPluginData { get; set; }
-        public virtual DbSet<tDVDIdType> tDVDIdType { get; set; }
+        public virtual DbSet<tDVDId> tDVDId { get; set; }
+        public virtual DbSet<tLocality> tLocality { get; set; }
     }
 }

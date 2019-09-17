@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tEnhancedPurchaseInfo
     {
+        public int EnhancedPurchaseInfoId { get; set; }
         public string DVDId { get; set; }
         public string OriginalPriceDenomination { get; set; }
         public Nullable<decimal> OriginalPriceValue { get; set; }

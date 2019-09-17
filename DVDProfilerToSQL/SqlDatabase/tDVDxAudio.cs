@@ -17,8 +17,8 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public int DVDxAudioId { get; set; }
         public string DVDId { get; set; }
         public int AudioContentId { get; set; }
-        public int AudioFormatId { get; set; }
-        public int AudioChannelsId { get; set; }
+        public Nullable<int> AudioFormatId { get; set; }
+        public Nullable<int> AudioChannelsId { get; set; }
     
         public virtual tAudioChannels tAudioChannels { get; set; }
         public virtual tAudioContent tAudioContent { get; set; }

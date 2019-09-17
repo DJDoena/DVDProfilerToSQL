@@ -14,6 +14,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class tEnhancedTitles
     {
+        public int EnhancedTitlesId { get; set; }
         public string DVDId { get; set; }
         public string Title1 { get; set; }
         public string Title2 { get; set; }

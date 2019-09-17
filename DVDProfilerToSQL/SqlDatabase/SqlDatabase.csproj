@@ -101,9 +101,6 @@
       <DependentUpon>CollectionModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>CollectionModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="tAudioChannels.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
@@ -329,10 +326,16 @@
     <Compile Include="vFormat.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="vGenreGrouped.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="vLoanInfo.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="vLock.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vMediaCompanyGrouped.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="vParentChildDVD.cs">
@@ -342,6 +345,9 @@
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="vReview.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vStudioGrouped.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="vTagGrouped.cs">
@@ -375,9 +381,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Collection.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="CollectionModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionModel.edmx</DependentUpon>
@@ -390,10 +393,11 @@
       <LastGenOutput>CollectionModel.cs</LastGenOutput>
       <CustomToolNamespace>DoenaSoft.DVDProfiler.SQLDatabase</CustomToolNamespace>
     </Content>
-    <None Include="Collection_log.ldf">
-      <DependentUpon>Collection.mdf</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="CreateDatabase.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy /y ..\..\..\Collection.mdf ..\..\..\..\DVDProfilerToSQL\bin\$(Platform)\$(Configuration)
+copy /y ..\..\..\Collection_log.ldf ..\..\..\..\DVDProfilerToSQL\bin\$(Platform)\$(Configuration)</PreBuildEvent>
+  </PropertyGroup>
 </Project>
