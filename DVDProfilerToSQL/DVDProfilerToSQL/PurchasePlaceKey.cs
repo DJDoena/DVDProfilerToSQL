@@ -1,42 +1,45 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
-    internal sealed class PurchasePlaceKey
+    [ImmutableObject(true)]
+    [DebuggerDisplay("{Place}")]
+    internal sealed class PurchasePlaceKey : IEquatable<PurchasePlaceKey>
     {
         private readonly int _hashCode;
 
-        internal string Place { get; }
+        public string Place { get; }
 
-        internal string Type { get; }
+        public string Type { get; }
 
-        internal string Website { get; }
+        public string Website { get; }
 
-        internal PurchasePlaceKey(PurchaseInfo purchaseInfo)
+        public PurchasePlaceKey(PurchaseInfo purchaseInfo)
         {
-            Place = purchaseInfo.Place;
+            Place = purchaseInfo.Place ?? string.Empty;
             Type = purchaseInfo.Type;
             Website = purchaseInfo.Website;
 
-            _hashCode = Place.GetHashCode();
+            _hashCode = Place.ToLowerInvariant().GetHashCode();
         }
 
         public override int GetHashCode() => _hashCode;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) => Equals(obj as PurchasePlaceKey);
+
+        public bool Equals(PurchasePlaceKey other)
         {
-            if (!(obj is PurchasePlaceKey other))
+            if (other == null)
             {
                 return false;
             }
-            else
-            {
-                var equals = Place == other.Place
-                    && Type == other.Type
-                    && Website == other.Website;
 
-                return equals;
-            }
+            var equals = string.Equals(Place, other.Place, StringComparison.InvariantCultureIgnoreCase);
+
+            return equals;
         }
     }
 }

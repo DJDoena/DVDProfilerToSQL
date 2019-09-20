@@ -19,7 +19,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public int PluginDataId { get; set; }
         public string PluginData { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tPluginData tPluginData { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

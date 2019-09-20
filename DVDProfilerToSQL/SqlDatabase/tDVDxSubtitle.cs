@@ -18,7 +18,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string DVDId { get; set; }
         public int SubtitleId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tSubtitle tSubtitle { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

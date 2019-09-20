@@ -21,41 +21,41 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public Dictionary<string, Entity.tCaseType> CaseType { get; private set; }
 
-        public Dictionary<Collection.CollectionType, Entity.tCollectionType> CollectionType { get; private set; }
-
-        public Dictionary<Collection.EventType, Entity.tEventType> EventType { get; private set; }
-
-        public Dictionary<Collection.DVDID_Type, Entity.tDVDIdType> DVDIdType { get; private set; }
-
-        public Dictionary<Collection.VideoStandard, Entity.tVideoStandard> VideoStandard { get; private set; }
-
-        public Dictionary<string, Entity.tGenre> Genre { get; private set; }
-
-        public Dictionary<string, Entity.tSubtitle> Subtitle { get; private set; }
-
-        public Dictionary<string, Entity.tMediaType> MediaType { get; private set; }
-
         public Dictionary<PersonKey, Entity.tCastAndCrew> CastAndCrew { get; private set; }
 
-        public Dictionary<string, Entity.tStudioAndMediaCompany> StudioAndMediaCompany { get; private set; }
-
-        public Dictionary<TagKey, Entity.tTag> Tag { get; private set; }
-
-        public Dictionary<UserKey, Entity.tUser> User { get; private set; }
-
-        public Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory> LinkCategory { get; private set; }
+        public Dictionary<Collection.CollectionType, Entity.tCollectionType> CollectionType { get; private set; }
 
         public Dictionary<string, Entity.tCountryOfOrigin> CountryOfOrigin { get; private set; }
 
-        public Dictionary<LocalityKey, Entity.tLocality> Locality { get; private set; }
+        public Dictionary<Collection.DVDID_Type, Entity.tDVDIdType> DVDIdType { get; private set; }
+
+        public Dictionary<Collection.EventType, Entity.tEventType> EventType { get; private set; }
 
         public Dictionary<string, Entity.tCreditType> CreditType { get; private set; }
 
         public Dictionary<string, Dictionary<string, Entity.tCreditSubtype>> CreditSubtype { get; private set; }
 
+        public Dictionary<string, Entity.tGenre> Genre { get; private set; }
+
+        public Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory> LinkCategory { get; private set; }
+
+        public Dictionary<LocalityKey, Entity.tLocality> Locality { get; private set; }
+
+        public Dictionary<string, Entity.tMediaType> MediaType { get; private set; }
+
+        public Dictionary<PluginDataKey, Entity.tPluginData> PluginData { get; private set; }
+
         public Dictionary<PurchasePlaceKey, Entity.tPurchasePlace> PurchasePlace { get; private set; }
 
-        public Dictionary<PluginKey, Entity.tPluginData> PluginData { get; private set; }
+        public Dictionary<string, Entity.tStudioAndMediaCompany> StudioAndMediaCompany { get; private set; }
+
+        public Dictionary<string, Entity.tSubtitle> Subtitle { get; private set; }
+
+        public Dictionary<TagKey, Entity.tTag> Tag { get; private set; }
+
+        public Dictionary<UserKey, Entity.tUser> User { get; private set; }
+
+        public Dictionary<Collection.VideoStandard, Entity.tVideoStandard> VideoStandard { get; private set; }
 
         public BaseDataInserter(ICollectionCache cache, Entity.CollectionEntities context)
         {
@@ -74,95 +74,56 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             InitializeHashes();
 
             InsertAudioChannels();
-
             InsertAudioContents();
-
             InsertAudioFormats();
-
             InsertCaseTypes();
-
             InsertCastAndCrew();
-
             InsertCollectionTypes();
-
             InsertCountriesOfOrigin();
-
             InsertCreditTypes();
-
             InsertCreditSubtypes();
-
             InsertDVDIdTypes();
-
             InsertEventTypes();
-
             InsertGenres();
-
             InsertLinkCategories();
-
             InsertLocalities();
-
             InsertMediaTypes();
-
             InsertPlugins();
-
             InsertPurchasePlace();
-
             InsertStudiosAndMediaCompanies();
-
             InsertSubtitles();
-
             InsertTags();
-
             InsertUsers();
-
             InsertVideoStandards();
+
+            _context.ChangeTracker.DetectChanges();
+            _context.SaveChanges();
         }
 
         private void InitializeHashes()
         {
-            DVDIdType = new Dictionary<Collection.DVDID_Type, Entity.tDVDIdType>(_cache.DVDIdType.Count);
-
-            EventType = new Dictionary<Collection.EventType, Entity.tEventType>(_cache.EventType.Count);
-
-            VideoStandard = new Dictionary<Collection.VideoStandard, Entity.tVideoStandard>(_cache.VideoStandard.Count);
-
-            LinkCategory = new Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory>(_cache.LinkCategory.Count);
-
-            Locality = new Dictionary<LocalityKey, Entity.tLocality>(_cache.Locality.Count);
-
-            CollectionType = new Dictionary<Collection.CollectionType, Entity.tCollectionType>(_cache.CollectionType.Count);
-
-            CastAndCrew = new Dictionary<PersonKey, Entity.tCastAndCrew>(_cache.CastAndCrew.Count);
-
-            StudioAndMediaCompany = new Dictionary<string, Entity.tStudioAndMediaCompany>(_cache.StudioAndMediaCompany.Count);
-
             AudioChannels = new Dictionary<string, Entity.tAudioChannels>(_cache.AudioChannels.Count);
-
             AudioContent = new Dictionary<string, Entity.tAudioContent>(_cache.AudioContent.Count);
-
             AudioFormat = new Dictionary<string, Entity.tAudioFormat>(_cache.AudioFormat.Count);
-
             CaseType = new Dictionary<string, Entity.tCaseType>(_cache.CaseType.Count);
-
-            Tag = new Dictionary<TagKey, Entity.tTag>(_cache.Tag.Count);
-
-            User = new Dictionary<UserKey, Entity.tUser>(_cache.User.Count);
-
-            Genre = new Dictionary<string, Entity.tGenre>(_cache.Genre.Count);
-
-            Subtitle = new Dictionary<string, Entity.tSubtitle>(_cache.Subtitle.Count);
-
-            MediaType = new Dictionary<string, Entity.tMediaType>(_cache.MediaType.Count);
-
+            CastAndCrew = new Dictionary<PersonKey, Entity.tCastAndCrew>(_cache.CastAndCrew.Count);
+            CollectionType = new Dictionary<Collection.CollectionType, Entity.tCollectionType>(_cache.CollectionType.Count);
             CountryOfOrigin = new Dictionary<string, Entity.tCountryOfOrigin>(_cache.CountryOfOrigin.Count);
-
-            PluginData = new Dictionary<PluginKey, Entity.tPluginData>(_cache.PluginData.Count);
-
             CreditType = new Dictionary<string, Entity.tCreditType>(_cache.CreditType.Count);
-
             CreditSubtype = new Dictionary<string, Dictionary<string, Entity.tCreditSubtype>>(_cache.CreditSubtype.Count);
-
+            DVDIdType = new Dictionary<Collection.DVDID_Type, Entity.tDVDIdType>(_cache.DVDIdType.Count);
+            EventType = new Dictionary<Collection.EventType, Entity.tEventType>(_cache.EventType.Count);
+            Genre = new Dictionary<string, Entity.tGenre>(_cache.Genre.Count);
+            LinkCategory = new Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory>(_cache.LinkCategory.Count);
+            Locality = new Dictionary<LocalityKey, Entity.tLocality>(_cache.Locality.Count);
+            MediaType = new Dictionary<string, Entity.tMediaType>(_cache.MediaType.Count);
+            PluginData = new Dictionary<PluginDataKey, Entity.tPluginData>(_cache.PluginData.Count);
             PurchasePlace = new Dictionary<PurchasePlaceKey, Entity.tPurchasePlace>(_cache.PurchasePlace.Count);
+            StudioAndMediaCompany = new Dictionary<string, Entity.tStudioAndMediaCompany>(_cache.StudioAndMediaCompany.Count);
+            Subtitle = new Dictionary<string, Entity.tSubtitle>(_cache.Subtitle.Count);
+            Tag = new Dictionary<TagKey, Entity.tTag>(_cache.Tag.Count);
+            User = new Dictionary<UserKey, Entity.tUser>(_cache.User.Count);
+            VideoStandard = new Dictionary<Collection.VideoStandard, Entity.tVideoStandard>(_cache.VideoStandard.Count);
         }
 
         private void InsertAudioChannels()
@@ -182,7 +143,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 AudioChannels.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -205,7 +166,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 AudioContent.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -228,7 +189,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 AudioFormat.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -251,7 +212,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 CaseType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -265,21 +226,19 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
             foreach (var item in _cache.CastAndCrew)
             {
-                var key = item.KeyData;
-
                 var entity = new Entity.tCastAndCrew()
                 {
-                    LastName = key.LastName,
-                    MiddleName = key.MiddleName,
-                    FirstName = key.FirstName,
-                    BirthYear = key.BirthYear != 0 ? key.BirthYear : (int?)null,
+                    LastName = item.LastName,
+                    MiddleName = item.MiddleName,
+                    FirstName = item.FirstName,
+                    BirthYear = item.BirthYear != 0 ? item.BirthYear : (int?)null,
                 };
 
                 _context.tCastAndCrew.Add(entity);
 
                 CastAndCrew.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -305,7 +264,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 CollectionType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -328,7 +287,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 CountryOfOrigin.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -351,7 +310,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 CreditType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -379,28 +338,6 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             ReportFinish();
         }
 
-        private Dictionary<string, Entity.tCreditSubtype> InsertCreditSubtypes(Entity.tCreditType creditTypeEntity, Hash<string> creditSubtypeCache, ref int currentProgress)
-        {
-            var creditSubtype = new Dictionary<string, Entity.tCreditSubtype>(10);
-
-            foreach (var item in creditSubtypeCache)
-            {
-                var entity = new Entity.tCreditSubtype()
-                {
-                    tCreditType = creditTypeEntity,
-                    Subtype = item,
-                };
-
-                _context.tCreditSubtype.Add(entity);
-
-                creditSubtype.Add(item, entity);
-
-                ReportCurrent(ref currentProgress);
-            }
-
-            return creditSubtype;
-        }
-
         private void InsertDVDIdTypes()
         {
             ReportStart(_cache.DVDIdType, "DVD Id Type");
@@ -418,7 +355,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 DVDIdType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -441,7 +378,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 EventType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -464,7 +401,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 Genre.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -487,7 +424,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 LinkCategory.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -511,7 +448,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 Locality.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -534,7 +471,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 MediaType.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -558,7 +495,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 PluginData.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -585,7 +522,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 PurchasePlace.Add(key, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -608,7 +545,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 StudioAndMediaCompany.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -631,7 +568,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 Subtitle.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -655,7 +592,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 Tag.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -681,7 +618,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 User.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
@@ -704,20 +641,47 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 VideoStandard.Add(item, entity);
 
-                ReportCurrent(ref currentProgress);
+                IncreaseCurrent(ref currentProgress);
             }
 
             ReportFinish();
         }
 
+        private Dictionary<string, Entity.tCreditSubtype> InsertCreditSubtypes(Entity.tCreditType creditTypeEntity, HashSet<string> creditSubtypeCache, ref int currentProgress)
+        {
+            var creditSubtype = new Dictionary<string, Entity.tCreditSubtype>(10);
+
+            foreach (var item in creditSubtypeCache)
+            {
+                var entity = new Entity.tCreditSubtype()
+                {
+                    tCreditType = creditTypeEntity,
+                    Subtype = item,
+                };
+
+                _context.tCreditSubtype.Add(entity);
+
+                creditSubtype.Add(item, entity);
+
+                IncreaseCurrent(ref currentProgress);
+            }
+
+            return creditSubtype;
+        }
+
         private void ReportStart<T>(IEnumerable<T> enumerable, string section)
         {
-            ProgressMaxChanged?.Invoke(this, new EventArgs<int>(enumerable.Count()));
+            var count = enumerable.Count();
+
+            if (count > 0)
+            {
+                ProgressMaxChanged?.Invoke(this, new EventArgs<int>(count));
+            }
 
             Feedback?.Invoke(this, new EventArgs<string>(section));
         }
 
-        private void ReportCurrent(ref int currentProgress)
+        private void IncreaseCurrent(ref int currentProgress)
         {
             ProgressValueChanged?.Invoke(this, new EventArgs<int>(currentProgress++));
         }

@@ -1,54 +1,54 @@
 ﻿using System.Collections.Generic;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
-using DoenaSoft.DVDProfiler.SQLDatabase;
+using Collection = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Entity = DoenaSoft.DVDProfiler.SQLDatabase;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal interface IBaseData
     {
-        Dictionary<string, tAudioChannels> AudioChannels { get; }
+        Dictionary<string, Entity.tAudioChannels> AudioChannels { get; }
 
-        Dictionary<string, tAudioContent> AudioContent { get; }
+        Dictionary<string, Entity.tAudioContent> AudioContent { get; }
 
-        Dictionary<string, tAudioFormat> AudioFormat { get; }
+        Dictionary<string, Entity.tAudioFormat> AudioFormat { get; }
 
-        Dictionary<string, tCaseType> CaseType { get; }
+        Dictionary<string, Entity.tCaseType> CaseType { get; }
 
-        Dictionary<PersonKey, tCastAndCrew> CastAndCrew { get; }
+        Dictionary<PersonKey, Entity.tCastAndCrew> CastAndCrew { get; }
 
-        Dictionary<CollectionType, tCollectionType> CollectionType { get; }
+        Dictionary<Collection.CollectionType, Entity.tCollectionType> CollectionType { get; }
 
-        Dictionary<string, tCountryOfOrigin> CountryOfOrigin { get; }
+        Dictionary<string, Entity.tCountryOfOrigin> CountryOfOrigin { get; }
 
-        Dictionary<string, Dictionary<string, tCreditSubtype>> CreditSubtype { get; }
+        Dictionary<Collection.DVDID_Type, Entity.tDVDIdType> DVDIdType { get; }
 
-        Dictionary<string, tCreditType> CreditType { get; }
+        Dictionary<Collection.EventType, Entity.tEventType> EventType { get; }
 
-        Dictionary<DVDID_Type, tDVDIdType> DVDIdType { get; }
+        Dictionary<string, Entity.tCreditType> CreditType { get; }
 
-        Dictionary<EventType, tEventType> EventType { get; }
+        Dictionary<string, Dictionary<string, Entity.tCreditSubtype>> CreditSubtype { get; }
 
-        Dictionary<string, tGenre> Genre { get; }
+        Dictionary<string, Entity.tGenre> Genre { get; }
 
-        Dictionary<CategoryRestriction, tLinkCategory> LinkCategory { get; }
+        Dictionary<Collection.CategoryRestriction, Entity.tLinkCategory> LinkCategory { get; }
 
-        Dictionary<LocalityKey, tLocality> Locality { get; }
+        Dictionary<LocalityKey, Entity.tLocality> Locality { get; }
 
-        Dictionary<string, tMediaType> MediaType { get; }
+        Dictionary<string, Entity.tMediaType> MediaType { get; }
 
-        Dictionary<PluginKey, tPluginData> PluginData { get; }
+        Dictionary<PluginDataKey, Entity.tPluginData> PluginData { get; }
 
-        Dictionary<PurchasePlaceKey, tPurchasePlace> PurchasePlace { get; }
+        Dictionary<PurchasePlaceKey, Entity.tPurchasePlace> PurchasePlace { get; }
 
-        Dictionary<string, tStudioAndMediaCompany> StudioAndMediaCompany { get; }
+        Dictionary<string, Entity.tStudioAndMediaCompany> StudioAndMediaCompany { get; }
 
-        Dictionary<string, tSubtitle> Subtitle { get; }
+        Dictionary<string, Entity.tSubtitle> Subtitle { get; }
 
-        Dictionary<TagKey, tTag> Tag { get; }
+        Dictionary<TagKey, Entity.tTag> Tag { get; }
 
-        Dictionary<UserKey, tUser> User { get; }
+        Dictionary<UserKey, Entity.tUser> User { get; }
 
-        Dictionary<VideoStandard, tVideoStandard> VideoStandard { get; }
+        Dictionary<Collection.VideoStandard, Entity.tVideoStandard> VideoStandard { get; }
     }
 }

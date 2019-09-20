@@ -1,43 +1,68 @@
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
-    internal class UserKey
+    [ImmutableObject(true)]
+    [DebuggerDisplay("{FirstName} {LastName}")]
+    internal sealed class UserKey : IEquatable<UserKey>
     {
         private readonly int _hashCode;
 
-        internal string LastName { get; }
+        public string LastName { get; }
 
-        internal string FirstName { get; }
+        public string FirstName { get; }
 
-        internal string EmailAddress { get; }
+        public string EmailAddress { get; }
 
-        internal string PhoneNumber { get; }
+        public string PhoneNumber { get; }
 
-        internal UserKey(User user)
+        public UserKey(User user)
         {
-            LastName = user.LastName;
-            FirstName = user.FirstName;
+            LastName = user.LastName ?? string.Empty;
+            FirstName = user.FirstName ?? string.Empty;
             EmailAddress = user.EmailAddress;
             PhoneNumber = user.PhoneNumber;
 
-            _hashCode = LastName.GetHashCode() ^ FirstName.GetHashCode();
+            _hashCode = LastName.ToLowerInvariant().GetHashCode()
+                ^ FirstName.ToLowerInvariant().GetHashCode();
+        }
+
+        public static bool IsValid(User user) => !IsInvalid(user);
+
+        public static bool IsInvalid(User user)
+        {
+            if (user == null)
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(user.LastName) && string.IsNullOrEmpty(user.FirstName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override int GetHashCode() => _hashCode;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) => Equals(obj as UserKey);
+
+        public bool Equals(UserKey other)
         {
-            if (!(obj is UserKey other))
+            if (other == null)
             {
                 return false;
             }
-            else
-            {
-                var equals = LastName == other.LastName && FirstName == other.FirstName;
 
-                return equals;
-            }
+            var equals = string.Equals(LastName, other.LastName, StringComparison.InvariantCultureIgnoreCase)
+                 && string.Equals(FirstName, other.FirstName, StringComparison.InvariantCultureIgnoreCase);
+
+            return equals;
         }
     }
 }

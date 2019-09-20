@@ -20,7 +20,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string Description { get; set; }
         public int CategoryId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tLinkCategory tLinkCategory { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

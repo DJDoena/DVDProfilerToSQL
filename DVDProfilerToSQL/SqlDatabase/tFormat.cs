@@ -34,7 +34,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public Nullable<bool> HDR10 { get; set; }
         public Nullable<bool> DolbyVision { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tVideoStandard tVideoStandard { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

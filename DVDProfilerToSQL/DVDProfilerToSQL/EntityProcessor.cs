@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.IO;
@@ -40,15 +41,17 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
                 var collection = DVDProfilerSerializer<Collection>.Deserialize(collectionFile);
 
+                var profiles = collection.DVDList;
+
                 //Phase 2: Fill Hashtables
-                var cache = new CollectionCache(collection);
+                var cache = new CollectionCache(profiles);
 
                 //                       "metadata=res://*/CollectionModel.csdl|res://*/CollectionModel.ssdl|res://*/CollectionModel.msl;provider=System.Data.SqlClient;provider connection string='data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\Collection.mdf;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework'"
                 var connectionString = $@"metadata=res://*/CollectionModel.csdl|res://*/CollectionModel.ssdl|res://*/CollectionModel.msl;provider=System.Data.SqlClient;provider connection string='data source=(LocalDB)\MSSQLLocalDB;attachdbfilename={mdfTargetFile};integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;';";
 
                 using (_context = new CollectionEntities(connectionString))
                 {
-                    _context.Database.Log = Console.WriteLine;
+                    //_context.Database.Log = Console.WriteLine;
 
                     _context.Configuration.AutoDetectChangesEnabled = false;
 
@@ -60,17 +63,13 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                         var baseData = InsertBaseData(cache);
 
                         //Phase 4: Fill DVDs into Database
-                        InsertData(collection, baseData);
-
-                        //Phase 5: Save & Exit
-                        _context.ChangeTracker.DetectChanges();
-                        _context.SaveChanges();
+                        InsertData(profiles, baseData);
 
                         transaction.Commit();
                     }
                 }
 
-                Feedback?.Invoke(this, new EventArgs<string>($"{(collection.DVDList?.Length ?? 0):#,##0} profiles transformed."));
+                Feedback?.Invoke(this, new EventArgs<string>($"{(profiles?.Length ?? 0):#,##0} profiles transformed."));
             }
             catch (Exception exception)
             {
@@ -93,7 +92,14 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 {
                 }
 
-                Feedback?.Invoke(this, new EventArgs<string>($"Error: {exception.Message} "));
+                var ex = exception;
+
+                while (ex != null)
+                {
+                    Feedback?.Invoke(this, new EventArgs<string>($"Error: {ex.Message} "));
+
+                    ex = ex.InnerException;
+                }
 
                 exceptionXml = new ExceptionXml(exception);
             }
@@ -126,51 +132,43 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         private IBaseData InsertBaseData(ICollectionCache cache)
         {
-            BaseDataInserter inserter = null;
+            var inserter = new BaseDataInserter(cache, _context);
+
+            inserter.ProgressMaxChanged += OnProgressMaxChanged;
+            inserter.ProgressValueChanged += OnProgressValueChanged;
+            inserter.Feedback += OnFeedback;
 
             try
             {
-                inserter = new BaseDataInserter(cache, _context);
-
-                inserter.ProgressMaxChanged += OnProgressMaxChanged;
-                inserter.ProgressValueChanged += OnProgressValueChanged;
-                inserter.Feedback += OnFeedback;
-
                 inserter.Insert();
             }
             finally
             {
-                if (inserter != null)
-                {
-                    inserter.ProgressMaxChanged -= OnProgressMaxChanged;
-                    inserter.ProgressValueChanged -= OnProgressValueChanged;
-                    inserter.Feedback -= OnFeedback;
-                }
+                inserter.ProgressMaxChanged -= OnProgressMaxChanged;
+                inserter.ProgressValueChanged -= OnProgressValueChanged;
+                inserter.Feedback -= OnFeedback;
             }
 
             return inserter;
         }
 
-        private void InsertData(Collection collection, IBaseData baseData)
+        private void InsertData(IEnumerable<DVD> profiles, IBaseData baseData)
         {
-            DataInserter inserter = null;
+            var inserter = new CollectionInserter(baseData, _context);
+
+            inserter.ProgressMaxChanged += OnProgressMaxChanged;
+            inserter.ProgressValueChanged += OnProgressValueChanged;
+            inserter.Feedback += OnFeedback;
 
             try
             {
-                inserter = new DataInserter(baseData, _context);
-
-                var dvds = collection.DVDList ?? Enumerable.Empty<DVD>();
-
-                inserter.Insert(dvds);
+                inserter.Insert(profiles);
             }
             finally
             {
-                if (inserter != null)
-                {
-                    inserter.ProgressMaxChanged -= OnProgressMaxChanged;
-                    inserter.ProgressValueChanged -= OnProgressValueChanged;
-                    inserter.Feedback -= OnFeedback;
-                }
+                inserter.ProgressMaxChanged -= OnProgressMaxChanged;
+                inserter.ProgressValueChanged -= OnProgressValueChanged;
+                inserter.Feedback -= OnFeedback;
             }
         }
 

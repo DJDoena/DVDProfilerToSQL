@@ -36,12 +36,10 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<tCreditType> tCreditType { get; set; }
         public virtual DbSet<tDBVersion> tDBVersion { get; set; }
         public virtual DbSet<tDigitalDownloadInfo> tDigitalDownloadInfo { get; set; }
-        public virtual DbSet<tDVD> tDVD { get; set; }
+        public virtual DbSet<tDVDId> tDVDId { get; set; }
         public virtual DbSet<tDVDIdType> tDVDIdType { get; set; }
         public virtual DbSet<tDVDxAudio> tDVDxAudio { get; set; }
-        public virtual DbSet<tDVDxCast> tDVDxCast { get; set; }
         public virtual DbSet<tDVDxCountryOfOrigin> tDVDxCountryOfOrigin { get; set; }
-        public virtual DbSet<tDVDxCrew> tDVDxCrew { get; set; }
         public virtual DbSet<tDVDxDisc> tDVDxDisc { get; set; }
         public virtual DbSet<tDVDxEvent> tDVDxEvent { get; set; }
         public virtual DbSet<tDVDxGenre> tDVDxGenre { get; set; }
@@ -63,6 +61,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<tGenre> tGenre { get; set; }
         public virtual DbSet<tLinkCategory> tLinkCategory { get; set; }
         public virtual DbSet<tLoanInfo> tLoanInfo { get; set; }
+        public virtual DbSet<tLocality> tLocality { get; set; }
         public virtual DbSet<tLock> tLock { get; set; }
         public virtual DbSet<tMediaType> tMediaType { get; set; }
         public virtual DbSet<tParentDVDxChildDVD> tParentDVDxChildDVD { get; set; }
@@ -81,9 +80,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<vDVD> vDVD { get; set; }
         public virtual DbSet<vDVDId> vDVDId { get; set; }
         public virtual DbSet<vDVDxAudio> vDVDxAudio { get; set; }
-        public virtual DbSet<vDVDxCast> vDVDxCast { get; set; }
         public virtual DbSet<vDVDxCountryOfOrigin> vDVDxCountryOfOrigin { get; set; }
-        public virtual DbSet<vDVDxCrew> vDVDxCrew { get; set; }
         public virtual DbSet<vDVDxDisc> vDVDxDisc { get; set; }
         public virtual DbSet<vDVDxEvent> vDVDxEvent { get; set; }
         public virtual DbSet<vDVDxGenre> vDVDxGenre { get; set; }
@@ -107,7 +104,11 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual DbSet<vReview> vReview { get; set; }
         public virtual DbSet<vStudioGrouped> vStudioGrouped { get; set; }
         public virtual DbSet<vTagGrouped> vTagGrouped { get; set; }
-        public virtual DbSet<tDVDId> tDVDId { get; set; }
-        public virtual DbSet<tLocality> tLocality { get; set; }
+        public virtual DbSet<tDVDxCast> tDVDxCast { get; set; }
+        public virtual DbSet<tDVDxCrew> tDVDxCrew { get; set; }
+        public virtual DbSet<vDVDxCast> vDVDxCast { get; set; }
+        public virtual DbSet<vDVDxCrew> vDVDxCrew { get; set; }
+        public virtual DbSet<tExclusions> tExclusions { get; set; }
+        public virtual DbSet<tDVD> tDVD { get; set; }
     }
 }

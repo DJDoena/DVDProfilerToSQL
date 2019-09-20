@@ -1,52 +1,53 @@
 ﻿using System.Collections.Generic;
+using DoenaSoft.DVDProfiler.DVDProfilerXML;
 using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal interface ICollectionCache
     {
-        Hash<string> AudioChannels { get; }
+        HashSet<string> AudioChannels { get; }
 
-        Hash<string> AudioContent { get; }
-        
-        Hash<string> AudioFormat { get; }
+        HashSet<string> AudioContent { get; }
 
-        Hash<string> CaseType { get; }
+        HashSet<string> AudioFormat { get; }
 
-        PersonHash CastAndCrew { get; }
+        HashSet<string> CaseType { get; }
 
-        Hash<CollectionType> CollectionType { get; }
+        HashSet<PersonKey> CastAndCrew { get; }
 
-        Hash<string> CountryOfOrigin { get; }
+        HashSet<CollectionType> CollectionType { get; }
 
-        Dictionary<string, Hash<string>> CreditSubtype { get; }
+        HashSet<string> CountryOfOrigin { get; }
 
-        Hash<string> CreditType { get; }
+        HashSet<string> CreditType { get; }
 
-        Hash<DVDID_Type> DVDIdType { get; }
+        Dictionary<string, HashSet<string>> CreditSubtype { get; }
 
-        Hash<EventType> EventType { get; }
+        HashSet<DVDID_Type> DVDIdType { get; }
 
-        Hash<string> Genre { get; }
+        HashSet<EventType> EventType { get; }
 
-        Hash<CategoryRestriction> LinkCategory { get; }
+        HashSet<string> Genre { get; }
 
-        Hash<LocalityKey> Locality { get; }
+        HashSet<CategoryRestriction> LinkCategory { get; }
 
-        Hash<string> MediaType { get; }
+        HashSet<LocalityKey> Locality { get; }
 
-        PluginHash PluginData { get; }
+        HashSet<string> MediaType { get; }
 
-        Hash<PurchasePlaceKey> PurchasePlace { get; }
+        HashSet<PluginDataKey> PluginData { get; }
 
-        Hash<string> StudioAndMediaCompany { get; }
+        HashSet<PurchasePlaceKey> PurchasePlace { get; }
 
-        Hash<string> Subtitle { get; }
+        HashSet<string> StudioAndMediaCompany { get; }
 
-        TagHash Tag { get; }
+        HashSet<string> Subtitle { get; }
 
-        UserHash User { get; }
+        HashSet<TagKey> Tag { get; }
 
-        Hash<VideoStandard> VideoStandard { get; }
+        HashSet<UserKey> User { get; }
+
+        HashSet<VideoStandard> VideoStandard { get; }
     }
 }

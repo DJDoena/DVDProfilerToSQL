@@ -23,8 +23,8 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public bool ReceivedAsGift { get; set; }
         public Nullable<int> GiftFromUserId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tUser tUser { get; set; }
         public virtual tPurchasePlace tPurchasePlace { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

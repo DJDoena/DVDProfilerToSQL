@@ -203,6 +203,9 @@
     <Compile Include="tEventType.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tExclusions.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tFeatures.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>

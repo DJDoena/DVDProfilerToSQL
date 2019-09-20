@@ -21,8 +21,8 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public int LocalityId { get; set; }
         public int IdType { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tDVDIdType tDVDIdType { get; set; }
         public virtual tLocality tLocality { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

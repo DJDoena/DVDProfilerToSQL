@@ -16,6 +16,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     {
         public int DVDxCrewId { get; set; }
         public string DVDId { get; set; }
+        public int OrderNumber { get; set; }
         public int CrewId { get; set; }
         public int CreditSubtypeId { get; set; }
         public string CreditedAs { get; set; }

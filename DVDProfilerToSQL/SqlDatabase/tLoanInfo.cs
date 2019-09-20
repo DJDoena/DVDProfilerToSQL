@@ -18,9 +18,9 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string DVDId { get; set; }
         public bool Loaned { get; set; }
         public Nullable<System.DateTime> Due { get; set; }
-        public int UserId { get; set; }
+        public Nullable<int> UserId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tUser tUser { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

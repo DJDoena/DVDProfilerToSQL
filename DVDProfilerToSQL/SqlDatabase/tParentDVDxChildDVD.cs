@@ -18,7 +18,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string ParentDVDId { get; set; }
         public string ChildDVDId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
-        public virtual tDVD tDVD1 { get; set; }
+        public virtual tDVD tChildDVD { get; set; }
+        public virtual tDVD tParentDVD { get; set; }
     }
 }

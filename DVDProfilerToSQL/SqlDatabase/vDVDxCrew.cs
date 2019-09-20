@@ -14,14 +14,15 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     
     public partial class vDVDxCrew
     {
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public Nullable<int> BirthYear { get; set; }
         public string DVDId { get; set; }
         public string Title { get; set; }
         public string DistTrait { get; set; }
         public string CollectionType { get; set; }
+        public int OrderNumber { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public Nullable<int> BirthYear { get; set; }
         public string CreditedAs { get; set; }
         public string Episode { get; set; }
         public string Group { get; set; }

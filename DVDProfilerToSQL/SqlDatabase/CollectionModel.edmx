@@ -148,6 +148,7 @@
           </Key>
           <Property Name="DVDxCastId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
           <Property Name="CastId" Type="int" Nullable="false" />
           <Property Name="Role" Type="nvarchar" MaxLength="255" />
           <Property Name="CreditedAs" Type="nvarchar" MaxLength="255" />
@@ -171,6 +172,7 @@
           </Key>
           <Property Name="DVDxCrewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
           <Property Name="CrewId" Type="int" Nullable="false" />
           <Property Name="CreditSubtypeId" Type="int" Nullable="false" />
           <Property Name="CreditedAs" Type="nvarchar" MaxLength="255" />
@@ -395,6 +397,19 @@
           <Property Name="EventTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="tExclusions">
+          <Key>
+            <PropertyRef Name="ExclusionId" />
+          </Key>
+          <Property Name="ExclusionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MoviePick" Type="bit" />
+          <Property Name="Mobile" Type="bit" />
+          <Property Name="IPhone" Type="bit" />
+          <Property Name="RemoteConnections" Type="bit" />
+          <Property Name="DPOPublic" Type="bit" />
+          <Property Name="DPOPrivate" Type="bit" />
+        </EntityType>
         <EntityType Name="tFeatures">
           <Key>
             <PropertyRef Name="FeaturesId" />
@@ -473,7 +488,7 @@
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Loaned" Type="bit" Nullable="false" />
           <Property Name="Due" Type="date" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="tLocality">
           <Key>
@@ -724,6 +739,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Key>
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="OrderNumber" />
             <PropertyRef Name="FirstName" />
             <PropertyRef Name="Voice" />
             <PropertyRef Name="Uncredited" />
@@ -733,6 +749,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="150" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="148" />
@@ -762,20 +779,22 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
 warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vDVDxCrew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vDVDxCrew">
           <Key>
-            <PropertyRef Name="FirstName" />
             <PropertyRef Name="DVDId" />
             <PropertyRef Name="Title" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="FirstName" />
             <PropertyRef Name="CreditType" />
             <PropertyRef Name="CreditSubtype" />
           </Key>
-          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="MiddleName" Type="nvarchar" MaxLength="148" />
-          <Property Name="BirthYear" Type="int" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="148" />
+          <Property Name="BirthYear" Type="int" />
           <Property Name="CreditedAs" Type="nvarchar" MaxLength="255" />
           <Property Name="Episode" Type="nvarchar" MaxLength="255" />
           <Property Name="Group" Type="nvarchar" MaxLength="255" />
@@ -1765,7 +1784,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LoanInfoUser">
-          <End Role="tUser" Type="Self.tUser" Multiplicity="1" />
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
           <End Role="tLoanInfo" Type="Self.tLoanInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tUser">
@@ -2004,6 +2023,18 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tExclusions">
+          <End Role="tDVD" Type="Self.tDVD" Multiplicity="1" />
+          <End Role="tExclusions" Type="Self.tExclusions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tExclusions">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VideoStandard">
           <End Role="tVideoStandard" Type="Self.tVideoStandard" Multiplicity="0..1" />
           <End Role="tFormat" Type="Self.tFormat" Multiplicity="*" />
@@ -2051,6 +2082,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tEnhancedPurchaseInfo" EntityType="Self.tEnhancedPurchaseInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedTitles" EntityType="Self.tEnhancedTitles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEventType" EntityType="Self.tEventType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tExclusions" EntityType="Self.tExclusions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tFeatures" EntityType="Self.tFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tFormat" EntityType="Self.tFormat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tGenre" EntityType="Self.tGenre" Schema="dbo" store:Type="Tables" />
@@ -2152,6 +2184,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
     [vDVDxCast].[Title] AS [Title], 
     [vDVDxCast].[DistTrait] AS [DistTrait], 
     [vDVDxCast].[CollectionType] AS [CollectionType], 
+    [vDVDxCast].[OrderNumber] AS [OrderNumber], 
     [vDVDxCast].[LastName] AS [LastName], 
     [vDVDxCast].[FirstName] AS [FirstName], 
     [vDVDxCast].[MiddleName] AS [MiddleName], 
@@ -2176,14 +2209,15 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           </EntitySet>
           <EntitySet Name="vDVDxCrew" EntityType="Self.vDVDxCrew" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vDVDxCrew].[LastName] AS [LastName], 
-    [vDVDxCrew].[FirstName] AS [FirstName], 
-    [vDVDxCrew].[MiddleName] AS [MiddleName], 
-    [vDVDxCrew].[BirthYear] AS [BirthYear], 
     [vDVDxCrew].[DVDId] AS [DVDId], 
     [vDVDxCrew].[Title] AS [Title], 
     [vDVDxCrew].[DistTrait] AS [DistTrait], 
     [vDVDxCrew].[CollectionType] AS [CollectionType], 
+    [vDVDxCrew].[OrderNumber] AS [OrderNumber], 
+    [vDVDxCrew].[LastName] AS [LastName], 
+    [vDVDxCrew].[FirstName] AS [FirstName], 
+    [vDVDxCrew].[MiddleName] AS [MiddleName], 
+    [vDVDxCrew].[BirthYear] AS [BirthYear], 
     [vDVDxCrew].[CreditedAs] AS [CreditedAs], 
     [vDVDxCrew].[Episode] AS [Episode], 
     [vDVDxCrew].[Group] AS [Group], 
@@ -2770,6 +2804,10 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxTag" EntitySet="tDVDxTag" />
           </AssociationSet>
+          <AssociationSet Name="FK_tExclusions" Association="Self.FK_tExclusions">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tExclusions" EntitySet="tExclusions" />
+          </AssociationSet>
           <AssociationSet Name="FK_VideoStandard" Association="Self.FK_VideoStandard">
             <End Role="tVideoStandard" EntitySet="tVideoStandard" />
             <End Role="tFormat" EntitySet="tFormat" />
@@ -2791,12 +2829,10 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tCreditType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tCreditType" />
           <EntitySet Name="tDBVersion" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDBVersion" />
           <EntitySet Name="tDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" />
-          <EntitySet Name="tDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" />
+          <EntitySet Name="tDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" />
           <EntitySet Name="tDVDIdType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" />
           <EntitySet Name="tDVDxAudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" />
-          <EntitySet Name="tDVDxCast" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast" />
           <EntitySet Name="tDVDxCountryOfOrigin" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCountryOfOrigin" />
-          <EntitySet Name="tDVDxCrew" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCrew" />
           <EntitySet Name="tDVDxDisc" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxDisc" />
           <EntitySet Name="tDVDxEvent" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxEvent" />
           <EntitySet Name="tDVDxGenre" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxGenre" />
@@ -2818,6 +2854,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tGenre" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tGenre" />
           <EntitySet Name="tLinkCategory" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLinkCategory" />
           <EntitySet Name="tLoanInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" />
+          <EntitySet Name="tLocality" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" />
           <EntitySet Name="tLock" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLock" />
           <EntitySet Name="tMediaType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tMediaType" />
           <EntitySet Name="tParentDVDxChildDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tParentDVDxChildDVD" />
@@ -2836,9 +2873,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="vDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVD" />
           <EntitySet Name="vDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDId" />
           <EntitySet Name="vDVDxAudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxAudio" />
-          <EntitySet Name="vDVDxCast" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCast" />
           <EntitySet Name="vDVDxCountryOfOrigin" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCountryOfOrigin" />
-          <EntitySet Name="vDVDxCrew" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCrew" />
           <EntitySet Name="vDVDxDisc" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxDisc" />
           <EntitySet Name="vDVDxEvent" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxEvent" />
           <EntitySet Name="vDVDxGenre" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxGenre" />
@@ -2874,10 +2909,82 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tAudioFormat" EntitySet="tAudioFormat" />
             <End Role="tDVDxAudio" EntitySet="tDVDxAudio" />
           </AssociationSet>
-          <AssociationSet Name="FK_CaseType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType">
-            <End Role="tCaseType" EntitySet="tCaseType" />
-            <End Role="tDVD" EntitySet="tDVD" />
+          <AssociationSet Name="FK_CountryOfOrigin" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOrigin">
+            <End Role="tCountryOfOrigin" EntitySet="tCountryOfOrigin" />
+            <End Role="tDVDxCountryOfOrigin" EntitySet="tDVDxCountryOfOrigin" />
           </AssociationSet>
+          <AssociationSet Name="FK_CreditType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditType">
+            <End Role="tCreditType" EntitySet="tCreditType" />
+            <End Role="tCreditSubtype" EntitySet="tCreditSubtype" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DVDIdType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType">
+            <End Role="tDVDIdType" EntitySet="tDVDIdType" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locality" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality">
+            <End Role="tLocality" EntitySet="tLocality" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventType">
+            <End Role="tEventType" EntitySet="tEventType" />
+            <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventUser">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Genre" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Genre">
+            <End Role="tGenre" EntitySet="tGenre" />
+            <End Role="tDVDxGenre" EntitySet="tDVDxGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaCompany" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompany">
+            <End Role="tStudioAndMediaCompany" EntitySet="tStudioAndMediaCompany" />
+            <End Role="tDVDxMediaCompany" EntitySet="tDVDxMediaCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaType">
+            <End Role="tMediaType" EntitySet="tMediaType" />
+            <End Role="tDVDxMediaType" EntitySet="tDVDxMediaType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinkCategory" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkCategory">
+            <End Role="tLinkCategory" EntitySet="tLinkCategory" />
+            <End Role="tDVDxMyLinks" EntitySet="tDVDxMyLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PluginData" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData">
+            <End Role="tPluginData" EntitySet="tPluginData" />
+            <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studio" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Studio">
+            <End Role="tDVDxStudio" EntitySet="tDVDxStudio" />
+            <End Role="tStudioAndMediaCompany" EntitySet="tStudioAndMediaCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subtitle" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Subtitle">
+            <End Role="tSubtitle" EntitySet="tSubtitle" />
+            <End Role="tDVDxSubtitle" EntitySet="tDVDxSubtitle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tag" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Tag">
+            <End Role="tTag" EntitySet="tTag" />
+            <End Role="tDVDxTag" EntitySet="tDVDxTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoStandard" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_VideoStandard">
+            <End Role="tVideoStandard" EntitySet="tVideoStandard" />
+            <End Role="tFormat" EntitySet="tFormat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoanInfoUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfoUser">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiftUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_GiftUser">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="tPurchase" EntitySet="tPurchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasePlace" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PurchasePlace">
+            <End Role="tPurchasePlace" EntitySet="tPurchasePlace" />
+            <End Role="tPurchase" EntitySet="tPurchase" />
+          </AssociationSet>
+          <EntitySet Name="tDVDxCast" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast" />
+          <EntitySet Name="tDVDxCrew" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCrew" />
+          <EntitySet Name="vDVDxCast" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCast" />
+          <EntitySet Name="vDVDxCrew" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCrew" />
           <AssociationSet Name="FK_Cast" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Cast">
             <End Role="tCastAndCrew" EntitySet="tCastAndCrew" />
             <End Role="tDVDxCast" EntitySet="tDVDxCast" />
@@ -2886,21 +2993,19 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tCastAndCrew" EntitySet="tCastAndCrew" />
             <End Role="tDVDxCrew" EntitySet="tDVDxCrew" />
           </AssociationSet>
-          <AssociationSet Name="FK_CollectionType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType">
-            <End Role="tCollectionType" EntitySet="tCollectionType" />
-            <End Role="tDVD" EntitySet="tDVD" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CountryOfOrigin" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOrigin">
-            <End Role="tCountryOfOrigin" EntitySet="tCountryOfOrigin" />
-            <End Role="tDVDxCountryOfOrigin" EntitySet="tDVDxCountryOfOrigin" />
-          </AssociationSet>
           <AssociationSet Name="FK_CreditSubtype" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype">
             <End Role="tCreditSubtype" EntitySet="tCreditSubtype" />
             <End Role="tDVDxCrew" EntitySet="tDVDxCrew" />
           </AssociationSet>
-          <AssociationSet Name="FK_CreditType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditType">
-            <End Role="tCreditType" EntitySet="tCreditType" />
-            <End Role="tCreditSubtype" EntitySet="tCreditSubtype" />
+          <EntitySet Name="tExclusions" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tExclusions" />
+          <EntitySet Name="tDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" />
+          <AssociationSet Name="FK_CaseType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType">
+            <End Role="tCaseType" EntitySet="tCaseType" />
+            <End Role="tDVD" EntitySet="tDVD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType">
+            <End Role="tCollectionType" EntitySet="tCollectionType" />
+            <End Role="tDVD" EntitySet="tDVD" />
           </AssociationSet>
           <AssociationSet Name="FK_DigitalDownloadInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -2929,6 +3034,10 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <AssociationSet Name="FK_DiscList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxDisc" EntitySet="tDVDxDisc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DVDId" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDVDId" EntitySet="tDVDId" />
           </AssociationSet>
           <AssociationSet Name="FK_EnhancedFeatures" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -3014,75 +3123,9 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxTag" EntitySet="tDVDxTag" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventType">
-            <End Role="tEventType" EntitySet="tEventType" />
-            <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventUser">
-            <End Role="tUser" EntitySet="tUser" />
-            <End Role="tDVDxEvent" EntitySet="tDVDxEvent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Genre" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Genre">
-            <End Role="tGenre" EntitySet="tGenre" />
-            <End Role="tDVDxGenre" EntitySet="tDVDxGenre" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MediaCompany" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompany">
-            <End Role="tStudioAndMediaCompany" EntitySet="tStudioAndMediaCompany" />
-            <End Role="tDVDxMediaCompany" EntitySet="tDVDxMediaCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MediaType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaType">
-            <End Role="tMediaType" EntitySet="tMediaType" />
-            <End Role="tDVDxMediaType" EntitySet="tDVDxMediaType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LinkCategory" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkCategory">
-            <End Role="tLinkCategory" EntitySet="tLinkCategory" />
-            <End Role="tDVDxMyLinks" EntitySet="tDVDxMyLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PluginData" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData">
-            <End Role="tPluginData" EntitySet="tPluginData" />
-            <End Role="tDVDxPluginData" EntitySet="tDVDxPluginData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Studio" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Studio">
-            <End Role="tDVDxStudio" EntitySet="tDVDxStudio" />
-            <End Role="tStudioAndMediaCompany" EntitySet="tStudioAndMediaCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subtitle" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Subtitle">
-            <End Role="tSubtitle" EntitySet="tSubtitle" />
-            <End Role="tDVDxSubtitle" EntitySet="tDVDxSubtitle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tag" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Tag">
-            <End Role="tTag" EntitySet="tTag" />
-            <End Role="tDVDxTag" EntitySet="tDVDxTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VideoStandard" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_VideoStandard">
-            <End Role="tVideoStandard" EntitySet="tVideoStandard" />
-            <End Role="tFormat" EntitySet="tFormat" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LoanInfoUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfoUser">
-            <End Role="tUser" EntitySet="tUser" />
-            <End Role="tLoanInfo" EntitySet="tLoanInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GiftUser" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_GiftUser">
-            <End Role="tUser" EntitySet="tUser" />
-            <End Role="tPurchase" EntitySet="tPurchase" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchasePlace" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_PurchasePlace">
-            <End Role="tPurchasePlace" EntitySet="tPurchasePlace" />
-            <End Role="tPurchase" EntitySet="tPurchase" />
-          </AssociationSet>
-          <EntitySet Name="tDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" />
-          <EntitySet Name="tLocality" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" />
-          <AssociationSet Name="FK_DVDId" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId">
+          <AssociationSet Name="FK_tExclusions" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions">
             <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tDVDId" EntitySet="tDVDId" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DVDIdType" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType">
-            <End Role="tDVDIdType" EntitySet="tDVDIdType" />
-            <End Role="tDVDId" EntitySet="tDVDId" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Locality" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality">
-            <End Role="tLocality" EntitySet="tLocality" />
-            <End Role="tDVDId" EntitySet="tDVDId" />
+            <End Role="tExclusions" EntitySet="tExclusions" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tAudioChannels">
@@ -3153,8 +3196,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CreditTypeId" Type="Int32" Nullable="false" />
           <Property Name="Subtype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype" FromRole="tCreditSubtype" ToRole="tDVDxCrew" />
           <NavigationProperty Name="tCreditType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditType" FromRole="tCreditSubtype" ToRole="tCreditType" />
+          <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype" FromRole="tCreditSubtype" ToRole="tDVDxCrew" />
         </EntityType>
         <EntityType Name="tCreditType">
           <Key>
@@ -3180,62 +3223,19 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDigitalDownloadInfo" ToRole="tDVD" />
         </EntityType>
-        <EntityType Name="tDVD">
+        <EntityType Name="tDVDId">
           <Key>
-            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="DVDIdId" />
           </Key>
+          <Property Name="DVDIdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UPC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ProductionYear" Type="Int32" />
-          <Property Name="Released" Type="DateTime" Precision="0" />
-          <Property Name="RunningTime" Type="Int32" />
-          <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CaseTypeId" Type="Int32" />
-          <Property Name="CaseSlipCover" Type="Boolean" />
-          <Property Name="SRPDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SRPValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EasterEggs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SortTitle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LastEdited" Type="DateTime" Precision="3" />
-          <Property Name="WishPriority" Type="Int32" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tCaseType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType" FromRole="tDVD" ToRole="tCaseType" />
-          <NavigationProperty Name="tCollectionType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType" FromRole="tDVD" ToRole="tCollectionType" />
-          <NavigationProperty Name="tDigitalDownloadInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDVD" ToRole="tDigitalDownloadInfo" />
-          <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList" FromRole="tDVD" ToRole="tDVDxAudio" />
-          <NavigationProperty Name="tDVDxCast" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" FromRole="tDVD" ToRole="tDVDxCast" />
-          <NavigationProperty Name="tParentDVDxChildDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tDVD" ToRole="tParentDVDxChildDVD" />
-          <NavigationProperty Name="tDVDxCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOriginList" FromRole="tDVD" ToRole="tDVDxCountryOfOrigin" />
-          <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVD" ToRole="tDVDxCrew" />
-          <NavigationProperty Name="tDVDxDisc" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList" FromRole="tDVD" ToRole="tDVDxDisc" />
-          <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
-          <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
-          <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
-          <NavigationProperty Name="tEnhancedTitles" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tDVD" ToRole="tEnhancedTitles" />
-          <NavigationProperty Name="tDVDxEvent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVD" ToRole="tDVDxEvent" />
-          <NavigationProperty Name="tFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" FromRole="tDVD" ToRole="tFeatures" />
-          <NavigationProperty Name="tFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" FromRole="tDVD" ToRole="tFormat" />
-          <NavigationProperty Name="tDVDxGenre" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList" FromRole="tDVD" ToRole="tDVDxGenre" />
-          <NavigationProperty Name="tDVDxMyLinks" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkList" FromRole="tDVD" ToRole="tDVDxMyLinks" />
-          <NavigationProperty Name="tLoanInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo" FromRole="tDVD" ToRole="tLoanInfo" />
-          <NavigationProperty Name="tLock" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Lock" FromRole="tDVD" ToRole="tLock" />
-          <NavigationProperty Name="tDVDxMediaCompany" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList" FromRole="tDVD" ToRole="tDVDxMediaCompany" />
-          <NavigationProperty Name="tDVDxMediaType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaTypeList" FromRole="tDVD" ToRole="tDVDxMediaType" />
-          <NavigationProperty Name="tParentDVDxChildDVD1" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ParentDVDId" FromRole="tDVD" ToRole="tParentDVDxChildDVD" />
-          <NavigationProperty Name="tDVDxPluginData" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginList" FromRole="tDVD" ToRole="tDVDxPluginData" />
-          <NavigationProperty Name="tPurchase" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Purchase" FromRole="tDVD" ToRole="tPurchase" />
-          <NavigationProperty Name="tDVDxRegion" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_RegionList" FromRole="tDVD" ToRole="tDVDxRegion" />
-          <NavigationProperty Name="tReview" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Review" FromRole="tDVD" ToRole="tReview" />
-          <NavigationProperty Name="tDVDxStudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVD" ToRole="tDVDxStudio" />
-          <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVD" ToRole="tDVDxSubtitle" />
-          <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVD" ToRole="tDVDxTag" />
-          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
+          <Property Name="IdBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VariantNum" Type="Int32" Nullable="false" />
+          <Property Name="LocalityId" Type="Int32" Nullable="false" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tDVDIdType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDId" ToRole="tDVDIdType" />
+          <NavigationProperty Name="tLocality" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tDVDId" ToRole="tLocality" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVDId" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDIdType">
           <Key>
@@ -3259,23 +3259,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <NavigationProperty Name="tAudioFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioFormats" FromRole="tDVDxAudio" ToRole="tAudioFormat" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList" FromRole="tDVDxAudio" ToRole="tDVD" />
         </EntityType>
-        <EntityType Name="tDVDxCast">
-          <Key>
-            <PropertyRef Name="DVDxCastId" />
-          </Key>
-          <Property Name="DVDxCastId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CastId" Type="Int32" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Voice" Type="Boolean" Nullable="false" />
-          <Property Name="Uncredited" Type="Boolean" Nullable="false" />
-          <Property Name="Puppeteer" Type="Boolean" Nullable="false" />
-          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tCastAndCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Cast" FromRole="tDVDxCast" ToRole="tCastAndCrew" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" FromRole="tDVDxCast" ToRole="tDVD" />
-        </EntityType>
         <EntityType Name="tDVDxCountryOfOrigin">
           <Key>
             <PropertyRef Name="DVDxCountryOfOriginId" />
@@ -3285,22 +3268,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="CountryOfOriginId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOrigin" FromRole="tDVDxCountryOfOrigin" ToRole="tCountryOfOrigin" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOriginList" FromRole="tDVDxCountryOfOrigin" ToRole="tDVD" />
-        </EntityType>
-        <EntityType Name="tDVDxCrew">
-          <Key>
-            <PropertyRef Name="DVDxCrewId" />
-          </Key>
-          <Property Name="DVDxCrewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CrewId" Type="Int32" Nullable="false" />
-          <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" />
-          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CustomRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tCastAndCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Crew" FromRole="tDVDxCrew" ToRole="tCastAndCrew" />
-          <NavigationProperty Name="tCreditSubtype" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype" FromRole="tDVDxCrew" ToRole="tCreditSubtype" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVDxCrew" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxDisc">
           <Key>
@@ -3331,9 +3298,9 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVDxEvent" ToRole="tDVD" />
           <NavigationProperty Name="tEventType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventType" FromRole="tDVDxEvent" ToRole="tEventType" />
           <NavigationProperty Name="tUser" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventUser" FromRole="tDVDxEvent" ToRole="tUser" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVDxEvent" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxGenre">
           <Key>
@@ -3342,8 +3309,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxGenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GenreId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList" FromRole="tDVDxGenre" ToRole="tDVD" />
           <NavigationProperty Name="tGenre" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Genre" FromRole="tDVDxGenre" ToRole="tGenre" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList" FromRole="tDVDxGenre" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxMediaCompany">
           <Key>
@@ -3352,8 +3319,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxMediaCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MediaCompanyId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList" FromRole="tDVDxMediaCompany" ToRole="tDVD" />
           <NavigationProperty Name="tStudioAndMediaCompany" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompany" FromRole="tDVDxMediaCompany" ToRole="tStudioAndMediaCompany" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList" FromRole="tDVDxMediaCompany" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxMediaType">
           <Key>
@@ -3362,8 +3329,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxMediaTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MediaTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaTypeList" FromRole="tDVDxMediaType" ToRole="tDVD" />
           <NavigationProperty Name="tMediaType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaType" FromRole="tDVDxMediaType" ToRole="tMediaType" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaTypeList" FromRole="tDVDxMediaType" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxMyLinks">
           <Key>
@@ -3374,8 +3341,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkList" FromRole="tDVDxMyLinks" ToRole="tDVD" />
           <NavigationProperty Name="tLinkCategory" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkCategory" FromRole="tDVDxMyLinks" ToRole="tLinkCategory" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkList" FromRole="tDVDxMyLinks" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxPluginData">
           <Key>
@@ -3385,8 +3352,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PluginDataId" Type="Int32" Nullable="false" />
           <Property Name="PluginData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginList" FromRole="tDVDxPluginData" ToRole="tDVD" />
           <NavigationProperty Name="tPluginData" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginData" FromRole="tDVDxPluginData" ToRole="tPluginData" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginList" FromRole="tDVDxPluginData" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxRegion">
           <Key>
@@ -3404,8 +3371,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxStudioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StudioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVDxStudio" ToRole="tDVD" />
           <NavigationProperty Name="tStudioAndMediaCompany" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Studio" FromRole="tDVDxStudio" ToRole="tStudioAndMediaCompany" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVDxStudio" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxSubtitle">
           <Key>
@@ -3414,8 +3381,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxSubtitleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SubtitleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVDxSubtitle" ToRole="tDVD" />
           <NavigationProperty Name="tSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Subtitle" FromRole="tDVDxSubtitle" ToRole="tSubtitle" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVDxSubtitle" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDxTag">
           <Key>
@@ -3424,8 +3391,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDxTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVDid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TagId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVDxTag" ToRole="tDVD" />
           <NavigationProperty Name="tTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Tag" FromRole="tDVDxTag" ToRole="tTag" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVDxTag" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tEnhancedFeatures">
           <Key>
@@ -3601,8 +3568,8 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="C3DBluRay" Type="Boolean" Nullable="false" />
           <Property Name="HDR10" Type="Boolean" />
           <Property Name="DolbyVision" Type="Boolean" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" FromRole="tFormat" ToRole="tDVD" />
           <NavigationProperty Name="tVideoStandard" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_VideoStandard" FromRole="tFormat" ToRole="tVideoStandard" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" FromRole="tFormat" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tGenre">
           <Key>
@@ -3628,9 +3595,17 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Loaned" Type="Boolean" Nullable="false" />
           <Property Name="Due" Type="DateTime" Precision="0" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo" FromRole="tLoanInfo" ToRole="tDVD" />
+          <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="tUser" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfoUser" FromRole="tLoanInfo" ToRole="tUser" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo" FromRole="tLoanInfo" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="tLocality">
+          <Key>
+            <PropertyRef Name="LocalityId" />
+          </Key>
+          <Property Name="LocalityId" Type="Int32" Nullable="false" />
+          <Property Name="Locality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tLocality" ToRole="tDVDId" />
         </EntityType>
         <EntityType Name="tLock">
           <Key>
@@ -3677,9 +3652,9 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="ParentDVDxChildDVDId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentDVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChildDVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
-          <NavigationProperty Name="tDVD1" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ParentDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
-        </EntityType>
+          <NavigationProperty Name="tChildDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
+          <NavigationProperty Name="tParentDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ParentDVDId" FromRole="tParentDVDxChildDVD" ToRole="tDVD" />
+          </EntityType>
         <EntityType Name="tPluginData">
           <Key>
             <PropertyRef Name="PluginDataId" />
@@ -3701,9 +3676,9 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="ReceivedAsGift" Type="Boolean" Nullable="false" />
           <Property Name="GiftFromUserId" Type="Int32" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Purchase" FromRole="tPurchase" ToRole="tDVD" />
           <NavigationProperty Name="tUser" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GiftUser" FromRole="tPurchase" ToRole="tUser" />
           <NavigationProperty Name="tPurchasePlace" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PurchasePlace" FromRole="tPurchase" ToRole="tPurchasePlace" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Purchase" FromRole="tPurchase" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tPurchasePlace">
           <Key>
@@ -3874,31 +3849,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="AudioFormat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AudioChannels" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="vDVDxCast">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="Voice" />
-            <PropertyRef Name="Uncredited" />
-            <PropertyRef Name="Puppeteer" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="148" FixedLength="false" Unicode="true" />
-          <Property Name="BirthYear" Type="Int32" />
-          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Voice" Type="Boolean" Nullable="false" />
-          <Property Name="Uncredited" Type="Boolean" Nullable="false" />
-          <Property Name="Puppeteer" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="vDVDxCountryOfOrigin">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -3909,29 +3859,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CountryOfOrigin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vDVDxCrew">
-          <Key>
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="CreditType" />
-            <PropertyRef Name="CreditSubtype" />
-          </Key>
-          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="148" FixedLength="false" Unicode="true" />
-          <Property Name="BirthYear" Type="Int32" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CreditType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreditSubtype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CustomRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vDVDxDisc">
           <Key>
@@ -4496,18 +4423,309 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CaseType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="0..1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="*" />
+        <Association Name="FK_CountryOfOrigin">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCountryOfOrigin" Role="tCountryOfOrigin" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCountryOfOrigin" Role="tDVDxCountryOfOrigin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tCaseType">
-              <PropertyRef Name="CaseTypeId" />
+            <Principal Role="tCountryOfOrigin">
+              <PropertyRef Name="CountryOfOriginId" />
             </Principal>
-            <Dependent Role="tDVD">
-              <PropertyRef Name="CaseTypeId" />
+            <Dependent Role="tDVDxCountryOfOrigin">
+              <PropertyRef Name="CountryOfOriginId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CreditType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCreditType" Role="tCreditType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCreditSubtype" Role="tCreditSubtype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tCreditType">
+              <PropertyRef Name="CreditTypeId" />
+            </Principal>
+            <Dependent Role="tCreditSubtype">
+              <PropertyRef Name="CreditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DVDIdType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" Role="tDVDIdType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVDIdType">
+              <PropertyRef Name="DVDIdTypeId" />
+            </Principal>
+            <Dependent Role="tDVDId">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locality">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" Role="tLocality" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tLocality">
+              <PropertyRef Name="LocalityId" />
+            </Principal>
+            <Dependent Role="tDVDId">
+              <PropertyRef Name="LocalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" Role="tEventType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxEvent" Role="tDVDxEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tEventType">
+              <PropertyRef Name="EventTypeId" />
+            </Principal>
+            <Dependent Role="tDVDxEvent">
+              <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventUser">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxEvent" Role="tDVDxEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tDVDxEvent">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Genre">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tGenre" Role="tGenre" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxGenre" Role="tDVDxGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tGenre">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="tDVDxGenre">
+              <PropertyRef Name="GenreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaCompany">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tStudioAndMediaCompany" Role="tStudioAndMediaCompany" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMediaCompany" Role="tDVDxMediaCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tStudioAndMediaCompany">
+              <PropertyRef Name="StudioAndMediaCompanyId" />
+            </Principal>
+            <Dependent Role="tDVDxMediaCompany">
+              <PropertyRef Name="MediaCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tMediaType" Role="tMediaType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMediaType" Role="tDVDxMediaType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMediaType">
+              <PropertyRef Name="MediyTypeId" />
+            </Principal>
+            <Dependent Role="tDVDxMediaType">
+              <PropertyRef Name="MediaTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinkCategory">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLinkCategory" Role="tLinkCategory" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMyLinks" Role="tDVDxMyLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tLinkCategory">
+              <PropertyRef Name="LinkCategoryId" />
+            </Principal>
+            <Dependent Role="tDVDxMyLinks">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PluginData">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" Role="tPluginData" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxPluginData" Role="tDVDxPluginData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPluginData">
+              <PropertyRef Name="PluginDataId" />
+            </Principal>
+            <Dependent Role="tDVDxPluginData">
+              <PropertyRef Name="PluginDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studio">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxStudio" Role="tDVDxStudio" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tStudioAndMediaCompany" Role="tStudioAndMediaCompany" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tDVDxStudio">
+              <PropertyRef Name="DVDxStudioId" />
+            </Principal>
+            <Dependent Role="tStudioAndMediaCompany">
+              <PropertyRef Name="StudioAndMediaCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subtitle">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tSubtitle" Role="tSubtitle" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxSubtitle" Role="tDVDxSubtitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tSubtitle">
+              <PropertyRef Name="SubtitleId" />
+            </Principal>
+            <Dependent Role="tDVDxSubtitle">
+              <PropertyRef Name="SubtitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tag">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tTag" Role="tTag" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" Role="tDVDxTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tTag">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="tDVDxTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoStandard">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tVideoStandard" Role="tVideoStandard" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" Role="tFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tVideoStandard">
+              <PropertyRef Name="VideoStandardId" />
+            </Principal>
+            <Dependent Role="tFormat">
+              <PropertyRef Name="VideoStandardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoanInfoUser">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" Role="tLoanInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tLoanInfo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiftUser">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tPurchase">
+              <PropertyRef Name="GiftFromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasePlace">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchasePlace" Role="tPurchasePlace" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPurchasePlace">
+              <PropertyRef Name="PurchasePlaceId" />
+            </Principal>
+            <Dependent Role="tPurchase">
+              <PropertyRef Name="PurchasePlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tDVDxCast">
+          <Key>
+            <PropertyRef Name="DVDxCastId" />
+          </Key>
+          <Property Name="DVDxCastId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="CastId" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Voice" Type="Boolean" Nullable="false" />
+          <Property Name="Uncredited" Type="Boolean" Nullable="false" />
+          <Property Name="Puppeteer" Type="Boolean" Nullable="false" />
+          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tCastAndCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Cast" FromRole="tDVDxCast" ToRole="tCastAndCrew" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" FromRole="tDVDxCast" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="tDVDxCrew">
+          <Key>
+            <PropertyRef Name="DVDxCrewId" />
+          </Key>
+          <Property Name="DVDxCrewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="CrewId" Type="Int32" Nullable="false" />
+          <Property Name="CreditSubtypeId" Type="Int32" Nullable="false" />
+          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tCastAndCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Crew" FromRole="tDVDxCrew" ToRole="tCastAndCrew" />
+          <NavigationProperty Name="tCreditSubtype" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CreditSubtype" FromRole="tDVDxCrew" ToRole="tCreditSubtype" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVDxCrew" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="vDVDxCast">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="Voice" />
+            <PropertyRef Name="Uncredited" />
+            <PropertyRef Name="Puppeteer" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="148" FixedLength="false" Unicode="true" />
+          <Property Name="BirthYear" Type="Int32" />
+          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Voice" Type="Boolean" Nullable="false" />
+          <Property Name="Uncredited" Type="Boolean" Nullable="false" />
+          <Property Name="Puppeteer" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vDVDxCrew">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="OrderNumber" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="CreditType" />
+            <PropertyRef Name="CreditSubtype" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="148" FixedLength="false" Unicode="true" />
+          <Property Name="BirthYear" Type="Int32" />
+          <Property Name="CreditedAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Episode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreditType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreditSubtype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK_Cast">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCastAndCrew" Role="tCastAndCrew" Multiplicity="1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast" Role="tDVDxCast" Multiplicity="*" />
@@ -4532,30 +4750,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CollectionType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCollectionType" Role="tCollectionType" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tCollectionType">
-              <PropertyRef Name="CollectionTypeId" />
-            </Principal>
-            <Dependent Role="tDVD">
-              <PropertyRef Name="CollectionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CountryOfOrigin">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCountryOfOrigin" Role="tCountryOfOrigin" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCountryOfOrigin" Role="tDVDxCountryOfOrigin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tCountryOfOrigin">
-              <PropertyRef Name="CountryOfOriginId" />
-            </Principal>
-            <Dependent Role="tDVDxCountryOfOrigin">
-              <PropertyRef Name="CountryOfOriginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CreditSubtype">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCreditSubtype" Role="tCreditSubtype" Multiplicity="1" />
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCrew" Role="tDVDxCrew" Multiplicity="*" />
@@ -4568,15 +4762,99 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CreditType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCreditType" Role="tCreditType" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCreditSubtype" Role="tCreditSubtype" Multiplicity="*" />
+        <EntityType Name="tExclusions">
+          <Key>
+            <PropertyRef Name="ExclusionId" />
+          </Key>
+          <Property Name="ExclusionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoviePick" Type="Boolean" />
+          <Property Name="Mobile" Type="Boolean" />
+          <Property Name="IPhone" Type="Boolean" />
+          <Property Name="RemoteConnections" Type="Boolean" />
+          <Property Name="DPOPublic" Type="Boolean" />
+          <Property Name="DPOPrivate" Type="Boolean" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" FromRole="tExclusions" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="tDVD">
+          <Key>
+            <PropertyRef Name="DVDId" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionYear" Type="Int32" />
+          <Property Name="Released" Type="DateTime" Precision="0" />
+          <Property Name="RunningTime" Type="Int32" />
+          <Property Name="Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CaseTypeId" Type="Int32" />
+          <Property Name="CaseSlipCover" Type="Boolean" />
+          <Property Name="SRPDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SRPValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EasterEggs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SortTitle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastEdited" Type="DateTime" Precision="3" />
+          <Property Name="WishPriority" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tCaseType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType" FromRole="tDVD" ToRole="tCaseType" />
+          <NavigationProperty Name="tCollectionType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType" FromRole="tDVD" ToRole="tCollectionType" />
+          <NavigationProperty Name="tDigitalDownloadInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDVD" ToRole="tDigitalDownloadInfo" />
+          <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList" FromRole="tDVD" ToRole="tDVDxAudio" />
+          <NavigationProperty Name="tDVDxCast" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" FromRole="tDVD" ToRole="tDVDxCast" />
+          <NavigationProperty Name="tParentDVDxChildDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tDVD" ToRole="tParentDVDxChildDVD" />
+          <NavigationProperty Name="tDVDxCountryOfOrigin" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CountryOfOriginList" FromRole="tDVD" ToRole="tDVDxCountryOfOrigin" />
+          <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVD" ToRole="tDVDxCrew" />
+          <NavigationProperty Name="tDVDxDisc" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList" FromRole="tDVD" ToRole="tDVDxDisc" />
+          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
+          <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
+          <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
+          <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
+          <NavigationProperty Name="tEnhancedTitles" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tDVD" ToRole="tEnhancedTitles" />
+          <NavigationProperty Name="tDVDxEvent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVD" ToRole="tDVDxEvent" />
+          <NavigationProperty Name="tFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" FromRole="tDVD" ToRole="tFeatures" />
+          <NavigationProperty Name="tFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" FromRole="tDVD" ToRole="tFormat" />
+          <NavigationProperty Name="tDVDxGenre" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_GenreList" FromRole="tDVD" ToRole="tDVDxGenre" />
+          <NavigationProperty Name="tDVDxMyLinks" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LinkList" FromRole="tDVD" ToRole="tDVDxMyLinks" />
+          <NavigationProperty Name="tLoanInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_LoanInfo" FromRole="tDVD" ToRole="tLoanInfo" />
+          <NavigationProperty Name="tLock" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Lock" FromRole="tDVD" ToRole="tLock" />
+          <NavigationProperty Name="tDVDxMediaCompany" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaCompanyList" FromRole="tDVD" ToRole="tDVDxMediaCompany" />
+          <NavigationProperty Name="tDVDxMediaType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_MediaTypeList" FromRole="tDVD" ToRole="tDVDxMediaType" />
+          <NavigationProperty Name="tParentDVDxChildDVD1" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ParentDVDId" FromRole="tDVD" ToRole="tParentDVDxChildDVD" />
+          <NavigationProperty Name="tDVDxPluginData" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_PluginList" FromRole="tDVD" ToRole="tDVDxPluginData" />
+          <NavigationProperty Name="tPurchase" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Purchase" FromRole="tDVD" ToRole="tPurchase" />
+          <NavigationProperty Name="tDVDxRegion" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_RegionList" FromRole="tDVD" ToRole="tDVDxRegion" />
+          <NavigationProperty Name="tReview" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Review" FromRole="tDVD" ToRole="tReview" />
+          <NavigationProperty Name="tDVDxStudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_StudioList" FromRole="tDVD" ToRole="tDVDxStudio" />
+          <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVD" ToRole="tDVDxSubtitle" />
+          <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVD" ToRole="tDVDxTag" />
+          <NavigationProperty Name="tExclusions" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" FromRole="tDVD" ToRole="tExclusions" />
+        </EntityType>
+        <Association Name="FK_CaseType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="0..1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tCreditType">
-              <PropertyRef Name="CreditTypeId" />
+            <Principal Role="tCaseType">
+              <PropertyRef Name="CaseTypeId" />
             </Principal>
-            <Dependent Role="tCreditSubtype">
-              <PropertyRef Name="CreditTypeId" />
+            <Dependent Role="tDVD">
+              <PropertyRef Name="CaseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionType">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCollectionType" Role="tCollectionType" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tCollectionType">
+              <PropertyRef Name="CollectionTypeId" />
+            </Principal>
+            <Dependent Role="tDVD">
+              <PropertyRef Name="CollectionTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4660,6 +4938,18 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               <PropertyRef Name="DVDId" />
             </Principal>
             <Dependent Role="tDVDxDisc">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DVDId">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tDVDId">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4916,229 +5206,15 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" Role="tEventType" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxEvent" Role="tDVDxEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tEventType">
-              <PropertyRef Name="EventTypeId" />
-            </Principal>
-            <Dependent Role="tDVDxEvent">
-              <PropertyRef Name="EventTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventUser">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxEvent" Role="tDVDxEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tDVDxEvent">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Genre">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tGenre" Role="tGenre" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxGenre" Role="tDVDxGenre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tGenre">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="tDVDxGenre">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MediaCompany">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tStudioAndMediaCompany" Role="tStudioAndMediaCompany" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMediaCompany" Role="tDVDxMediaCompany" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tStudioAndMediaCompany">
-              <PropertyRef Name="StudioAndMediaCompanyId" />
-            </Principal>
-            <Dependent Role="tDVDxMediaCompany">
-              <PropertyRef Name="MediaCompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MediaType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tMediaType" Role="tMediaType" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMediaType" Role="tDVDxMediaType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMediaType">
-              <PropertyRef Name="MediyTypeId" />
-            </Principal>
-            <Dependent Role="tDVDxMediaType">
-              <PropertyRef Name="MediaTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LinkCategory">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLinkCategory" Role="tLinkCategory" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxMyLinks" Role="tDVDxMyLinks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tLinkCategory">
-              <PropertyRef Name="LinkCategoryId" />
-            </Principal>
-            <Dependent Role="tDVDxMyLinks">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PluginData">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPluginData" Role="tPluginData" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxPluginData" Role="tDVDxPluginData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tPluginData">
-              <PropertyRef Name="PluginDataId" />
-            </Principal>
-            <Dependent Role="tDVDxPluginData">
-              <PropertyRef Name="PluginDataId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Studio">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxStudio" Role="tDVDxStudio" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tStudioAndMediaCompany" Role="tStudioAndMediaCompany" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tDVDxStudio">
-              <PropertyRef Name="DVDxStudioId" />
-            </Principal>
-            <Dependent Role="tStudioAndMediaCompany">
-              <PropertyRef Name="StudioAndMediaCompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Subtitle">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tSubtitle" Role="tSubtitle" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxSubtitle" Role="tDVDxSubtitle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tSubtitle">
-              <PropertyRef Name="SubtitleId" />
-            </Principal>
-            <Dependent Role="tDVDxSubtitle">
-              <PropertyRef Name="SubtitleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tag">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tTag" Role="tTag" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" Role="tDVDxTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tTag">
-              <PropertyRef Name="TagId" />
-            </Principal>
-            <Dependent Role="tDVDxTag">
-              <PropertyRef Name="TagId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VideoStandard">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tVideoStandard" Role="tVideoStandard" Multiplicity="0..1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" Role="tFormat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tVideoStandard">
-              <PropertyRef Name="VideoStandardId" />
-            </Principal>
-            <Dependent Role="tFormat">
-              <PropertyRef Name="VideoStandardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LoanInfoUser">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLoanInfo" Role="tLoanInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tLoanInfo">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GiftUser">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tUser" Role="tUser" Multiplicity="0..1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tPurchase">
-              <PropertyRef Name="GiftFromUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchasePlace">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchasePlace" Role="tPurchasePlace" Multiplicity="0..1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tPurchase" Role="tPurchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tPurchasePlace">
-              <PropertyRef Name="PurchasePlaceId" />
-            </Principal>
-            <Dependent Role="tPurchase">
-              <PropertyRef Name="PurchasePlaceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tDVDId">
-          <Key>
-            <PropertyRef Name="DVDIdId" />
-          </Key>
-          <Property Name="DVDIdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VariantNum" Type="Int32" Nullable="false" />
-          <Property Name="LocalityId" Type="Int32" Nullable="false" />
-          <Property Name="IdType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVDId" ToRole="tDVD" />
-          <NavigationProperty Name="tDVDIdType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDIdType" FromRole="tDVDId" ToRole="tDVDIdType" />
-          <NavigationProperty Name="tLocality" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tDVDId" ToRole="tLocality" />
-        </EntityType>
-        <EntityType Name="tLocality">
-          <Key>
-            <PropertyRef Name="LocalityId" />
-          </Key>
-          <Property Name="LocalityId" Type="Int32" Nullable="false" />
-          <Property Name="Locality" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Locality" FromRole="tLocality" ToRole="tDVDId" />
-        </EntityType>
-        <Association Name="FK_DVDId">
+        <Association Name="FK_tExclusions">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tExclusions" Role="tExclusions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tDVD">
               <PropertyRef Name="DVDId" />
             </Principal>
-            <Dependent Role="tDVDId">
+            <Dependent Role="tExclusions">
               <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DVDIdType">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" Role="tDVDIdType" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVDIdType">
-              <PropertyRef Name="DVDIdTypeId" />
-            </Principal>
-            <Dependent Role="tDVDId">
-              <PropertyRef Name="IdType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Locality">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tLocality" Role="tLocality" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Role="tDVDId" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tLocality">
-              <PropertyRef Name="LocalityId" />
-            </Principal>
-            <Dependent Role="tDVDId">
-              <PropertyRef Name="LocalityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5242,30 +5318,15 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tDVD">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVD">
-              <MappingFragment StoreEntitySet="tDVD">
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="WishPriority" ColumnName="WishPriority" />
-                <ScalarProperty Name="LastEdited" ColumnName="LastEdited" />
-                <ScalarProperty Name="SortTitle" ColumnName="SortTitle" />
-                <ScalarProperty Name="EasterEggs" ColumnName="EasterEggs" />
-                <ScalarProperty Name="Overview" ColumnName="Overview" />
-                <ScalarProperty Name="SRPValue" ColumnName="SRPValue" />
-                <ScalarProperty Name="SRPDenomination" ColumnName="SRPDenomination" />
-                <ScalarProperty Name="CaseSlipCover" ColumnName="CaseSlipCover" />
-                <ScalarProperty Name="CaseTypeId" ColumnName="CaseTypeId" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
-                <ScalarProperty Name="Released" ColumnName="Released" />
-                <ScalarProperty Name="ProductionYear" ColumnName="ProductionYear" />
-                <ScalarProperty Name="OriginalTitle" ColumnName="OriginalTitle" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CollectionTypeId" ColumnName="CollectionTypeId" />
-                <ScalarProperty Name="CollectionNumber" ColumnName="CollectionNumber" />
-                <ScalarProperty Name="UPC" ColumnName="UPC" />
+          <EntitySetMapping Name="tDVDId">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId">
+              <MappingFragment StoreEntitySet="tDVDId">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+                <ScalarProperty Name="VariantNum" ColumnName="VariantNum" />
+                <ScalarProperty Name="IdBase" ColumnName="IdBase" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="DVDIdId" ColumnName="DVDIdId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5288,42 +5349,12 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tDVDxCast">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast">
-              <MappingFragment StoreEntitySet="tDVDxCast">
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Episode" ColumnName="Episode" />
-                <ScalarProperty Name="Puppeteer" ColumnName="Puppeteer" />
-                <ScalarProperty Name="Uncredited" ColumnName="Uncredited" />
-                <ScalarProperty Name="Voice" ColumnName="Voice" />
-                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="CastId" ColumnName="CastId" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="DVDxCastId" ColumnName="DVDxCastId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tDVDxCountryOfOrigin">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCountryOfOrigin">
               <MappingFragment StoreEntitySet="tDVDxCountryOfOrigin">
                 <ScalarProperty Name="CountryOfOriginId" ColumnName="CountryOfOriginId" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
                 <ScalarProperty Name="DVDxCountryOfOriginId" ColumnName="DVDxCountryOfOriginId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tDVDxCrew">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCrew">
-              <MappingFragment StoreEntitySet="tDVDxCrew">
-                <ScalarProperty Name="CustomRole" ColumnName="CustomRole" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Episode" ColumnName="Episode" />
-                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
-                <ScalarProperty Name="CreditSubtypeId" ColumnName="CreditSubtypeId" />
-                <ScalarProperty Name="CrewId" ColumnName="CrewId" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="DVDxCrewId" ColumnName="DVDxCrewId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5645,6 +5676,14 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tLocality">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tLocality">
+              <MappingFragment StoreEntitySet="tLocality">
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tLock">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tLock">
               <MappingFragment StoreEntitySet="tLock">
@@ -5870,27 +5909,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vDVDxCast">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCast">
-              <MappingFragment StoreEntitySet="vDVDxCast">
-                <ScalarProperty Name="Puppeteer" ColumnName="Puppeteer" />
-                <ScalarProperty Name="Uncredited" ColumnName="Uncredited" />
-                <ScalarProperty Name="Voice" ColumnName="Voice" />
-                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Episode" ColumnName="Episode" />
-                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vDVDxCountryOfOrigin">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCountryOfOrigin">
               <MappingFragment StoreEntitySet="vDVDxCountryOfOrigin">
@@ -5899,26 +5917,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
                 <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vDVDxCrew">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCrew">
-              <MappingFragment StoreEntitySet="vDVDxCrew">
-                <ScalarProperty Name="CustomRole" ColumnName="CustomRole" />
-                <ScalarProperty Name="CreditSubtype" ColumnName="CreditSubtype" />
-                <ScalarProperty Name="CreditType" ColumnName="CreditType" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Episode" ColumnName="Episode" />
-                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6330,23 +6328,119 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tDVDId">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId">
-              <MappingFragment StoreEntitySet="tDVDId">
-                <ScalarProperty Name="IdType" ColumnName="IdType" />
-                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
-                <ScalarProperty Name="VariantNum" ColumnName="VariantNum" />
-                <ScalarProperty Name="IdBase" ColumnName="IdBase" />
+          <EntitySetMapping Name="tDVDxCast">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCast">
+              <MappingFragment StoreEntitySet="tDVDxCast">
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Episode" ColumnName="Episode" />
+                <ScalarProperty Name="Puppeteer" ColumnName="Puppeteer" />
+                <ScalarProperty Name="Uncredited" ColumnName="Uncredited" />
+                <ScalarProperty Name="Voice" ColumnName="Voice" />
+                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="CastId" ColumnName="CastId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="DVDIdId" ColumnName="DVDIdId" />
+                <ScalarProperty Name="DVDxCastId" ColumnName="DVDxCastId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tLocality">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tLocality">
-              <MappingFragment StoreEntitySet="tLocality">
-                <ScalarProperty Name="Locality" ColumnName="Locality" />
-                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+          <EntitySetMapping Name="tDVDxCrew">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxCrew">
+              <MappingFragment StoreEntitySet="tDVDxCrew">
+                <ScalarProperty Name="CustomRole" ColumnName="CustomRole" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Episode" ColumnName="Episode" />
+                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
+                <ScalarProperty Name="CreditSubtypeId" ColumnName="CreditSubtypeId" />
+                <ScalarProperty Name="CrewId" ColumnName="CrewId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="DVDxCrewId" ColumnName="DVDxCrewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vDVDxCast">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCast">
+              <MappingFragment StoreEntitySet="vDVDxCast">
+                <ScalarProperty Name="Puppeteer" ColumnName="Puppeteer" />
+                <ScalarProperty Name="Uncredited" ColumnName="Uncredited" />
+                <ScalarProperty Name="Voice" ColumnName="Voice" />
+                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Episode" ColumnName="Episode" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vDVDxCrew">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxCrew">
+              <MappingFragment StoreEntitySet="vDVDxCrew">
+                <ScalarProperty Name="CustomRole" ColumnName="CustomRole" />
+                <ScalarProperty Name="CreditSubtype" ColumnName="CreditSubtype" />
+                <ScalarProperty Name="CreditType" ColumnName="CreditType" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Episode" ColumnName="Episode" />
+                <ScalarProperty Name="CreditedAs" ColumnName="CreditedAs" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tExclusions">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tExclusions">
+              <MappingFragment StoreEntitySet="tExclusions">
+                <ScalarProperty Name="DPOPrivate" ColumnName="DPOPrivate" />
+                <ScalarProperty Name="DPOPublic" ColumnName="DPOPublic" />
+                <ScalarProperty Name="RemoteConnections" ColumnName="RemoteConnections" />
+                <ScalarProperty Name="IPhone" ColumnName="IPhone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="MoviePick" ColumnName="MoviePick" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="ExclusionId" ColumnName="ExclusionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tDVD">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDVD">
+              <MappingFragment StoreEntitySet="tDVD">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="WishPriority" ColumnName="WishPriority" />
+                <ScalarProperty Name="LastEdited" ColumnName="LastEdited" />
+                <ScalarProperty Name="SortTitle" ColumnName="SortTitle" />
+                <ScalarProperty Name="EasterEggs" ColumnName="EasterEggs" />
+                <ScalarProperty Name="Overview" ColumnName="Overview" />
+                <ScalarProperty Name="SRPValue" ColumnName="SRPValue" />
+                <ScalarProperty Name="SRPDenomination" ColumnName="SRPDenomination" />
+                <ScalarProperty Name="CaseSlipCover" ColumnName="CaseSlipCover" />
+                <ScalarProperty Name="CaseTypeId" ColumnName="CaseTypeId" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
+                <ScalarProperty Name="Released" ColumnName="Released" />
+                <ScalarProperty Name="ProductionYear" ColumnName="ProductionYear" />
+                <ScalarProperty Name="OriginalTitle" ColumnName="OriginalTitle" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CollectionTypeId" ColumnName="CollectionTypeId" />
+                <ScalarProperty Name="CollectionNumber" ColumnName="CollectionNumber" />
+                <ScalarProperty Name="UPC" ColumnName="UPC" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -104,7 +104,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 }
                 else
                 {
-                    string originalDatabase = Path.Combine(Environment.CurrentDirectory, "Collection.mdf");
+                    var originalDatabase = Path.Combine(Environment.CurrentDirectory, "Collection.mdf");
 
                     if (sfd.FileName == originalDatabase)
                     {
@@ -119,10 +119,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private static void Process(string sourceFile
-           , string targetFile)
+        private static void Process(string sourceFile, string targetFile)
         {
-            DateTime start = DateTime.Now;
+            var start = DateTime.Now;
 
             //Phase 2: Fill Hashtables
             Console.WriteLine();
@@ -140,9 +139,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             entityProcessor.ProgressValueChanged -= OnProgressValueChanged;
             entityProcessor.ProgressMaxChanged -= OnProgressMaxChanged;
 
-            DateTime end = DateTime.Now;
+            var end = DateTime.Now;
 
-            TimeSpan elapsed = new TimeSpan(end.Ticks - start.Ticks);
+            var elapsed = end - start;
 
             Console.WriteLine();
             Console.WriteLine($"Time elapsed: {elapsed.Minutes}m {elapsed.Seconds}s");

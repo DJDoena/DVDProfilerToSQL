@@ -21,8 +21,8 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string Note { get; set; }
         public int UserId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tEventType tEventType { get; set; }
         public virtual tUser tUser { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

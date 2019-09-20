@@ -9,483 +9,389 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal sealed class CollectionCache : ICollectionCache
     {
-        private readonly Collection _collection;
+        private readonly IEnumerable<DVD> _profiles;
 
-        public Hash<string> AudioChannels { get; private set; }
+        public HashSet<string> AudioChannels { get; private set; }
 
-        public Hash<string> AudioContent { get; private set; }
+        public HashSet<string> AudioContent { get; private set; }
 
-        public Hash<string> AudioFormat { get; private set; }
+        public HashSet<string> AudioFormat { get; private set; }
 
-        public Hash<string> CaseType { get; private set; }
+        public HashSet<string> CaseType { get; private set; }
 
-        public Hash<CollectionType> CollectionType { get; private set; }
+        public HashSet<PersonKey> CastAndCrew { get; private set; }
 
-        public Hash<EventType> EventType { get; private set; }
+        public HashSet<CollectionType> CollectionType { get; private set; }
 
-        public Hash<DVDID_Type> DVDIdType { get; private set; }
+        public HashSet<string> CountryOfOrigin { get; private set; }
 
-        public Hash<VideoStandard> VideoStandard { get; private set; }
+        public HashSet<string> CreditType { get; private set; }
 
-        public Hash<string> Genre { get; private set; }
+        public Dictionary<string, HashSet<string>> CreditSubtype { get; private set; }
 
-        public Hash<string> Subtitle { get; private set; }
+        public HashSet<DVDID_Type> DVDIdType { get; private set; }
 
-        public Hash<string> MediaType { get; private set; }
+        public HashSet<EventType> EventType { get; private set; }
 
-        public PersonHash CastAndCrew { get; private set; }
+        public HashSet<string> Genre { get; private set; }
 
-        public Hash<string> StudioAndMediaCompany { get; private set; }
+        public HashSet<CategoryRestriction> LinkCategory { get; private set; }
 
-        public TagHash Tag { get; private set; }
+        public HashSet<LocalityKey> Locality { get; private set; }
 
-        public UserHash User { get; private set; }
+        public HashSet<string> MediaType { get; private set; }
 
-        public Hash<CategoryRestriction> LinkCategory { get; private set; }
+        public HashSet<PluginDataKey> PluginData { get; private set; }
 
-        public Hash<string> CountryOfOrigin { get; private set; }
+        public HashSet<PurchasePlaceKey> PurchasePlace { get; private set; }
 
-        public Hash<LocalityKey> Locality { get; private set; }
+        public HashSet<string> StudioAndMediaCompany { get; private set; }
 
-        public Hash<string> CreditType { get; private set; }
+        public HashSet<string> Subtitle { get; private set; }
 
-        public Dictionary<string, Hash<string>> CreditSubtype { get; private set; }
+        public HashSet<TagKey> Tag { get; private set; }
 
-        public Hash<PurchasePlaceKey> PurchasePlace { get; private set; }
+        public HashSet<UserKey> User { get; private set; }
 
-        public PluginHash PluginData { get; private set; }
+        public HashSet<VideoStandard> VideoStandard { get; private set; }
 
-        public CollectionCache(Collection collection)
+        public CollectionCache(IEnumerable<DVD> profiles)
         {
-            _collection = collection;
+            _profiles = profiles;
 
-            DVDIdType = FillStaticHash<DVDID_Type>();
+            DVDIdType = FillStaticHashSet<DVDID_Type>();
 
-            EventType = FillStaticHash<EventType>();
+            EventType = FillStaticHashSet<EventType>();
 
-            VideoStandard = FillStaticHash<VideoStandard>();
+            LinkCategory = FillStaticHashSet<CategoryRestriction>();
 
-            LinkCategory = FillStaticHash<CategoryRestriction>();
+            VideoStandard = FillStaticHashSet<VideoStandard>();
 
             FillDynamicHash();
         }
 
-        private Hash<T> FillStaticHash<T>() where T : Enum
+        private HashSet<T> FillStaticHashSet<T>() where T : Enum
         {
             var fieldInfos = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Static);
 
-            if (fieldInfos?.Length > 0)
+            var hash = new HashSet<T>();
+
+            if (fieldInfos == null)
             {
-                var hash = new Hash<T>();
-
-                foreach (var fieldInfo in fieldInfos)
-                {
-                    hash.Add((T)(fieldInfo.GetRawConstantValue()));
-                }
-
                 return hash;
             }
-            else
+
+            foreach (var fieldInfo in fieldInfos)
             {
-                return new Hash<T>();
+                hash.Add((T)(fieldInfo.GetRawConstantValue()));
             }
+
+            return hash;
         }
 
         private void FillDynamicHash()
         {
             InitializeHashes();
 
-            var dvds = _collection.DVDList ?? Enumerable.Empty<DVD>();
-
-            foreach (var dvd in dvds)
+            if (_profiles == null)
             {
-                if (string.IsNullOrEmpty(dvd.ID))
-                {
-                    continue;
-                }
-
-                FillLocalityHash(dvd);
-
-                FillCollectionTypeHash(dvd);
-
-                FillCastHash(dvd);
-
-                FillCrewHash(dvd);
-
-                FillUserHashFromLoanInfo(dvd);
-
-                FillUserHashFromEvents(dvd);
-
-                FillStudioHash(dvd);
-
-                FillMediaCompanyHash(dvd);
-
-                FillTagHash(dvd);
-
-                FillAudioHashes(dvd);
-
-                FillCaseTypeHash(dvd);
-
-                FillGenreHash(dvd);
-
-                FillSubtitleHash(dvd);
-
-                FillMediaTypeHash(dvd);
-
-                FillCountryOfOriginHash(dvd);
-
-                FillPluginHash(dvd);
-
-                FillCreditTypeAndSubtypeHash(dvd);
-
-                FillPurchasePlaceHash(dvd);
+                return;
             }
 
-            foreach (var dvd in dvds)
+            var valid = _profiles.Where(IsNotNull).Where(dvd => !string.IsNullOrEmpty(dvd.ID)).ToList();
+
+            foreach (var profile in valid)
+            {
+                FillAudioHashes(profile.AudioList);
+                FillCollectionTypeHash(profile.CollectionType);
+                FillCaseTypeHash(profile.CaseType);
+                FillCastHash(profile.CastList);
+                FillStringHashSet(CountryOfOrigin, profile.CountryOfOriginList);
+
+                var crewMembers = profile.CrewList?.OfType<CrewMember>() ?? Enumerable.Empty<CrewMember>();
+
+                FillCreditTypeAndSubtypeHash(crewMembers);
+                FillCrewHash(crewMembers);
+                FillStringHashSet(Genre, profile.GenreList);
+
+                Locality.Add(new LocalityKey(profile));
+
+                FillStringHashSet(StudioAndMediaCompany, profile.MediaCompanyList);
+                FillMediaTypeHash(profile.MediaTypes);
+                FillPluginDataHash(profile.PluginCustomData);
+                FillPurchasePlaceHash(profile.PurchaseInfo);
+                FillStringHashSet(StudioAndMediaCompany, profile.StudioList);
+                FillStringHashSet(Subtitle, profile.SubtitleList);
+                FillTagHash(profile.TagList);
+                FillUserHashFromEvents(profile.EventList);
+                FillUserHashFromLoanInfo(profile.LoanInfo);
+            }
+
+            foreach (var dvd in valid)
             {
                 //second iteration for data that is less complete
-                FillUserHashFromPurchaseInfo(dvd);
+                FillUserHashFromPurchaseInfo(dvd.PurchaseInfo);
             }
         }
 
         private void InitializeHashes()
         {
-            Locality = new Hash<LocalityKey>();
-
-            CollectionType = new Hash<CollectionType>();
-
-            CastAndCrew = new PersonHash();
-
-            StudioAndMediaCompany = new Hash<string>();
-
-            AudioChannels = new Hash<string>();
-
-            AudioContent = new Hash<string>();
-
-            AudioFormat = new Hash<string>();
-
-            CaseType = new Hash<string>();
-
-            Tag = new TagHash();
-
-            User = new UserHash();
-
-            Genre = new Hash<string>();
-
-            Subtitle = new Hash<string>();
-
-            MediaType = new Hash<string>();
-
-            CountryOfOrigin = new Hash<string>();
-
-            PluginData = new PluginHash();
-
-            CreditType = new Hash<string>();
-
-            CreditSubtype = new Dictionary<string, Hash<string>>();
-
-            PurchasePlace = new Hash<PurchasePlaceKey>();
+            AudioChannels = new HashSet<string>();
+            AudioContent = new HashSet<string>();
+            AudioFormat = new HashSet<string>();
+            CaseType = new HashSet<string>();
+            CastAndCrew = new HashSet<PersonKey>();
+            CollectionType = new HashSet<CollectionType>();
+            CountryOfOrigin = new HashSet<string>();
+            CreditType = new HashSet<string>();
+            CreditSubtype = new Dictionary<string, HashSet<string>>();
+            Genre = new HashSet<string>();
+            Locality = new HashSet<LocalityKey>();
+            MediaType = new HashSet<string>();
+            PluginData = new HashSet<PluginDataKey>();
+            PurchasePlace = new HashSet<PurchasePlaceKey>();
+            StudioAndMediaCompany = new HashSet<string>();
+            Subtitle = new HashSet<string>();
+            Tag = new HashSet<TagKey>();
+            User = new HashSet<UserKey>();
         }
 
-        private void FillUserHashFromPurchaseInfo(DVD dvd)
+        private void FillAudioHashes(IEnumerable<AudioTrack> audioTracks)
         {
-            if (dvd.PurchaseInfo?.GiftFrom != null)
+            if (audioTracks == null)
             {
-                if (string.IsNullOrEmpty(dvd.PurchaseInfo.GiftFrom.FirstName) == false || string.IsNullOrEmpty(dvd.PurchaseInfo.GiftFrom.LastName) == false)
-                {
-                    var user = new User(dvd.PurchaseInfo.GiftFrom);
+                return;
+            }
 
-                    if (User.ContainsKey(user) == false)
-                    {
-                        User.Add(user);
-                    }
+            var valid = audioTracks.Where(IsNotNull);
+
+            foreach (var audioTrack in valid)
+            {
+                AudioContent.Add(audioTrack.Content);
+
+                if (!string.IsNullOrEmpty(audioTrack.Format))
+                {
+                    AudioFormat.Add(audioTrack.Format);
+                }
+
+                if (!string.IsNullOrEmpty(audioTrack.Channels))
+                {
+                    AudioChannels.Add(audioTrack.Channels);
                 }
             }
         }
 
-        private void FillPluginHash(DVD dvd)
+        private void FillCollectionTypeHash(CollectionType collectionType)
         {
-            if (dvd.PluginCustomData?.Length > 0)
+            if (collectionType == null)
             {
-                foreach (PluginData pluginData in dvd.PluginCustomData)
+                throw new ArgumentNullException(nameof(collectionType));
+            }
+
+            CollectionType.Add(collectionType);
+        }
+
+        private void FillCaseTypeHash(string caseType)
+        {
+            if (!string.IsNullOrEmpty(caseType))
+            {
+                CaseType.Add(caseType);
+            }
+        }
+
+        private void FillCastHash(IEnumerable<object> castList)
+        {
+            if (castList == null)
+            {
+                return;
+            }
+
+            var valid = castList.OfType<CastMember>();
+
+            foreach (var castMember in valid)
+            {
+                CastAndCrew.Add(new PersonKey(castMember));
+            }
+        }
+
+        private void FillCreditTypeAndSubtypeHash(IEnumerable<CrewMember> crewMembers)
+        {
+            foreach (var crewMember in crewMembers)
+            {
+                FillCreditTypeAndSubtypeHash(crewMember.CreditType ?? string.Empty, crewMember.CreditSubtype ?? string.Empty);
+            }
+        }
+
+        private void FillCrewHash(IEnumerable<CrewMember> crewMembers)
+        {
+            foreach (var crewMember in crewMembers)
+            {
+                CastAndCrew.Add(new PersonKey(crewMember));
+            }
+        }
+
+        private void FillMediaTypeHash(MediaTypes mediaTypes)
+        {
+            if (mediaTypes == null)
+            {
+                return;
+            }
+
+            if (mediaTypes.DVD)
+            {
+                MediaType.Add("DVD");
+            }
+
+            if (mediaTypes.BluRay)
+            {
+                MediaType.Add("Blu-ray");
+            }
+
+            if (mediaTypes.HDDVD)
+            {
+                MediaType.Add("HD-DVD");
+            }
+
+            if (mediaTypes.UltraHD)
+            {
+                MediaType.Add("Ultra HD");
+            }
+
+            if (!string.IsNullOrEmpty(mediaTypes.CustomMediaType))
+            {
+                MediaType.Add(mediaTypes.CustomMediaType);
+            }
+        }
+
+        private void FillPluginDataHash(IEnumerable<PluginData> pluginDataList)
+        {
+            if (pluginDataList == null)
+            {
+                return;
+            }
+
+            var valdi = pluginDataList.Where(IsNotNull);
+
+            foreach (var pluginData in valdi)
+            {
+                PluginData.Add(new PluginDataKey(pluginData));
+            }
+        }
+
+        private void FillPurchasePlaceHash(PurchaseInfo purchaseInfo)
+        {
+            if (purchaseInfo == null)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(purchaseInfo.Place))
+            {
+                PurchasePlace.Add(new PurchasePlaceKey(purchaseInfo));
+            }
+        }
+
+        private void FillTagHash(IEnumerable<Tag> tags)
+        {
+            if (tags == null)
+            {
+                return;
+            }
+
+            var valid = tags.Where(IsNotNull);
+
+            foreach (var tag in tags)
+            {
+                Tag.Add(new TagKey(tag));
+            }
+        }
+
+        private void FillUserHashFromEvents(IEnumerable<Event> events)
+        {
+            if (events == null)
+            {
+                return;
+            }
+
+            var valid = events.Where(IsNotNull);
+
+            foreach (var anEvent in valid)
+            {
+                var user = anEvent.User;
+
+                if (UserKey.IsInvalid(user))
                 {
-                    if (pluginData != null && PluginData.ContainsKey(pluginData) == false)
-                    {
-                        PluginData.Add(pluginData);
-                    }
-                }
-            }
-        }
-
-        private void FillCountryOfOriginHash(DVD dvd)
-        {
-            if (string.IsNullOrEmpty(dvd.CountryOfOrigin) == false && CountryOfOrigin.ContainsKey(dvd.CountryOfOrigin) == false)
-            {
-                CountryOfOrigin.Add(dvd.CountryOfOrigin);
-            }
-
-            if (string.IsNullOrEmpty(dvd.CountryOfOrigin2) == false && CountryOfOrigin.ContainsKey(dvd.CountryOfOrigin2) == false)
-            {
-                CountryOfOrigin.Add(dvd.CountryOfOrigin2);
-            }
-
-            if (string.IsNullOrEmpty(dvd.CountryOfOrigin3) == false && CountryOfOrigin.ContainsKey(dvd.CountryOfOrigin3) == false)
-            {
-                CountryOfOrigin.Add(dvd.CountryOfOrigin3);
-            }
-        }
-
-        private void FillMediaTypeHash(DVD dvd)
-        {
-            if (dvd.MediaTypes != null)
-            {
-                if (dvd.MediaTypes.DVD && MediaType.ContainsKey("DVD") == false)
-                {
-                    MediaType.Add("DVD");
+                    throw new ArgumentNullException(nameof(user), "An event has no user assigned.");
                 }
 
-                if (dvd.MediaTypes.BluRay && MediaType.ContainsKey("Blu-ray") == false)
-                {
-                    MediaType.Add("Blu-ray");
-                }
-
-                if (dvd.MediaTypes.HDDVD && MediaType.ContainsKey("HD-DVD") == false)
-                {
-                    MediaType.Add("HD-DVD");
-                }
-
-                if (dvd.MediaTypes.UltraHD && MediaType.ContainsKey("Ultra HD") == false)
-                {
-                    MediaType.Add("Ultra HD");
-                }
-
-                if (string.IsNullOrEmpty(dvd.MediaTypes.CustomMediaType) == false && MediaType.ContainsKey(dvd.MediaTypes.CustomMediaType) == false)
-                {
-                    MediaType.Add(dvd.MediaTypes.CustomMediaType);
-                }
+                User.Add(new UserKey(user));
             }
         }
 
-        private void FillSubtitleHash(DVD dvd)
+        private void FillUserHashFromLoanInfo(LoanInfo loanInfo)
         {
-            if (dvd.SubtitleList?.Length > 0)
+            if (loanInfo == null)
             {
-                foreach (var subtitle in dvd.SubtitleList)
-                {
-                    if (string.IsNullOrEmpty(subtitle) == false && Subtitle.ContainsKey(subtitle) == false)
-                    {
-                        Subtitle.Add(subtitle);
-                    }
-                }
+                return;
             }
+
+            TryAddUser(loanInfo.User);
         }
 
-        private void FillGenreHash(DVD dvd)
+        private void FillUserHashFromPurchaseInfo(PurchaseInfo purchaseInfo)
         {
-            if (dvd.GenreList?.Length > 0)
+            if (purchaseInfo == null || !purchaseInfo.ReceivedAsGift)
             {
-                foreach (var genre in dvd.GenreList)
-                {
-                    if (string.IsNullOrEmpty(genre) == false && Genre.ContainsKey(genre) == false)
-                    {
-                        Genre.Add(genre);
-                    }
-                }
+                return;
             }
+
+            TryAddUser(purchaseInfo.GiftFrom);
         }
 
-        private void FillCaseTypeHash(DVD dvd)
+        private static void FillStringHashSet(HashSet<string> hashSet, IEnumerable<string> values)
         {
-            if (string.IsNullOrEmpty(dvd.CaseType) == false && CaseType.ContainsKey(dvd.CaseType) == false)
+            if (values == null)
             {
-                CaseType.Add(dvd.CaseType);
+                return;
+            }
+
+            var valid = values.Where(IsNotEmpty);
+
+            foreach (var value in valid)
+            {
+                hashSet.Add(value);
             }
         }
 
-        private void FillAudioHashes(DVD dvd)
-        {
-            if (dvd.AudioList?.Length > 0)
-            {
-                foreach (var audioTrack in dvd.AudioList)
-                {
-                    if (AudioContent.ContainsKey(audioTrack.Content) == false)
-                    {
-                        AudioContent.Add(audioTrack.Content);
-                    }
+        private static bool IsNotEmpty(string value) => !string.IsNullOrWhiteSpace(value);
 
-                    if (string.IsNullOrEmpty(audioTrack.Format) == false && AudioFormat.ContainsKey(audioTrack.Format) == false)
-                    {
-                        AudioFormat.Add(audioTrack.Format);
-                    }
-
-                    if (string.IsNullOrEmpty(audioTrack.Channels) == false && AudioChannels.ContainsKey(audioTrack.Channels) == false)
-                    {
-                        AudioChannels.Add(audioTrack.Channels);
-                    }
-
-                }
-            }
-        }
-
-        private void FillTagHash(DVD dvd)
-        {
-            if (dvd.TagList?.Length > 0)
-            {
-                foreach (var tag in dvd.TagList)
-                {
-                    if (Tag.ContainsKey(tag) == false)
-                    {
-                        Tag.Add(tag);
-                    }
-                }
-            }
-        }
-
-        private void FillMediaCompanyHash(DVD dvd)
-        {
-            if (dvd.MediaCompanyList?.Length > 0)
-            {
-                foreach (var distributor in dvd.MediaCompanyList)
-                {
-                    if (StudioAndMediaCompany.ContainsKey(distributor) == false)
-                    {
-                        StudioAndMediaCompany.Add(distributor);
-                    }
-                }
-            }
-        }
-
-        private void FillStudioHash(DVD dvd)
-        {
-            if (dvd.StudioList?.Length > 0)
-            {
-                foreach (var studio in dvd.StudioList)
-                {
-                    if (StudioAndMediaCompany.ContainsKey(studio) == false)
-                    {
-                        StudioAndMediaCompany.Add(studio);
-                    }
-                }
-            }
-        }
-
-        private void FillUserHashFromEvents(DVD dvd)
-        {
-            if (dvd.EventList?.Length > 0)
-            {
-                foreach (var myEvent in dvd.EventList)
-                {
-                    if (User.ContainsKey(myEvent.User) == false)
-                    {
-                        User.Add(myEvent.User);
-                    }
-                }
-            }
-        }
-
-        private void FillUserHashFromLoanInfo(DVD dvd)
-        {
-            if (dvd.LoanInfo?.User != null && User.ContainsKey(dvd.LoanInfo.User) == false)
-            {
-                User.Add(dvd.LoanInfo.User);
-            }
-        }
-
-        private void FillCrewHash(DVD dvd)
-        {
-            if (dvd.CrewList?.Length > 0)
-            {
-                var crewMembers = dvd.CrewList.OfType<CrewMember>();
-
-                foreach (var crewMember in crewMembers)
-                {
-                    FillDynamicHash(CastAndCrew, crewMember);
-                }
-            }
-        }
-
-        private void FillCastHash(DVD dvd)
-        {
-            if (dvd.CastList?.Length > 0)
-            {
-                var castMembers = dvd.CastList.OfType<CastMember>();
-
-                foreach (var castMember in castMembers)
-                {
-                    FillDynamicHash(CastAndCrew, castMember);
-                }
-            }
-        }
-
-        private void FillCollectionTypeHash(DVD dvd)
-        {
-            if (CollectionType.ContainsKey(dvd.CollectionType) == false)
-            {
-                CollectionType.Add(dvd.CollectionType);
-            }
-        }
-
-        private void FillLocalityHash(DVD dvd)
-        {
-            var key = new LocalityKey(dvd);
-
-            if (Locality.ContainsKey(key) == false)
-            {
-                Locality.Add(key);
-            }
-        }
-
-        private void FillDynamicHash<T>(PersonHash personHash, T person) where T : class, IPerson
-        {
-            if (personHash.ContainsKey(person) == false)
-            {
-                personHash.Add(person);
-            }
-        }
-
-        private void FillCreditTypeAndSubtypeHash(DVD dvd)
-        {
-            if (dvd.CrewList?.Length > 0)
-            {
-                var crewMembers = dvd.CrewList.OfType<CrewMember>();
-
-                foreach (var crewMember in crewMembers)
-                {
-                    var creditType = crewMember.CreditType ?? string.Empty;
-
-                    FillCreditTypeAndSubtypeHash(creditType, crewMember.CreditSubtype ?? string.Empty);
-                }
-            }
-        }
+        private static bool IsNotNull(object value) => value != null;
 
         private void FillCreditTypeAndSubtypeHash(string creditType, string creditSubtype)
         {
-            if (CreditType.ContainsKey(creditType) == false)
+            if (CreditType.Contains(creditType) == false)
             {
                 CreditType.Add(creditType);
 
-                CreditSubtype.Add(creditType, new Hash<string>());
+                CreditSubtype.Add(creditType, new HashSet<string>());
             }
 
             var creditSubTypes = CreditSubtype[creditType];
 
-            if (creditSubTypes.ContainsKey(creditSubtype) == false)
+            if (creditSubTypes.Contains(creditSubtype) == false)
             {
                 creditSubTypes.Add(creditSubtype);
             }
         }
 
-        private void FillPurchasePlaceHash(DVD dvd)
+        private void TryAddUser(User user)
         {
-            if (string.IsNullOrEmpty(dvd.PurchaseInfo?.Place) == false)
+            if (UserKey.IsInvalid(user))
             {
-                var key = new PurchasePlaceKey(dvd.PurchaseInfo);
-
-                if (PurchasePlace.ContainsKey(key) == false)
-                {
-                    PurchasePlace.Add(key);
-                }
+                return;
             }
+
+            User.Add(new UserKey(user));
         }
     }
 }

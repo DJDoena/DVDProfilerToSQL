@@ -12,13 +12,17 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class tDVDxTag
+    public partial class tExclusions
     {
-        public int DVDxTagId { get; set; }
-        public string DVDid { get; set; }
-        public int TagId { get; set; }
+        public int ExclusionId { get; set; }
+        public string DVDId { get; set; }
+        public Nullable<bool> MoviePick { get; set; }
+        public Nullable<bool> Mobile { get; set; }
+        public Nullable<bool> IPhone { get; set; }
+        public Nullable<bool> RemoteConnections { get; set; }
+        public Nullable<bool> DPOPublic { get; set; }
+        public Nullable<bool> DPOPrivate { get; set; }
     
-        public virtual tTag tTag { get; set; }
         public virtual tDVD tDVD { get; set; }
     }
 }

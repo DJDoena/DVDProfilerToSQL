@@ -24,8 +24,8 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public int CreditTypeId { get; set; }
         public string Subtype { get; set; }
     
+        public virtual tCreditType tCreditType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDxCrew> tDVDxCrew { get; set; }
-        public virtual tCreditType tCreditType { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string DVDid { get; set; }
         public int MediaTypeId { get; set; }
     
-        public virtual tDVD tDVD { get; set; }
         public virtual tMediaType tMediaType { get; set; }
+        public virtual tDVD tDVD { get; set; }
     }
 }

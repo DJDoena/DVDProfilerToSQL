@@ -18,6 +18,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string Title { get; set; }
         public string DistTrait { get; set; }
         public string CollectionType { get; set; }
+        public int OrderNumber { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
