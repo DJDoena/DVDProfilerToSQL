@@ -27,7 +27,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             this.tDVDId = new HashSet<tDVDId>();
             this.tEnhancedFeatures = new HashSet<tEnhancedFeatures>();
             this.tEnhancedNotes = new HashSet<tEnhancedNotes>();
-            this.tEnhancedPurchaseInfo = new HashSet<tEnhancedPurchaseInfo>();
             this.tEnhancedTitles = new HashSet<tEnhancedTitles>();
             this.tDVDxEvent = new HashSet<tDVDxEvent>();
             this.tFeatures = new HashSet<tFeatures>();
@@ -47,6 +46,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             this.tDVDxSubtitle = new HashSet<tDVDxSubtitle>();
             this.tDVDxTag = new HashSet<tDVDxTag>();
             this.tExclusions = new HashSet<tExclusions>();
+            this.tEnhancedPurchaseInfo = new HashSet<tEnhancedPurchaseInfo>();
         }
     
         public string DVDId { get; set; }
@@ -94,8 +94,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tEnhancedNotes> tEnhancedNotes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tEnhancedPurchaseInfo> tEnhancedPurchaseInfo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tEnhancedTitles> tEnhancedTitles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDxEvent> tDVDxEvent { get; set; }
@@ -133,5 +131,7 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual ICollection<tDVDxTag> tDVDxTag { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tExclusions> tExclusions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tEnhancedPurchaseInfo> tEnhancedPurchaseInfo { get; set; }
     }
 }

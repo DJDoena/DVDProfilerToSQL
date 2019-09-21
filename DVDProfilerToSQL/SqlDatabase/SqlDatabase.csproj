@@ -191,6 +191,9 @@
     <Compile Include="tEnhancedFeatures.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tEnhancedFeaturesMetaData.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tEnhancedNotes.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>

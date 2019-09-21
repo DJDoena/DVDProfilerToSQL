@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using DDI = DoenaSoft.DVDProfiler.DigitalDownloadInfo;
+using EF = DoenaSoft.DVDProfiler.EnhancedFeatures;
+using EN = DoenaSoft.DVDProfiler.EnhancedNotes;
 using Entity = DoenaSoft.DVDProfiler.SQLDatabase;
+using EPI = DoenaSoft.DVDProfiler.EnhancedPurchaseInfo;
+using ET = DoenaSoft.DVDProfiler.EnhancedTitles;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -35,7 +42,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public event EventHandler<EventArgs<string>> Feedback;
 
-        internal void Insert(IEnumerable<DVD> profiles)
+        internal void Insert(IEnumerable<Profiler.DVD> profiles)
         {
             if (profiles == null)
             {
@@ -77,7 +84,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             ReportFinish();
         }
 
-        private void Insert(DVD profile)
+        private void Insert(Profiler.DVD profile)
         {
             InsertDVD(profile);
 
@@ -109,7 +116,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             InsertTags(profile.TagList);
         }
 
-        private void InsertDVD(DVD profile)
+        private void InsertDVD(Profiler.DVD profile)
         {
             _currentDVDEntity = new Entity.tDVD()
             {
@@ -141,7 +148,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void InsertAudio(IEnumerable<AudioTrack> audioTracks)
+        private void InsertAudio(IEnumerable<Profiler.AudioTrack> audioTracks)
         {
             if (audioTracks == null)
             {
@@ -175,9 +182,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 return;
             }
 
-            var valid = castList.Where(IsNotNull).Where(c => c is CastMember || c is Divider).ToList();
+            var valid = castList.Where(IsNotNull).Where(c => c is Profiler.CastMember || c is Profiler.Divider).ToList();
 
-            var count = valid.OfType<CastMember>().Count();
+            var count = valid.OfType<Profiler.CastMember>().Count();
 
             IncreaseMax(count);
 
@@ -189,13 +196,13 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
             foreach (var castEntry in castList)
             {
-                if (castEntry is CastMember castMember)
+                if (castEntry is Profiler.CastMember castMember)
                 {
                     InsertCastMember(castMember, currentEpisode, currentGroup, ref orderNumber);
                 }
                 else
                 {
-                    GetDividerData((Divider)castEntry, ref currentEpisode, ref currentGroup);
+                    GetDividerData((Profiler.Divider)castEntry, ref currentEpisode, ref currentGroup);
                 }
             }
         }
@@ -232,9 +239,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 return;
             }
 
-            var valid = crewList.Where(IsNotNull).Where(c => c is CrewMember || c is CrewDivider).ToList();
+            var valid = crewList.Where(IsNotNull).Where(c => c is Profiler.CrewMember || c is Profiler.CrewDivider).ToList();
 
-            var count = valid.OfType<CrewMember>().Count();
+            var count = valid.OfType<Profiler.CrewMember>().Count();
 
             IncreaseMax(count);
 
@@ -248,18 +255,18 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
             foreach (var crewEntry in crewList)
             {
-                if (crewEntry is CrewMember crewMember)
+                if (crewEntry is Profiler.CrewMember crewMember)
                 {
                     InsertCrewMember(crewMember, currentEpisode, ref currentGroup, ref currentCreditType, ref orderNumber);
                 }
                 else
                 {
-                    GetDividerData((CrewDivider)crewEntry, ref currentEpisode, ref currentGroup);
+                    GetDividerData((Profiler.CrewDivider)crewEntry, ref currentEpisode, ref currentGroup);
                 }
             }
         }
 
-        private void InsertDiscs(IEnumerable<Disc> discs)
+        private void InsertDiscs(IEnumerable<Profiler.Disc> discs)
         {
             if (discs == null)
             {
@@ -294,7 +301,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertDVDId(DVD profile)
+        private void InsertDVDId(Profiler.DVD profile)
         {
             IncreaseMax();
 
@@ -312,7 +319,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void InsertEvents(IEnumerable<Event> events)
+        private void InsertEvents(IEnumerable<Profiler.Event> events)
         {
             if (events == null)
             {
@@ -340,7 +347,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertExclusions(Exclusions exclusions)
+        private void InsertExclusions(Profiler.Exclusions exclusions)
         {
             if (exclusions == null)
             {
@@ -361,7 +368,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             _context.tExclusions.Add(entity);
         }
 
-        private void InsertFeatures(Features features)
+        private void InsertFeatures(Profiler.Features features)
         {
             if (features == null)
             {
@@ -430,7 +437,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertFormat(Format format, MediaTypes mediaTypes)
+        private void InsertFormat(Profiler.Format format, Profiler.MediaTypes mediaTypes)
         {
             if (format == null)
             {
@@ -466,7 +473,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void InsertLinks(IEnumerable<UserLink> links)
+        private void InsertLinks(IEnumerable<Profiler.UserLink> links)
         {
             if (links == null)
             {
@@ -493,7 +500,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertLoanInfo(LoanInfo loanInfo)
+        private void InsertLoanInfo(Profiler.LoanInfo loanInfo)
         {
             if (loanInfo == null)
             {
@@ -515,7 +522,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void InsertLock(Locks locks)
+        private void InsertLock(Profiler.Locks locks)
         {
             if (locks == null)
             {
@@ -581,7 +588,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertMediaTypes(MediaTypes mediaTypes)
+        private void InsertMediaTypes(Profiler.MediaTypes mediaTypes)
         {
             if (mediaTypes == null)
             {
@@ -614,12 +621,26 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertPluginData(IEnumerable<PluginData> pluginDataList)
+        private void InsertPluginData(IEnumerable<Profiler.PluginData> pluginDataList)
         {
+            if (pluginDataList == null)
+            {
+                return;
+            }
 
+            var valid = pluginDataList.Where(IsNotNull).ToList();
+
+            IncreaseMax(valid.Count);
+
+            foreach (var pluginData in valid)
+            {
+                InsertPluginData(pluginData);
+
+                IncreaseCurrent();
+            }
         }
 
-        private void InsertPurchase(PurchaseInfo purchaseInfo)
+        private void InsertPurchase(Profiler.PurchaseInfo purchaseInfo)
         {
             if (purchaseInfo == null)
             {
@@ -669,7 +690,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertReview(Review review)
+        private void InsertReview(Profiler.Review review)
         {
             if (review == null)
             {
@@ -742,7 +763,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertTags(IEnumerable<Tag> tags)
+        private void InsertTags(IEnumerable<Profiler.Tag> tags)
         {
             if (tags == null)
             {
@@ -767,7 +788,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertBoxSetChildren(DVD parentProfile)
+        private void InsertBoxSetChildren(Profiler.DVD parentProfile)
         {
             var childIds = parentProfile.BoxSet?.ContentList;
 
@@ -794,7 +815,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void InsertCastMember(CastMember castMember, string currentEpisode, string currentGroup, ref int orderNumber)
+        private void InsertCastMember(Profiler.CastMember castMember, string currentEpisode, string currentGroup, ref int orderNumber)
         {
             var entity = new Entity.tDVDxCast()
             {
@@ -815,7 +836,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void InsertCrewMember(CrewMember crewMember, string currentEpisode, ref string currentGroup, ref string currentCreditType, ref int orderNumber)
+        private void InsertCrewMember(Profiler.CrewMember crewMember, string currentEpisode, ref string currentGroup, ref string currentCreditType, ref int orderNumber)
         {
             if (currentCreditType != crewMember.CreditType)
             {
@@ -841,19 +862,19 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
-        private void GetDividerData(Divider divider, ref string currentEpisode, ref string currentGroup)
+        private void GetDividerData(Profiler.Divider divider, ref string currentEpisode, ref string currentGroup)
         {
-            if (divider.Type == DividerType.Episode)
+            if (divider.Type == Profiler.DividerType.Episode)
             {
                 currentEpisode = divider.Caption;
 
                 currentGroup = null;
             }
-            else if (divider.Type == DividerType.Group)
+            else if (divider.Type == Profiler.DividerType.Group)
             {
                 currentGroup = divider.Caption;
             }
-            else if (divider.Type == DividerType.EndDiv)
+            else if (divider.Type == Profiler.DividerType.EndDiv)
             {
                 if (currentGroup != null)
                 {
@@ -870,7 +891,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private Entity.tUser TryGetUser(User user)
+        private Entity.tUser TryGetUser(Profiler.User user)
         {
             if (UserKey.IsInvalid(user))
             {
@@ -897,11 +918,85 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             IncreaseCurrent();
         }
 
+        private void InsertPluginData(Profiler.PluginData pluginData)
+        {
+            switch (pluginData.ClassID)
+            {
+                case (EPI.ClassGuid.ClassIDBraced):
+                    {
+                        (new EnhancePurchaseInfoInserter(_context, _currentDVDEntity, pluginData)).Insert();
+
+                        break;
+                    }
+                case (EN.ClassGuid.ClassIDBraced):
+                    {
+                        (new EnhancedNotesInserter(_context, _currentDVDEntity, pluginData)).Insert();
+
+                        break;
+                    }
+                case (ET.ClassGuid.ClassIDBraced):
+                    {
+                        (new EnhancedTitlesInserter(_context, _currentDVDEntity, pluginData)).Insert();
+
+                        break;
+                    }
+                case (DDI.ClassGuid.ClassIDBraced):
+                    {
+                        (new DigitalDownloadInfoInserter(_context, _currentDVDEntity, pluginData)).Insert();
+
+                        break;
+                    }
+                case (EF.ClassGuid.ClassIDBraced):
+                    {
+                        (new EnhancedFeaturesInserter(_context, _currentDVDEntity, pluginData)).Insert();
+
+                        break;
+                    }
+                default:
+                    {
+                        InsertGeneralPluginData(pluginData);
+
+                        break;
+                    }
+            }
+        }
+
+        private void InsertGeneralPluginData(Profiler.PluginData pluginData)
+        {
+            var entity = new Entity.tDVDxPluginData()
+            {
+                tDVD = _currentDVDEntity,
+                PluginData = GetPluginData(pluginData.Any),
+                tPluginData = _baseData.PluginData[new PluginDataKey(pluginData)],
+            };
+
+            _context.tDVDxPluginData.Add(entity);
+        }
+
+        private static string GetPluginData(IEnumerable<XmlNode> xmlNodes)
+        {
+            if (xmlNodes == null)
+            {
+                return null;
+            }
+
+            var valid = xmlNodes.Where(IsNotNull).Where(n => !string.IsNullOrWhiteSpace(n.OuterXml));
+
+            var sb = new StringBuilder();
+
+            foreach (var xmlNode in valid)
+            {
+                sb.AppendLine(xmlNode.OuterXml);
+            }
+
+            return sb.ToString();
+        }
+
         private static bool IsNotEmpty(string value) => !string.IsNullOrWhiteSpace(value);
 
         private static bool IsNotNull(object value) => value != null;
 
-        private static bool IsHDFormat(MediaTypes mediaTypes) => (mediaTypes != null) && (mediaTypes.BluRay || mediaTypes.HDDVD || mediaTypes.UltraHD);
+        private static bool IsHDFormat(Profiler.MediaTypes mediaTypes) => (mediaTypes != null) && (mediaTypes.BluRay || mediaTypes.HDDVD || mediaTypes.UltraHD);
 
         private void ReportStart()
         {

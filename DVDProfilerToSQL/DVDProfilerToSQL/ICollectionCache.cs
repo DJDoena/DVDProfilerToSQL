@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -16,7 +16,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         HashSet<PersonKey> CastAndCrew { get; }
 
-        HashSet<CollectionType> CollectionType { get; }
+        HashSet<Profiler.CollectionType> CollectionType { get; }
 
         HashSet<string> CountryOfOrigin { get; }
 
@@ -24,13 +24,13 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         Dictionary<string, HashSet<string>> CreditSubtype { get; }
 
-        HashSet<DVDID_Type> DVDIdType { get; }
+        HashSet<Profiler.DVDID_Type> DVDIdType { get; }
 
-        HashSet<EventType> EventType { get; }
+        HashSet<Profiler.EventType> EventType { get; }
 
         HashSet<string> Genre { get; }
 
-        HashSet<CategoryRestriction> LinkCategory { get; }
+        HashSet<Profiler.CategoryRestriction> LinkCategory { get; }
 
         HashSet<LocalityKey> Locality { get; }
 
@@ -48,6 +48,6 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         HashSet<UserKey> User { get; }
 
-        HashSet<VideoStandard> VideoStandard { get; }
+        HashSet<Profiler.VideoStandard> VideoStandard { get; }
     }
 }

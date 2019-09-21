@@ -5,8 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using DoenaSoft.DVDProfiler.DVDProfilerHelper;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 using DoenaSoft.DVDProfiler.SQLDatabase;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -39,7 +39,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             {
                 CopyDatabaseFiles(mdfTargetFile);
 
-                var collection = DVDProfilerSerializer<Collection>.Deserialize(collectionFile);
+                var collection = DVDProfilerSerializer<Profiler.Collection>.Deserialize(collectionFile);
 
                 var profiles = collection.DVDList;
 
@@ -152,7 +152,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             return inserter;
         }
 
-        private void InsertData(IEnumerable<DVD> profiles, IBaseData baseData)
+        private void InsertData(IEnumerable<Profiler.DVD> profiles, IBaseData baseData)
         {
             var inserter = new CollectionInserter(baseData, _context);
 

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a85d7f5966f34bd7a13bd7eeab8b9a65" Name="Diagram1" ZoomLevel="142" >
+      <Diagram DiagramId="a85d7f5966f34bd7a13bd7eeab8b9a65" Name="Diagram1" ZoomLevel="132" >
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels" Width="1.5" PointX="12" PointY="74.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioContent" Width="1.5" PointX="12" PointY="72.125" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioFormat" Width="1.5" PointX="12" PointY="69.875" />
@@ -33,7 +33,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" Width="1.5" PointX="14.25" PointY="64" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Width="1.5" PointX="5.25" PointY="69.625" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Width="1.5" PointX="5.25" PointY="119.25" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Width="1.5" PointX="5.25" PointY="130" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Width="1.5" PointX="5.25" PointY="136.875" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" Width="1.5" PointX="6" PointY="40.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" Width="1.5" PointX="5.25" PointY="43.5" />
@@ -71,7 +70,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxTag" Width="1.5" PointX="10.75" PointY="6.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" Width="1.5" PointX="10.75" PointY="9.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" Width="1.5" PointX="12.75" PointY="5.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" Width="1.5" PointX="6.75" PointY="12.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFeatures" Width="1.5" PointX="12.75" PointY="12.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFormat" Width="1.5" PointX="0.75" PointY="13.75" />
@@ -126,7 +124,6 @@
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" />
-        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" />
@@ -146,6 +143,10 @@
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData" Width="1.5" PointX="17.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Width="1.5" PointX="5.25" PointY="25.5" />
+        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" Width="1.5" PointX="17.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

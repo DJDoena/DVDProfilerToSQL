@@ -331,6 +331,13 @@
           <Property Name="Feature39" Type="bit" Nullable="false" />
           <Property Name="Feature40" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tEnhancedFeaturesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedFeaturesFieldName" />
+          </Key>
+          <Property Name="EnhancedFeaturesFieldName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="tEnhancedNotes">
           <Key>
             <PropertyRef Name="EnhancedNotesId" />
@@ -354,29 +361,29 @@
           </Key>
           <Property Name="EnhancedPurchaseInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="OriginalPriceDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="OriginalPriceValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="ShippingCostDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShippingCostValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardChargeDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreditCardChargeValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardFeesDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreditCardFeesValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="DiscountDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CustomsFeesDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CustomsFeesValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price1Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price1Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price2Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price2Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price3Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price3Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price4Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price4Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price5Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price5Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price6Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price6Value" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CouponType" Type="nvarchar" MaxLength="100" />
           <Property Name="CouponCode" Type="nvarchar" MaxLength="100" />
-          <Property Name="AdditionalPrice1Denomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdditionalPrice1Value" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="AdditionalPrice2Denomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdditionalPrice2Value" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="OrderDate" Type="date" />
-          <Property Name="ShippingDate" Type="date" />
-          <Property Name="DeliveryDate" Type="date" />
-          <Property Name="AdditionalDate1" Type="date" />
-          <Property Name="AdditionalDate2" Type="date" />
+          <Property Name="Price7Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price7Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price8Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price8Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Date1" Type="date" />
+          <Property Name="Date2" Type="date" />
+          <Property Name="Date3" Type="date" />
+          <Property Name="Date4" Type="date" />
+          <Property Name="Date5" Type="date" />
         </EntityType>
         <EntityType Name="tEnhancedTitles">
           <Key>
@@ -1058,29 +1065,29 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DistTrait" Type="nvarchar" MaxLength="255" />
           <Property Name="CollectionType" Type="nvarchar" MaxLength="255" />
-          <Property Name="OriginalPriceDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="OriginalPriceValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="ShippingCostDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShippingCostValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardChargeDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreditCardChargeValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardFeesDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreditCardFeesValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="DiscountDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="CustomsFeesDenomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="CustomsFeesValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price1Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price1Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price2Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price2Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price3Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price3Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price4Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price4Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price5Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price5Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price6Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price6Value" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CouponType" Type="nvarchar" MaxLength="100" />
           <Property Name="CouponCode" Type="nvarchar" MaxLength="100" />
-          <Property Name="AdditionalPrice1Denomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdditionalPrice1Value" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="AdditionalPrice2Denomination" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdditionalPrice2Value" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="OrderDate" Type="date" />
-          <Property Name="ShippingDate" Type="date" />
-          <Property Name="DeliveryDate" Type="date" />
-          <Property Name="AdditionalDate1" Type="date" />
-          <Property Name="AdditionalDate2" Type="date" />
+          <Property Name="Price7Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price7Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price8Denomination" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price8Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Date1" Type="date" />
+          <Property Name="Date2" Type="date" />
+          <Property Name="Date3" Type="date" />
+          <Property Name="Date4" Type="date" />
+          <Property Name="Date5" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedTitles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2078,6 +2085,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tDVDxSubtitle" EntityType="Self.tDVDxSubtitle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tDVDxTag" EntityType="Self.tDVDxTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedFeatures" EntityType="Self.tEnhancedFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tEnhancedFeaturesMetaData" EntityType="Self.tEnhancedFeaturesMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedNotes" EntityType="Self.tEnhancedNotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedPurchaseInfo" EntityType="Self.tEnhancedPurchaseInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedTitles" EntityType="Self.tEnhancedTitles" Schema="dbo" store:Type="Tables" />
@@ -2382,29 +2390,29 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
     [vEnhancedPurchaseInfo].[Title] AS [Title], 
     [vEnhancedPurchaseInfo].[DistTrait] AS [DistTrait], 
     [vEnhancedPurchaseInfo].[CollectionType] AS [CollectionType], 
-    [vEnhancedPurchaseInfo].[OriginalPriceDenomination] AS [OriginalPriceDenomination], 
-    [vEnhancedPurchaseInfo].[OriginalPriceValue] AS [OriginalPriceValue], 
-    [vEnhancedPurchaseInfo].[ShippingCostDenomination] AS [ShippingCostDenomination], 
-    [vEnhancedPurchaseInfo].[ShippingCostValue] AS [ShippingCostValue], 
-    [vEnhancedPurchaseInfo].[CreditCardChargeDenomination] AS [CreditCardChargeDenomination], 
-    [vEnhancedPurchaseInfo].[CreditCardChargeValue] AS [CreditCardChargeValue], 
-    [vEnhancedPurchaseInfo].[CreditCardFeesDenomination] AS [CreditCardFeesDenomination], 
-    [vEnhancedPurchaseInfo].[CreditCardFeesValue] AS [CreditCardFeesValue], 
-    [vEnhancedPurchaseInfo].[DiscountDenomination] AS [DiscountDenomination], 
-    [vEnhancedPurchaseInfo].[DiscountValue] AS [DiscountValue], 
-    [vEnhancedPurchaseInfo].[CustomsFeesDenomination] AS [CustomsFeesDenomination], 
-    [vEnhancedPurchaseInfo].[CustomsFeesValue] AS [CustomsFeesValue], 
+    [vEnhancedPurchaseInfo].[Price1Denomination] AS [Price1Denomination], 
+    [vEnhancedPurchaseInfo].[Price1Value] AS [Price1Value], 
+    [vEnhancedPurchaseInfo].[Price2Denomination] AS [Price2Denomination], 
+    [vEnhancedPurchaseInfo].[Price2Value] AS [Price2Value], 
+    [vEnhancedPurchaseInfo].[Price3Denomination] AS [Price3Denomination], 
+    [vEnhancedPurchaseInfo].[Price3Value] AS [Price3Value], 
+    [vEnhancedPurchaseInfo].[Price4Denomination] AS [Price4Denomination], 
+    [vEnhancedPurchaseInfo].[Price4Value] AS [Price4Value], 
+    [vEnhancedPurchaseInfo].[Price5Denomination] AS [Price5Denomination], 
+    [vEnhancedPurchaseInfo].[Price5Value] AS [Price5Value], 
+    [vEnhancedPurchaseInfo].[Price6Denomination] AS [Price6Denomination], 
+    [vEnhancedPurchaseInfo].[Price6Value] AS [Price6Value], 
     [vEnhancedPurchaseInfo].[CouponType] AS [CouponType], 
     [vEnhancedPurchaseInfo].[CouponCode] AS [CouponCode], 
-    [vEnhancedPurchaseInfo].[AdditionalPrice1Denomination] AS [AdditionalPrice1Denomination], 
-    [vEnhancedPurchaseInfo].[AdditionalPrice1Value] AS [AdditionalPrice1Value], 
-    [vEnhancedPurchaseInfo].[AdditionalPrice2Denomination] AS [AdditionalPrice2Denomination], 
-    [vEnhancedPurchaseInfo].[AdditionalPrice2Value] AS [AdditionalPrice2Value], 
-    [vEnhancedPurchaseInfo].[OrderDate] AS [OrderDate], 
-    [vEnhancedPurchaseInfo].[ShippingDate] AS [ShippingDate], 
-    [vEnhancedPurchaseInfo].[DeliveryDate] AS [DeliveryDate], 
-    [vEnhancedPurchaseInfo].[AdditionalDate1] AS [AdditionalDate1], 
-    [vEnhancedPurchaseInfo].[AdditionalDate2] AS [AdditionalDate2]
+    [vEnhancedPurchaseInfo].[Price7Denomination] AS [Price7Denomination], 
+    [vEnhancedPurchaseInfo].[Price7Value] AS [Price7Value], 
+    [vEnhancedPurchaseInfo].[Price8Denomination] AS [Price8Denomination], 
+    [vEnhancedPurchaseInfo].[Price8Value] AS [Price8Value], 
+    [vEnhancedPurchaseInfo].[Date1] AS [Date1], 
+    [vEnhancedPurchaseInfo].[Date2] AS [Date2], 
+    [vEnhancedPurchaseInfo].[Date3] AS [Date3], 
+    [vEnhancedPurchaseInfo].[Date4] AS [Date4], 
+    [vEnhancedPurchaseInfo].[Date5] AS [Date5]
     FROM [dbo].[vEnhancedPurchaseInfo] AS [vEnhancedPurchaseInfo]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vEnhancedTitles" EntityType="Self.vEnhancedTitles" store:Type="Views" store:Schema="dbo">
@@ -2846,7 +2854,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tDVDxTag" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" />
           <EntitySet Name="tEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" />
           <EntitySet Name="tEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" />
-          <EntitySet Name="tEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" />
           <EntitySet Name="tEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" />
           <EntitySet Name="tEventType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" />
           <EntitySet Name="tFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" />
@@ -2884,7 +2891,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="vDVDxTag" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxTag" />
           <EntitySet Name="vEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" />
           <EntitySet Name="vEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" />
-          <EntitySet Name="vEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" />
           <EntitySet Name="vEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" />
           <EntitySet Name="vFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFeatures" />
           <EntitySet Name="vFormat" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFormat" />
@@ -3047,10 +3053,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
           </AssociationSet>
-          <AssociationSet Name="FK_EnhancedPurchaseInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo">
-            <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
-          </AssociationSet>
           <AssociationSet Name="FK_EnhancedTitles" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
@@ -3127,6 +3129,13 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tExclusions" EntitySet="tExclusions" />
           </AssociationSet>
+          <EntitySet Name="tEnhancedFeaturesMetaData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData" />
+          <EntitySet Name="tEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" />
+          <AssociationSet Name="FK_EnhancedPurchaseInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
+          </AssociationSet>
+          <EntitySet Name="vEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" />
         </EntityContainer>
         <EntityType Name="tAudioChannels">
           <Key>
@@ -3459,37 +3468,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note15sHtml" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tEnhancedNotes" ToRole="tDVD" />
-        </EntityType>
-        <EntityType Name="tEnhancedPurchaseInfo">
-          <Key>
-            <PropertyRef Name="EnhancedPurchaseInfoId" />
-          </Key>
-          <Property Name="EnhancedPurchaseInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalPriceDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalPriceValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ShippingCostDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShippingCostValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardChargeDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreditCardChargeValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardFeesDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreditCardFeesValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DiscountDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CustomsFeesDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CustomsFeesValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CouponType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CouponCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice1Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice1Value" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AdditionalPrice2Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice2Value" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OrderDate" Type="DateTime" Precision="0" />
-          <Property Name="ShippingDate" Type="DateTime" Precision="0" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
-          <Property Name="AdditionalDate1" Type="DateTime" Precision="0" />
-          <Property Name="AdditionalDate2" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tEnhancedPurchaseInfo" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tEnhancedTitles">
           <Key>
@@ -4084,39 +4062,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Note4isHtml" Type="Boolean" Nullable="false" />
           <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note15sHtml" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vEnhancedPurchaseInfo">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalPriceDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalPriceValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ShippingCostDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShippingCostValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardChargeDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreditCardChargeValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreditCardFeesDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreditCardFeesValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DiscountDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CustomsFeesDenomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CustomsFeesValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CouponType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CouponCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice1Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice1Value" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AdditionalPrice2Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionalPrice2Value" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OrderDate" Type="DateTime" Precision="0" />
-          <Property Name="ShippingDate" Type="DateTime" Precision="0" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
-          <Property Name="AdditionalDate1" Type="DateTime" Precision="0" />
-          <Property Name="AdditionalDate2" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="vEnhancedTitles">
           <Key>
@@ -4813,7 +4758,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
           <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
           <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
-          <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
           <NavigationProperty Name="tEnhancedTitles" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tDVD" ToRole="tEnhancedTitles" />
           <NavigationProperty Name="tDVDxEvent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVD" ToRole="tDVDxEvent" />
           <NavigationProperty Name="tFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" FromRole="tDVD" ToRole="tFeatures" />
@@ -4833,6 +4777,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVD" ToRole="tDVDxSubtitle" />
           <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVD" ToRole="tDVDxTag" />
           <NavigationProperty Name="tExclusions" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" FromRole="tDVD" ToRole="tExclusions" />
+          <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
         </EntityType>
         <Association Name="FK_CaseType">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="0..1" />
@@ -4974,18 +4919,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               <PropertyRef Name="DVDId" />
             </Principal>
             <Dependent Role="tEnhancedNotes">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EnhancedPurchaseInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tEnhancedPurchaseInfo">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5218,6 +5151,89 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tEnhancedFeaturesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedFeaturesFieldName" />
+          </Key>
+          <Property Name="EnhancedFeaturesFieldName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tEnhancedPurchaseInfo">
+          <Key>
+            <PropertyRef Name="EnhancedPurchaseInfoId" />
+          </Key>
+          <Property Name="EnhancedPurchaseInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price1Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price1Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price2Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price2Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price3Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price3Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price4Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price4Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price5Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price5Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price6Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price6Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CouponType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CouponCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price7Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price7Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price8Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price8Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Date1" Type="DateTime" Precision="0" />
+          <Property Name="Date2" Type="DateTime" Precision="0" />
+          <Property Name="Date3" Type="DateTime" Precision="0" />
+          <Property Name="Date4" Type="DateTime" Precision="0" />
+          <Property Name="Date5" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tEnhancedPurchaseInfo" ToRole="tDVD" />
+        </EntityType>
+        <Association Name="FK_EnhancedPurchaseInfo">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tEnhancedPurchaseInfo">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vEnhancedPurchaseInfo">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Price1Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price1Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price2Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price2Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price3Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price3Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price4Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price4Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price5Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price5Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price6Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price6Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CouponType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CouponCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price7Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price7Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price8Denomination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price8Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Date1" Type="DateTime" Precision="0" />
+          <Property Name="Date2" Type="DateTime" Precision="0" />
+          <Property Name="Date3" Type="DateTime" Precision="0" />
+          <Property Name="Date4" Type="DateTime" Precision="0" />
+          <Property Name="Date5" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5536,37 +5552,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
                 <ScalarProperty Name="Note1" ColumnName="Note1" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
                 <ScalarProperty Name="EnhancedNotesId" ColumnName="EnhancedNotesId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tEnhancedPurchaseInfo">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo">
-              <MappingFragment StoreEntitySet="tEnhancedPurchaseInfo">
-                <ScalarProperty Name="AdditionalDate2" ColumnName="AdditionalDate2" />
-                <ScalarProperty Name="AdditionalDate1" ColumnName="AdditionalDate1" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="AdditionalPrice2Value" ColumnName="AdditionalPrice2Value" />
-                <ScalarProperty Name="AdditionalPrice2Denomination" ColumnName="AdditionalPrice2Denomination" />
-                <ScalarProperty Name="AdditionalPrice1Value" ColumnName="AdditionalPrice1Value" />
-                <ScalarProperty Name="AdditionalPrice1Denomination" ColumnName="AdditionalPrice1Denomination" />
-                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
-                <ScalarProperty Name="CouponType" ColumnName="CouponType" />
-                <ScalarProperty Name="CustomsFeesValue" ColumnName="CustomsFeesValue" />
-                <ScalarProperty Name="CustomsFeesDenomination" ColumnName="CustomsFeesDenomination" />
-                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
-                <ScalarProperty Name="DiscountDenomination" ColumnName="DiscountDenomination" />
-                <ScalarProperty Name="CreditCardFeesValue" ColumnName="CreditCardFeesValue" />
-                <ScalarProperty Name="CreditCardFeesDenomination" ColumnName="CreditCardFeesDenomination" />
-                <ScalarProperty Name="CreditCardChargeValue" ColumnName="CreditCardChargeValue" />
-                <ScalarProperty Name="CreditCardChargeDenomination" ColumnName="CreditCardChargeDenomination" />
-                <ScalarProperty Name="ShippingCostValue" ColumnName="ShippingCostValue" />
-                <ScalarProperty Name="ShippingCostDenomination" ColumnName="ShippingCostDenomination" />
-                <ScalarProperty Name="OriginalPriceValue" ColumnName="OriginalPriceValue" />
-                <ScalarProperty Name="OriginalPriceDenomination" ColumnName="OriginalPriceDenomination" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="EnhancedPurchaseInfoId" ColumnName="EnhancedPurchaseInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6090,39 +6075,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vEnhancedPurchaseInfo">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo">
-              <MappingFragment StoreEntitySet="vEnhancedPurchaseInfo">
-                <ScalarProperty Name="AdditionalDate2" ColumnName="AdditionalDate2" />
-                <ScalarProperty Name="AdditionalDate1" ColumnName="AdditionalDate1" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="AdditionalPrice2Value" ColumnName="AdditionalPrice2Value" />
-                <ScalarProperty Name="AdditionalPrice2Denomination" ColumnName="AdditionalPrice2Denomination" />
-                <ScalarProperty Name="AdditionalPrice1Value" ColumnName="AdditionalPrice1Value" />
-                <ScalarProperty Name="AdditionalPrice1Denomination" ColumnName="AdditionalPrice1Denomination" />
-                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
-                <ScalarProperty Name="CouponType" ColumnName="CouponType" />
-                <ScalarProperty Name="CustomsFeesValue" ColumnName="CustomsFeesValue" />
-                <ScalarProperty Name="CustomsFeesDenomination" ColumnName="CustomsFeesDenomination" />
-                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
-                <ScalarProperty Name="DiscountDenomination" ColumnName="DiscountDenomination" />
-                <ScalarProperty Name="CreditCardFeesValue" ColumnName="CreditCardFeesValue" />
-                <ScalarProperty Name="CreditCardFeesDenomination" ColumnName="CreditCardFeesDenomination" />
-                <ScalarProperty Name="CreditCardChargeValue" ColumnName="CreditCardChargeValue" />
-                <ScalarProperty Name="CreditCardChargeDenomination" ColumnName="CreditCardChargeDenomination" />
-                <ScalarProperty Name="ShippingCostValue" ColumnName="ShippingCostValue" />
-                <ScalarProperty Name="ShippingCostDenomination" ColumnName="ShippingCostDenomination" />
-                <ScalarProperty Name="OriginalPriceValue" ColumnName="OriginalPriceValue" />
-                <ScalarProperty Name="OriginalPriceDenomination" ColumnName="OriginalPriceDenomination" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vEnhancedTitles">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles">
               <MappingFragment StoreEntitySet="vEnhancedTitles">
@@ -6440,6 +6392,78 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
                 <ScalarProperty Name="CollectionTypeId" ColumnName="CollectionTypeId" />
                 <ScalarProperty Name="CollectionNumber" ColumnName="CollectionNumber" />
                 <ScalarProperty Name="UPC" ColumnName="UPC" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedFeaturesMetaData">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData">
+              <MappingFragment StoreEntitySet="tEnhancedFeaturesMetaData">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnhancedFeaturesFieldName" ColumnName="EnhancedFeaturesFieldName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedPurchaseInfo">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo">
+              <MappingFragment StoreEntitySet="tEnhancedPurchaseInfo">
+                <ScalarProperty Name="Date5" ColumnName="Date5" />
+                <ScalarProperty Name="Date4" ColumnName="Date4" />
+                <ScalarProperty Name="Date3" ColumnName="Date3" />
+                <ScalarProperty Name="Date2" ColumnName="Date2" />
+                <ScalarProperty Name="Date1" ColumnName="Date1" />
+                <ScalarProperty Name="Price8Value" ColumnName="Price8Value" />
+                <ScalarProperty Name="Price8Denomination" ColumnName="Price8Denomination" />
+                <ScalarProperty Name="Price7Value" ColumnName="Price7Value" />
+                <ScalarProperty Name="Price7Denomination" ColumnName="Price7Denomination" />
+                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+                <ScalarProperty Name="CouponType" ColumnName="CouponType" />
+                <ScalarProperty Name="Price6Value" ColumnName="Price6Value" />
+                <ScalarProperty Name="Price6Denomination" ColumnName="Price6Denomination" />
+                <ScalarProperty Name="Price5Value" ColumnName="Price5Value" />
+                <ScalarProperty Name="Price5Denomination" ColumnName="Price5Denomination" />
+                <ScalarProperty Name="Price4Value" ColumnName="Price4Value" />
+                <ScalarProperty Name="Price4Denomination" ColumnName="Price4Denomination" />
+                <ScalarProperty Name="Price3Value" ColumnName="Price3Value" />
+                <ScalarProperty Name="Price3Denomination" ColumnName="Price3Denomination" />
+                <ScalarProperty Name="Price2Value" ColumnName="Price2Value" />
+                <ScalarProperty Name="Price2Denomination" ColumnName="Price2Denomination" />
+                <ScalarProperty Name="Price1Value" ColumnName="Price1Value" />
+                <ScalarProperty Name="Price1Denomination" ColumnName="Price1Denomination" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedPurchaseInfoId" ColumnName="EnhancedPurchaseInfoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnhancedPurchaseInfo">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo">
+              <MappingFragment StoreEntitySet="vEnhancedPurchaseInfo">
+                <ScalarProperty Name="Date5" ColumnName="Date5" />
+                <ScalarProperty Name="Date4" ColumnName="Date4" />
+                <ScalarProperty Name="Date3" ColumnName="Date3" />
+                <ScalarProperty Name="Date2" ColumnName="Date2" />
+                <ScalarProperty Name="Date1" ColumnName="Date1" />
+                <ScalarProperty Name="Price8Value" ColumnName="Price8Value" />
+                <ScalarProperty Name="Price8Denomination" ColumnName="Price8Denomination" />
+                <ScalarProperty Name="Price7Value" ColumnName="Price7Value" />
+                <ScalarProperty Name="Price7Denomination" ColumnName="Price7Denomination" />
+                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+                <ScalarProperty Name="CouponType" ColumnName="CouponType" />
+                <ScalarProperty Name="Price6Value" ColumnName="Price6Value" />
+                <ScalarProperty Name="Price6Denomination" ColumnName="Price6Denomination" />
+                <ScalarProperty Name="Price5Value" ColumnName="Price5Value" />
+                <ScalarProperty Name="Price5Denomination" ColumnName="Price5Denomination" />
+                <ScalarProperty Name="Price4Value" ColumnName="Price4Value" />
+                <ScalarProperty Name="Price4Denomination" ColumnName="Price4Denomination" />
+                <ScalarProperty Name="Price3Value" ColumnName="Price3Value" />
+                <ScalarProperty Name="Price3Denomination" ColumnName="Price3Denomination" />
+                <ScalarProperty Name="Price2Value" ColumnName="Price2Value" />
+                <ScalarProperty Name="Price2Denomination" ColumnName="Price2Denomination" />
+                <ScalarProperty Name="Price1Value" ColumnName="Price1Value" />
+                <ScalarProperty Name="Price1Denomination" ColumnName="Price1Denomination" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -17,7 +17,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public string Website { get; }
 
-        public PurchasePlaceKey(PurchaseInfo purchaseInfo)
+        public PurchasePlaceKey(Profiler.PurchaseInfo purchaseInfo)
         {
             Place = purchaseInfo.Place ?? string.Empty;
             Type = purchaseInfo.Type;

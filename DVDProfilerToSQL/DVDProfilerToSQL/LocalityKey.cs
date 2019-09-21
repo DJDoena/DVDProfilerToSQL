@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -13,7 +13,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public string Description { get; }
 
-        public LocalityKey(DVD profile)
+        public LocalityKey(Profiler.DVD profile)
         {
             Id = profile.ID_LocalityID;
             Description = profile.ID_LocalityDesc;

@@ -18,28 +18,28 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string Title { get; set; }
         public string DistTrait { get; set; }
         public string CollectionType { get; set; }
-        public string OriginalPriceDenomination { get; set; }
-        public Nullable<decimal> OriginalPriceValue { get; set; }
-        public string ShippingCostDenomination { get; set; }
-        public Nullable<decimal> ShippingCostValue { get; set; }
-        public string CreditCardChargeDenomination { get; set; }
-        public Nullable<decimal> CreditCardChargeValue { get; set; }
-        public string CreditCardFeesDenomination { get; set; }
-        public Nullable<decimal> CreditCardFeesValue { get; set; }
-        public string DiscountDenomination { get; set; }
-        public Nullable<decimal> DiscountValue { get; set; }
-        public string CustomsFeesDenomination { get; set; }
-        public Nullable<decimal> CustomsFeesValue { get; set; }
+        public string Price1Denomination { get; set; }
+        public Nullable<decimal> Price1Value { get; set; }
+        public string Price2Denomination { get; set; }
+        public Nullable<decimal> Price2Value { get; set; }
+        public string Price3Denomination { get; set; }
+        public Nullable<decimal> Price3Value { get; set; }
+        public string Price4Denomination { get; set; }
+        public Nullable<decimal> Price4Value { get; set; }
+        public string Price5Denomination { get; set; }
+        public Nullable<decimal> Price5Value { get; set; }
+        public string Price6Denomination { get; set; }
+        public Nullable<decimal> Price6Value { get; set; }
         public string CouponType { get; set; }
         public string CouponCode { get; set; }
-        public string AdditionalPrice1Denomination { get; set; }
-        public Nullable<decimal> AdditionalPrice1Value { get; set; }
-        public string AdditionalPrice2Denomination { get; set; }
-        public Nullable<decimal> AdditionalPrice2Value { get; set; }
-        public Nullable<System.DateTime> OrderDate { get; set; }
-        public Nullable<System.DateTime> ShippingDate { get; set; }
-        public Nullable<System.DateTime> DeliveryDate { get; set; }
-        public Nullable<System.DateTime> AdditionalDate1 { get; set; }
-        public Nullable<System.DateTime> AdditionalDate2 { get; set; }
+        public string Price7Denomination { get; set; }
+        public Nullable<decimal> Price7Value { get; set; }
+        public string Price8Denomination { get; set; }
+        public Nullable<decimal> Price8Value { get; set; }
+        public Nullable<System.DateTime> Date1 { get; set; }
+        public Nullable<System.DateTime> Date2 { get; set; }
+        public Nullable<System.DateTime> Date3 { get; set; }
+        public Nullable<System.DateTime> Date4 { get; set; }
+        public Nullable<System.DateTime> Date5 { get; set; }
     }
 }

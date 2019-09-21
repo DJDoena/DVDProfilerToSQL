@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -13,7 +13,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public string Name { get; }
 
-        public PluginDataKey(PluginData pluginData)
+        public PluginDataKey(Profiler.PluginData pluginData)
         {
             ClassId = Guid.Parse(pluginData.ClassID);
 

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -15,7 +15,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public string Name { get; }
 
-        public TagKey(Tag tag)
+        public TagKey(Profiler.Tag tag)
         {
             FullName = tag.FullName ?? string.Empty;
             Name = tag.Name;

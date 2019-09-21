@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DoenaSoft.DVDProfiler.DVDProfilerXML;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
     internal sealed class CollectionCache : ICollectionCache
     {
-        private readonly IEnumerable<DVD> _profiles;
+        private readonly IEnumerable<Profiler.DVD> _profiles;
 
         public HashSet<string> AudioChannels { get; private set; }
 
@@ -21,7 +21,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public HashSet<PersonKey> CastAndCrew { get; private set; }
 
-        public HashSet<CollectionType> CollectionType { get; private set; }
+        public HashSet<Profiler.CollectionType> CollectionType { get; private set; }
 
         public HashSet<string> CountryOfOrigin { get; private set; }
 
@@ -29,13 +29,13 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public Dictionary<string, HashSet<string>> CreditSubtype { get; private set; }
 
-        public HashSet<DVDID_Type> DVDIdType { get; private set; }
+        public HashSet<Profiler.DVDID_Type> DVDIdType { get; private set; }
 
-        public HashSet<EventType> EventType { get; private set; }
+        public HashSet<Profiler.EventType> EventType { get; private set; }
 
         public HashSet<string> Genre { get; private set; }
 
-        public HashSet<CategoryRestriction> LinkCategory { get; private set; }
+        public HashSet<Profiler.CategoryRestriction> LinkCategory { get; private set; }
 
         public HashSet<LocalityKey> Locality { get; private set; }
 
@@ -53,19 +53,19 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public HashSet<UserKey> User { get; private set; }
 
-        public HashSet<VideoStandard> VideoStandard { get; private set; }
+        public HashSet<Profiler.VideoStandard> VideoStandard { get; private set; }
 
-        public CollectionCache(IEnumerable<DVD> profiles)
+        public CollectionCache(IEnumerable<Profiler.DVD> profiles)
         {
             _profiles = profiles;
 
-            DVDIdType = FillStaticHashSet<DVDID_Type>();
+            DVDIdType = FillStaticHashSet<Profiler.DVDID_Type>();
 
-            EventType = FillStaticHashSet<EventType>();
+            EventType = FillStaticHashSet<Profiler.EventType>();
 
-            LinkCategory = FillStaticHashSet<CategoryRestriction>();
+            LinkCategory = FillStaticHashSet<Profiler.CategoryRestriction>();
 
-            VideoStandard = FillStaticHashSet<VideoStandard>();
+            VideoStandard = FillStaticHashSet<Profiler.VideoStandard>();
 
             FillDynamicHash();
         }
@@ -108,7 +108,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 FillCastHash(profile.CastList);
                 FillStringHashSet(CountryOfOrigin, profile.CountryOfOriginList);
 
-                var crewMembers = profile.CrewList?.OfType<CrewMember>() ?? Enumerable.Empty<CrewMember>();
+                var crewMembers = profile.CrewList?.OfType<Profiler.CrewMember>() ?? Enumerable.Empty<Profiler.CrewMember>();
 
                 FillCreditTypeAndSubtypeHash(crewMembers);
                 FillCrewHash(crewMembers);
@@ -141,7 +141,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             AudioFormat = new HashSet<string>();
             CaseType = new HashSet<string>();
             CastAndCrew = new HashSet<PersonKey>();
-            CollectionType = new HashSet<CollectionType>();
+            CollectionType = new HashSet<Profiler.CollectionType>();
             CountryOfOrigin = new HashSet<string>();
             CreditType = new HashSet<string>();
             CreditSubtype = new Dictionary<string, HashSet<string>>();
@@ -156,7 +156,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             User = new HashSet<UserKey>();
         }
 
-        private void FillAudioHashes(IEnumerable<AudioTrack> audioTracks)
+        private void FillAudioHashes(IEnumerable<Profiler.AudioTrack> audioTracks)
         {
             if (audioTracks == null)
             {
@@ -181,7 +181,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillCollectionTypeHash(CollectionType collectionType)
+        private void FillCollectionTypeHash(Profiler.CollectionType collectionType)
         {
             if (collectionType == null)
             {
@@ -206,7 +206,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 return;
             }
 
-            var valid = castList.OfType<CastMember>();
+            var valid = castList.OfType<Profiler.CastMember>();
 
             foreach (var castMember in valid)
             {
@@ -214,7 +214,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillCreditTypeAndSubtypeHash(IEnumerable<CrewMember> crewMembers)
+        private void FillCreditTypeAndSubtypeHash(IEnumerable<Profiler.CrewMember> crewMembers)
         {
             foreach (var crewMember in crewMembers)
             {
@@ -222,7 +222,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillCrewHash(IEnumerable<CrewMember> crewMembers)
+        private void FillCrewHash(IEnumerable<Profiler.CrewMember> crewMembers)
         {
             foreach (var crewMember in crewMembers)
             {
@@ -230,7 +230,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillMediaTypeHash(MediaTypes mediaTypes)
+        private void FillMediaTypeHash(Profiler.MediaTypes mediaTypes)
         {
             if (mediaTypes == null)
             {
@@ -263,7 +263,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillPluginDataHash(IEnumerable<PluginData> pluginDataList)
+        private void FillPluginDataHash(IEnumerable<Profiler.PluginData> pluginDataList)
         {
             if (pluginDataList == null)
             {
@@ -278,7 +278,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillPurchasePlaceHash(PurchaseInfo purchaseInfo)
+        private void FillPurchasePlaceHash(Profiler.PurchaseInfo purchaseInfo)
         {
             if (purchaseInfo == null)
             {
@@ -291,7 +291,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillTagHash(IEnumerable<Tag> tags)
+        private void FillTagHash(IEnumerable<Profiler.Tag> tags)
         {
             if (tags == null)
             {
@@ -306,7 +306,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillUserHashFromEvents(IEnumerable<Event> events)
+        private void FillUserHashFromEvents(IEnumerable<Profiler.Event> events)
         {
             if (events == null)
             {
@@ -328,7 +328,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void FillUserHashFromLoanInfo(LoanInfo loanInfo)
+        private void FillUserHashFromLoanInfo(Profiler.LoanInfo loanInfo)
         {
             if (loanInfo == null)
             {
@@ -338,7 +338,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             TryAddUser(loanInfo.User);
         }
 
-        private void FillUserHashFromPurchaseInfo(PurchaseInfo purchaseInfo)
+        private void FillUserHashFromPurchaseInfo(Profiler.PurchaseInfo purchaseInfo)
         {
             if (purchaseInfo == null || !purchaseInfo.ReceivedAsGift)
             {
@@ -384,7 +384,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             }
         }
 
-        private void TryAddUser(User user)
+        private void TryAddUser(Profiler.User user)
         {
             if (UserKey.IsInvalid(user))
             {

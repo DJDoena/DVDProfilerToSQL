@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
+using Profiler = DoenaSoft.DVDProfiler.DVDProfilerXML.Version400;
 
 namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 {
@@ -19,7 +19,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         public string PhoneNumber { get; }
 
-        public UserKey(User user)
+        public UserKey(Profiler.User user)
         {
             LastName = user.LastName ?? string.Empty;
             FirstName = user.FirstName ?? string.Empty;
@@ -30,9 +30,9 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
                 ^ FirstName.ToLowerInvariant().GetHashCode();
         }
 
-        public static bool IsValid(User user) => !IsInvalid(user);
+        public static bool IsValid(Profiler.User user) => !IsInvalid(user);
 
-        public static bool IsInvalid(User user)
+        public static bool IsInvalid(Profiler.User user)
         {
             if (user == null)
             {
