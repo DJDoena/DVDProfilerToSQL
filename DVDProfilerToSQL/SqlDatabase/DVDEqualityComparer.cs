@@ -10,14 +10,16 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             {
                 return true;
             }
-            else if (ReferenceEquals(left, null) && !ReferenceEquals(right, null))
+            else if (left is null && right is object)
             {
                 return false;
             }
+            else
+            {
+                var equals = string.Equals(left.DVDId, right.DVDId, System.StringComparison.InvariantCulture);
 
-            var result = string.Equals(left.DVDId, right.DVDId, System.StringComparison.InvariantCulture);
-
-            return result;
+                return equals;
+            }
         }
 
         public int GetHashCode(tDVD obj) => (obj?.DVDId ?? string.Empty).GetHashCode();
