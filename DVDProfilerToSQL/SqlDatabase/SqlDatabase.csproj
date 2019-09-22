@@ -100,6 +100,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CollectionModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DVDEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tAudioChannels.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
@@ -411,8 +412,4 @@
     <None Include="CreateDatabase.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>copy /y ..\..\..\Collection.mdf ..\..\..\..\DVDProfilerToSQL\bin\$(Platform)\$(Configuration)
-copy /y ..\..\..\Collection_log.ldf ..\..\..\..\DVDProfilerToSQL\bin\$(Platform)\$(Configuration)</PreBuildEvent>
-  </PropertyGroup>
 </Project>

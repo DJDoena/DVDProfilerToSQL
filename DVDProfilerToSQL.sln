@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnhancedPurchaseInfoLibrary
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnhancedTitlesLibrary", "EnhancedTitlesLibrary\EnhancedTitlesLibrary\EnhancedTitlesLibrary.csproj", "{B77FCD17-EF8C-4849-9FFE-7EA0A9FE11C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuerySamples", "QuerySamples\QuerySamples.csproj", "{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -103,6 +105,14 @@ Global
 		{B77FCD17-EF8C-4849-9FFE-7EA0A9FE11C5}.Release|x64.Build.0 = Debug|x64
 		{B77FCD17-EF8C-4849-9FFE-7EA0A9FE11C5}.Release|x86.ActiveCfg = Debug|x86
 		{B77FCD17-EF8C-4849-9FFE-7EA0A9FE11C5}.Release|x86.Build.0 = Debug|x86
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Debug|x64.ActiveCfg = Debug|x64
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Debug|x64.Build.0 = Debug|x64
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Debug|x86.ActiveCfg = Debug|x86
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Debug|x86.Build.0 = Debug|x86
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Release|x64.ActiveCfg = Release|x64
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Release|x64.Build.0 = Release|x64
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Release|x86.ActiveCfg = Release|x86
+		{B4EDE40C-23D0-42ED-8C3B-9E557BC44FBD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
