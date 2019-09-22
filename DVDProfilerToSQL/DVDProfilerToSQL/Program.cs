@@ -58,7 +58,7 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
             Console.WriteLine("Welcome to the DVDProfiler to MS SQL Transformer!");
             Console.WriteLine("Version: " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
             Console.WriteLine();
-            Console.WriteLine("Please select a \"collection.xml\" and a target location for the Access database!");
+            Console.WriteLine("Please select a \"collection.xml\" and a target location for the MS SQL database!");
             Console.WriteLine("(You should see a file dialog. If not, please minimize your other programs.)");
 
             using (OpenFileDialog ofd = new OpenFileDialog())

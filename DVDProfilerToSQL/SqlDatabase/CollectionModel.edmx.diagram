@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a85d7f5966f34bd7a13bd7eeab8b9a65" Name="Diagram1" ZoomLevel="132" >
+      <Diagram DiagramId="a85d7f5966f34bd7a13bd7eeab8b9a65" Name="Diagram1" ZoomLevel="100" >
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioChannels" Width="1.5" PointX="12" PointY="74.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioContent" Width="1.5" PointX="12" PointY="72.125" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tAudioFormat" Width="1.5" PointX="12" PointY="69.875" />
@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tCreditSubtype" Width="1.5" PointX="3" PointY="71" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tCreditType" Width="1.5" PointX="0.75" PointY="71.125" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDBVersion" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Width="1.5" PointX="5.25" PointY="116.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" Width="1.5" PointX="8.25" PointY="59.625" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" Width="1.5" PointX="6" PointY="84" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" Width="1.5" PointX="14.25" PointY="59.625" />
@@ -31,9 +30,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxStudio" Width="1.5" PointX="5.25" PointY="37.625" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxSubtitle" Width="1.5" PointX="8.25" PointY="64" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" Width="1.5" PointX="14.25" PointY="64" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Width="1.5" PointX="5.25" PointY="69.625" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Width="1.5" PointX="5.25" PointY="119.25" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Width="1.5" PointX="5.25" PointY="136.875" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" Width="1.5" PointX="6" PointY="40.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" Width="1.5" PointX="5.25" PointY="43.5" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" Width="1.5" PointX="11.25" PointY="63.5" />
@@ -55,7 +51,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tVideoStandard" Width="1.5" PointX="9" PointY="75.125" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vCastGrouped" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vCollectionTypeGrouped" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVD" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDId" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxAudio" Width="1.5" PointX="0.75" PointY="6.75" />
@@ -68,9 +63,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxRegion" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxStudio" Width="1.5" PointX="10.75" PointY="3.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxTag" Width="1.5" PointX="10.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" Width="1.5" PointX="10.75" PointY="9.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" Width="1.5" PointX="6.75" PointY="12.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFeatures" Width="1.5" PointX="12.75" PointY="12.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFormat" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vGenreGrouped" Width="1.5" PointX="2.75" PointY="13.75" />
@@ -114,7 +106,6 @@
         <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Width="1.5" PointX="3" PointY="53.875" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType" />
-        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" />
@@ -122,9 +113,6 @@
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" />
-        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" />
-        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" />
-        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" />
@@ -143,10 +131,25 @@
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData" Width="1.5" PointX="17.375" PointY="13.75" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Width="1.5" PointX="5.25" PointY="25.5" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Width="1.5" PointX="5.25" PointY="30.25" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Width="1.5" PointX="5.25" PointY="143.375" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData" Width="1.5" PointX="11.375" PointY="9.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Width="1.5" PointX="5.25" PointY="25.125" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Width="1.5" PointX="5.25" PointY="68" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfoMetaData" Width="1.5" PointX="9.375" PointY="12.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Width="1.5" PointX="5.25" PointY="74.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitlesMetaData" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo" Width="1.5" PointX="17.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" Width="1.5" PointX="17.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" Width="1.5" PointX="9.375" PointY="18.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" Width="1.5" PointX="19.375" PointY="7.75" />
+        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" />
+        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" />
+        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" />
         <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" />
-        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" Width="1.5" PointX="17.375" PointY="16.75" />
+        <AssociationConnector Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" />
+        <EntityTypeShape EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotesMetaData" Width="1.5" PointX="5.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

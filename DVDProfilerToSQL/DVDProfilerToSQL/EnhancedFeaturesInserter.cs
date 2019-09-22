@@ -75,18 +75,11 @@ namespace DoenaSoft.DVDProfiler.DVDProfilerToSQL
 
         private static string GetDisplayName(EF.Feature feature)
         {
-            if (feature != null)
-            {
-                var result = string.IsNullOrEmpty(feature.Base64DisplayName)
-                    ? feature.DisplayName
-                    : Encoding.UTF8.GetString(Convert.FromBase64String(feature.Base64DisplayName));
+            var result = string.IsNullOrEmpty(feature.Base64DisplayName)
+                ? feature.DisplayName
+                : Encoding.UTF8.GetString(Convert.FromBase64String(feature.Base64DisplayName));
 
-                return result;
-            }
-            else
-            {
-                return null;
-            }
+            return result;
         }
 
         private void InsertPluginData(IEnumerable<EF.Feature> valid)

@@ -335,7 +335,7 @@
           <Key>
             <PropertyRef Name="EnhancedFeaturesFieldName" />
           </Key>
-          <Property Name="EnhancedFeaturesFieldName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="EnhancedFeaturesFieldName" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tEnhancedNotes">
@@ -353,7 +353,14 @@
           <Property Name="Note4" Type="ntext" />
           <Property Name="Note4isHtml" Type="bit" Nullable="false" />
           <Property Name="Note5" Type="ntext" />
-          <Property Name="Note15sHtml" Type="bit" Nullable="false" />
+          <Property Name="Note5isHtml" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tEnhancedNotesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedNotesFieldName" />
+          </Key>
+          <Property Name="EnhancedNotesFieldName" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tEnhancedPurchaseInfo">
           <Key>
@@ -385,6 +392,13 @@
           <Property Name="Date4" Type="date" />
           <Property Name="Date5" Type="date" />
         </EntityType>
+        <EntityType Name="tEnhancedPurchaseInfoMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedPurchaseInfoFieldName" />
+          </Key>
+          <Property Name="EnhancedPurchaseInfoFieldName" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="tEnhancedTitles">
           <Key>
             <PropertyRef Name="EnhancedTitlesId" />
@@ -396,6 +410,13 @@
           <Property Name="Title3" Type="ntext" />
           <Property Name="Title4" Type="ntext" />
           <Property Name="Title5" Type="ntext" />
+        </EntityType>
+        <EntityType Name="tEnhancedTitlesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedTitlesFieldName" />
+          </Key>
+          <Property Name="EnhancedTitlesFieldName" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tEventType">
           <Key>
@@ -1037,7 +1058,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <PropertyRef Name="Note2isHtml" />
             <PropertyRef Name="Note3isHtml" />
             <PropertyRef Name="Note4isHtml" />
-            <PropertyRef Name="Note15sHtml" />
+            <PropertyRef Name="Note5isHtml" />
           </Key>
           <Property Name="DVDId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -1052,7 +1073,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Note4" Type="ntext" />
           <Property Name="Note4isHtml" Type="bit" Nullable="false" />
           <Property Name="Note5" Type="ntext" />
-          <Property Name="Note15sHtml" Type="bit" Nullable="false" />
+          <Property Name="Note5isHtml" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABASE\COLLECTION.MDF.dbo.vEnhancedPurchaseInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2087,8 +2108,11 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tEnhancedFeatures" EntityType="Self.tEnhancedFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedFeaturesMetaData" EntityType="Self.tEnhancedFeaturesMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedNotes" EntityType="Self.tEnhancedNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tEnhancedNotesMetaData" EntityType="Self.tEnhancedNotesMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedPurchaseInfo" EntityType="Self.tEnhancedPurchaseInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tEnhancedPurchaseInfoMetaData" EntityType="Self.tEnhancedPurchaseInfoMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEnhancedTitles" EntityType="Self.tEnhancedTitles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tEnhancedTitlesMetaData" EntityType="Self.tEnhancedTitlesMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tEventType" EntityType="Self.tEventType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tExclusions" EntityType="Self.tExclusions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tFeatures" EntityType="Self.tFeatures" Schema="dbo" store:Type="Tables" />
@@ -2381,7 +2405,7 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
     [vEnhancedNotes].[Note4] AS [Note4], 
     [vEnhancedNotes].[Note4isHtml] AS [Note4isHtml], 
     [vEnhancedNotes].[Note5] AS [Note5], 
-    [vEnhancedNotes].[Note15sHtml] AS [Note15sHtml]
+    [vEnhancedNotes].[Note5isHtml] AS [Note5isHtml]
     FROM [dbo].[vEnhancedNotes] AS [vEnhancedNotes]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vEnhancedPurchaseInfo" EntityType="Self.vEnhancedPurchaseInfo" store:Type="Views" store:Schema="dbo">
@@ -2836,7 +2860,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tCreditSubtype" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tCreditSubtype" />
           <EntitySet Name="tCreditType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tCreditType" />
           <EntitySet Name="tDBVersion" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDBVersion" />
-          <EntitySet Name="tDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" />
           <EntitySet Name="tDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDId" />
           <EntitySet Name="tDVDIdType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDIdType" />
           <EntitySet Name="tDVDxAudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxAudio" />
@@ -2852,9 +2875,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tDVDxStudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxStudio" />
           <EntitySet Name="tDVDxSubtitle" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxSubtitle" />
           <EntitySet Name="tDVDxTag" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDVDxTag" />
-          <EntitySet Name="tEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" />
-          <EntitySet Name="tEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" />
-          <EntitySet Name="tEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" />
           <EntitySet Name="tEventType" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEventType" />
           <EntitySet Name="tFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFeatures" />
           <EntitySet Name="tFormat" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tFormat" />
@@ -2876,7 +2896,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="tVideoStandard" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tVideoStandard" />
           <EntitySet Name="vCastGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vCastGrouped" />
           <EntitySet Name="vCollectionTypeGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vCollectionTypeGrouped" />
-          <EntitySet Name="vDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo" />
           <EntitySet Name="vDVD" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVD" />
           <EntitySet Name="vDVDId" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDId" />
           <EntitySet Name="vDVDxAudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxAudio" />
@@ -2889,9 +2908,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <EntitySet Name="vDVDxRegion" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxRegion" />
           <EntitySet Name="vDVDxStudio" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxStudio" />
           <EntitySet Name="vDVDxTag" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxTag" />
-          <EntitySet Name="vEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" />
-          <EntitySet Name="vEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" />
-          <EntitySet Name="vEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" />
           <EntitySet Name="vFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFeatures" />
           <EntitySet Name="vFormat" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vFormat" />
           <EntitySet Name="vGenreGrouped" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vGenreGrouped" />
@@ -3013,10 +3029,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tCollectionType" EntitySet="tCollectionType" />
             <End Role="tDVD" EntitySet="tDVD" />
           </AssociationSet>
-          <AssociationSet Name="FK_DigitalDownloadInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo">
-            <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
-          </AssociationSet>
           <AssociationSet Name="FK_AudioList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDxAudio" EntitySet="tDVDxAudio" />
@@ -3044,18 +3056,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <AssociationSet Name="FK_DVDId" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tDVDId" EntitySet="tDVDId" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EnhancedFeatures" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures">
-            <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EnhancedNotes" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes">
-            <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EnhancedTitles" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles">
-            <End Role="tDVD" EntitySet="tDVD" />
-            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
           </AssociationSet>
           <AssociationSet Name="FK_EventList" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList">
             <End Role="tDVD" EntitySet="tDVD" />
@@ -3129,13 +3129,40 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tExclusions" EntitySet="tExclusions" />
           </AssociationSet>
+          <EntitySet Name="tDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" />
+          <EntitySet Name="tEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" />
           <EntitySet Name="tEnhancedFeaturesMetaData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData" />
+          <EntitySet Name="tEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" />
           <EntitySet Name="tEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" />
+          <EntitySet Name="tEnhancedPurchaseInfoMetaData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfoMetaData" />
+          <EntitySet Name="tEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" />
+          <EntitySet Name="tEnhancedTitlesMetaData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitlesMetaData" />
+          <EntitySet Name="vDigitalDownloadInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo" />
+          <EntitySet Name="vEnhancedFeatures" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures" />
+          <EntitySet Name="vEnhancedNotes" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes" />
+          <EntitySet Name="vEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" />
+          <EntitySet Name="vEnhancedTitles" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles" />
+          <AssociationSet Name="FK_DigitalDownloadInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tDigitalDownloadInfo" EntitySet="tDigitalDownloadInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnhancedFeatures" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedFeatures" EntitySet="tEnhancedFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnhancedNotes" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedNotes" EntitySet="tEnhancedNotes" />
+          </AssociationSet>
           <AssociationSet Name="FK_EnhancedPurchaseInfo" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo">
             <End Role="tDVD" EntitySet="tDVD" />
             <End Role="tEnhancedPurchaseInfo" EntitySet="tEnhancedPurchaseInfo" />
           </AssociationSet>
-          <EntitySet Name="vEnhancedPurchaseInfo" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo" />
+          <AssociationSet Name="FK_EnhancedTitles" Association="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles">
+            <End Role="tDVD" EntitySet="tDVD" />
+            <End Role="tEnhancedTitles" EntitySet="tEnhancedTitles" />
+          </AssociationSet>
+          <EntitySet Name="tEnhancedNotesMetaData" EntityType="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotesMetaData" />
         </EntityContainer>
         <EntityType Name="tAudioChannels">
           <Key>
@@ -3221,16 +3248,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <PropertyRef Name="Version" />
           </Key>
           <Property Name="Version" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tDigitalDownloadInfo">
-          <Key>
-            <PropertyRef Name="DigitalDownloadInfoId" />
-          </Key>
-          <Property Name="DigitalDownloadInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDigitalDownloadInfo" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tDVDId">
           <Key>
@@ -3402,85 +3419,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="TagId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Tag" FromRole="tDVDxTag" ToRole="tTag" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVDxTag" ToRole="tDVD" />
-        </EntityType>
-        <EntityType Name="tEnhancedFeatures">
-          <Key>
-            <PropertyRef Name="EnhancedFeatureId" />
-          </Key>
-          <Property Name="EnhancedFeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Feature1" Type="Boolean" Nullable="false" />
-          <Property Name="Feature2" Type="Boolean" Nullable="false" />
-          <Property Name="Feature3" Type="Boolean" Nullable="false" />
-          <Property Name="Feature4" Type="Boolean" Nullable="false" />
-          <Property Name="Feature5" Type="Boolean" Nullable="false" />
-          <Property Name="Feature6" Type="Boolean" Nullable="false" />
-          <Property Name="Feature7" Type="Boolean" Nullable="false" />
-          <Property Name="Feature8" Type="Boolean" Nullable="false" />
-          <Property Name="Feature9" Type="Boolean" Nullable="false" />
-          <Property Name="Feature10" Type="Boolean" Nullable="false" />
-          <Property Name="Feature11" Type="Boolean" Nullable="false" />
-          <Property Name="Feature12" Type="Boolean" Nullable="false" />
-          <Property Name="Feature13" Type="Boolean" Nullable="false" />
-          <Property Name="Feature14" Type="Boolean" Nullable="false" />
-          <Property Name="Feature15" Type="Boolean" Nullable="false" />
-          <Property Name="Feature16" Type="Boolean" Nullable="false" />
-          <Property Name="Feature17" Type="Boolean" Nullable="false" />
-          <Property Name="Feature18" Type="Boolean" Nullable="false" />
-          <Property Name="Feature19" Type="Boolean" Nullable="false" />
-          <Property Name="Feature20" Type="Boolean" Nullable="false" />
-          <Property Name="Feature21" Type="Boolean" Nullable="false" />
-          <Property Name="Feature22" Type="Boolean" Nullable="false" />
-          <Property Name="Feature23" Type="Boolean" Nullable="false" />
-          <Property Name="Feature24" Type="Boolean" Nullable="false" />
-          <Property Name="Feature25" Type="Boolean" Nullable="false" />
-          <Property Name="Feature26" Type="Boolean" Nullable="false" />
-          <Property Name="Feature27" Type="Boolean" Nullable="false" />
-          <Property Name="Feature28" Type="Boolean" Nullable="false" />
-          <Property Name="Feature29" Type="Boolean" Nullable="false" />
-          <Property Name="Feature30" Type="Boolean" Nullable="false" />
-          <Property Name="Feature31" Type="Boolean" Nullable="false" />
-          <Property Name="Feature32" Type="Boolean" Nullable="false" />
-          <Property Name="Feature33" Type="Boolean" Nullable="false" />
-          <Property Name="Feature34" Type="Boolean" Nullable="false" />
-          <Property Name="Feature35" Type="Boolean" Nullable="false" />
-          <Property Name="Feature36" Type="Boolean" Nullable="false" />
-          <Property Name="Feature37" Type="Boolean" Nullable="false" />
-          <Property Name="Feature38" Type="Boolean" Nullable="false" />
-          <Property Name="Feature39" Type="Boolean" Nullable="false" />
-          <Property Name="Feature40" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tEnhancedFeatures" ToRole="tDVD" />
-        </EntityType>
-        <EntityType Name="tEnhancedNotes">
-          <Key>
-            <PropertyRef Name="EnhancedNotesId" />
-          </Key>
-          <Property Name="EnhancedNotesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note1isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note2isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note3isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note4isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note15sHtml" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tEnhancedNotes" ToRole="tDVD" />
-        </EntityType>
-        <EntityType Name="tEnhancedTitles">
-          <Key>
-            <PropertyRef Name="EnhancedTitlesId" />
-          </Key>
-          <Property Name="EnhancedTitlesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tEnhancedTitles" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tEventType">
           <Key>
@@ -3746,20 +3684,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="IsPartOfOwnedCollection" Type="Boolean" Nullable="false" />
           <Property Name="Count" Type="Int32" />
         </EntityType>
-        <EntityType Name="vDigitalDownloadInfo">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Company" />
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="vDVD">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -3947,136 +3871,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Tag" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vEnhancedFeatures">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Feature1" />
-            <PropertyRef Name="Feature2" />
-            <PropertyRef Name="Feature3" />
-            <PropertyRef Name="Feature4" />
-            <PropertyRef Name="Feature5" />
-            <PropertyRef Name="Feature6" />
-            <PropertyRef Name="Feature7" />
-            <PropertyRef Name="Feature8" />
-            <PropertyRef Name="Feature9" />
-            <PropertyRef Name="Feature10" />
-            <PropertyRef Name="Feature11" />
-            <PropertyRef Name="Feature12" />
-            <PropertyRef Name="Feature13" />
-            <PropertyRef Name="Feature14" />
-            <PropertyRef Name="Feature15" />
-            <PropertyRef Name="Feature16" />
-            <PropertyRef Name="Feature17" />
-            <PropertyRef Name="Feature18" />
-            <PropertyRef Name="Feature19" />
-            <PropertyRef Name="Feature20" />
-            <PropertyRef Name="Feature21" />
-            <PropertyRef Name="Feature22" />
-            <PropertyRef Name="Feature23" />
-            <PropertyRef Name="Feature24" />
-            <PropertyRef Name="Feature25" />
-            <PropertyRef Name="Feature26" />
-            <PropertyRef Name="Feature27" />
-            <PropertyRef Name="Feature28" />
-            <PropertyRef Name="Feature29" />
-            <PropertyRef Name="Feature30" />
-            <PropertyRef Name="Feature31" />
-            <PropertyRef Name="Feature32" />
-            <PropertyRef Name="Feature33" />
-            <PropertyRef Name="Feature34" />
-            <PropertyRef Name="Feature35" />
-            <PropertyRef Name="Feature36" />
-            <PropertyRef Name="Feature37" />
-            <PropertyRef Name="Feature38" />
-            <PropertyRef Name="Feature39" />
-            <PropertyRef Name="Feature40" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Feature1" Type="Boolean" Nullable="false" />
-          <Property Name="Feature2" Type="Boolean" Nullable="false" />
-          <Property Name="Feature3" Type="Boolean" Nullable="false" />
-          <Property Name="Feature4" Type="Boolean" Nullable="false" />
-          <Property Name="Feature5" Type="Boolean" Nullable="false" />
-          <Property Name="Feature6" Type="Boolean" Nullable="false" />
-          <Property Name="Feature7" Type="Boolean" Nullable="false" />
-          <Property Name="Feature8" Type="Boolean" Nullable="false" />
-          <Property Name="Feature9" Type="Boolean" Nullable="false" />
-          <Property Name="Feature10" Type="Boolean" Nullable="false" />
-          <Property Name="Feature11" Type="Boolean" Nullable="false" />
-          <Property Name="Feature12" Type="Boolean" Nullable="false" />
-          <Property Name="Feature13" Type="Boolean" Nullable="false" />
-          <Property Name="Feature14" Type="Boolean" Nullable="false" />
-          <Property Name="Feature15" Type="Boolean" Nullable="false" />
-          <Property Name="Feature16" Type="Boolean" Nullable="false" />
-          <Property Name="Feature17" Type="Boolean" Nullable="false" />
-          <Property Name="Feature18" Type="Boolean" Nullable="false" />
-          <Property Name="Feature19" Type="Boolean" Nullable="false" />
-          <Property Name="Feature20" Type="Boolean" Nullable="false" />
-          <Property Name="Feature21" Type="Boolean" Nullable="false" />
-          <Property Name="Feature22" Type="Boolean" Nullable="false" />
-          <Property Name="Feature23" Type="Boolean" Nullable="false" />
-          <Property Name="Feature24" Type="Boolean" Nullable="false" />
-          <Property Name="Feature25" Type="Boolean" Nullable="false" />
-          <Property Name="Feature26" Type="Boolean" Nullable="false" />
-          <Property Name="Feature27" Type="Boolean" Nullable="false" />
-          <Property Name="Feature28" Type="Boolean" Nullable="false" />
-          <Property Name="Feature29" Type="Boolean" Nullable="false" />
-          <Property Name="Feature30" Type="Boolean" Nullable="false" />
-          <Property Name="Feature31" Type="Boolean" Nullable="false" />
-          <Property Name="Feature32" Type="Boolean" Nullable="false" />
-          <Property Name="Feature33" Type="Boolean" Nullable="false" />
-          <Property Name="Feature34" Type="Boolean" Nullable="false" />
-          <Property Name="Feature35" Type="Boolean" Nullable="false" />
-          <Property Name="Feature36" Type="Boolean" Nullable="false" />
-          <Property Name="Feature37" Type="Boolean" Nullable="false" />
-          <Property Name="Feature38" Type="Boolean" Nullable="false" />
-          <Property Name="Feature39" Type="Boolean" Nullable="false" />
-          <Property Name="Feature40" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vEnhancedNotes">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Note1isHtml" />
-            <PropertyRef Name="Note2isHtml" />
-            <PropertyRef Name="Note3isHtml" />
-            <PropertyRef Name="Note4isHtml" />
-            <PropertyRef Name="Note15sHtml" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Note1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note1isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note2isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note3isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note4isHtml" Type="Boolean" Nullable="false" />
-          <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note15sHtml" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vEnhancedTitles">
-          <Key>
-            <PropertyRef Name="DVDId" />
-            <PropertyRef Name="Title" />
-          </Key>
-          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Title1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Title5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vFeatures">
           <Key>
@@ -4748,7 +4542,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tCaseType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CaseType" FromRole="tDVD" ToRole="tCaseType" />
           <NavigationProperty Name="tCollectionType" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CollectionType" FromRole="tDVD" ToRole="tCollectionType" />
-          <NavigationProperty Name="tDigitalDownloadInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDVD" ToRole="tDigitalDownloadInfo" />
           <NavigationProperty Name="tDVDxAudio" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_AudioList" FromRole="tDVD" ToRole="tDVDxAudio" />
           <NavigationProperty Name="tDVDxCast" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CastList" FromRole="tDVD" ToRole="tDVDxCast" />
           <NavigationProperty Name="tParentDVDxChildDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_ChildDVDId" FromRole="tDVD" ToRole="tParentDVDxChildDVD" />
@@ -4756,9 +4549,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <NavigationProperty Name="tDVDxCrew" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_CrewList" FromRole="tDVD" ToRole="tDVDxCrew" />
           <NavigationProperty Name="tDVDxDisc" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DiscList" FromRole="tDVD" ToRole="tDVDxDisc" />
           <NavigationProperty Name="tDVDId" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DVDId" FromRole="tDVD" ToRole="tDVDId" />
-          <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
-          <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
-          <NavigationProperty Name="tEnhancedTitles" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tDVD" ToRole="tEnhancedTitles" />
           <NavigationProperty Name="tDVDxEvent" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EventList" FromRole="tDVD" ToRole="tDVDxEvent" />
           <NavigationProperty Name="tFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Features" FromRole="tDVD" ToRole="tFeatures" />
           <NavigationProperty Name="tFormat" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_Format" FromRole="tDVD" ToRole="tFormat" />
@@ -4777,7 +4567,11 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <NavigationProperty Name="tDVDxSubtitle" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_SubtitleList" FromRole="tDVD" ToRole="tDVDxSubtitle" />
           <NavigationProperty Name="tDVDxTag" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_TagList" FromRole="tDVD" ToRole="tDVDxTag" />
           <NavigationProperty Name="tExclusions" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_tExclusions" FromRole="tDVD" ToRole="tExclusions" />
+          <NavigationProperty Name="tDigitalDownloadInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDVD" ToRole="tDigitalDownloadInfo" />
+          <NavigationProperty Name="tEnhancedFeatures" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tDVD" ToRole="tEnhancedFeatures" />
+          <NavigationProperty Name="tEnhancedNotes" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tDVD" ToRole="tEnhancedNotes" />
           <NavigationProperty Name="tEnhancedPurchaseInfo" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tDVD" ToRole="tEnhancedPurchaseInfo" />
+          <NavigationProperty Name="tEnhancedTitles" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tDVD" ToRole="tEnhancedTitles" />
         </EntityType>
         <Association Name="FK_CaseType">
           <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tCaseType" Role="tCaseType" Multiplicity="0..1" />
@@ -4800,18 +4594,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Principal>
             <Dependent Role="tDVD">
               <PropertyRef Name="CollectionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DigitalDownloadInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Role="tDigitalDownloadInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tDigitalDownloadInfo">
-              <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4895,42 +4677,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               <PropertyRef Name="DVDId" />
             </Principal>
             <Dependent Role="tDVDId">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EnhancedFeatures">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Role="tEnhancedFeatures" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tEnhancedFeatures">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EnhancedNotes">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Role="tEnhancedNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tEnhancedNotes">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EnhancedTitles">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Role="tEnhancedTitles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tEnhancedTitles">
               <PropertyRef Name="DVDId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5151,12 +4897,88 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tDigitalDownloadInfo">
+          <Key>
+            <PropertyRef Name="DigitalDownloadInfoId" />
+          </Key>
+          <Property Name="DigitalDownloadInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_DigitalDownloadInfo" FromRole="tDigitalDownloadInfo" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="tEnhancedFeatures">
+          <Key>
+            <PropertyRef Name="EnhancedFeatureId" />
+          </Key>
+          <Property Name="EnhancedFeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Feature1" Type="Boolean" Nullable="false" />
+          <Property Name="Feature2" Type="Boolean" Nullable="false" />
+          <Property Name="Feature3" Type="Boolean" Nullable="false" />
+          <Property Name="Feature4" Type="Boolean" Nullable="false" />
+          <Property Name="Feature5" Type="Boolean" Nullable="false" />
+          <Property Name="Feature6" Type="Boolean" Nullable="false" />
+          <Property Name="Feature7" Type="Boolean" Nullable="false" />
+          <Property Name="Feature8" Type="Boolean" Nullable="false" />
+          <Property Name="Feature9" Type="Boolean" Nullable="false" />
+          <Property Name="Feature10" Type="Boolean" Nullable="false" />
+          <Property Name="Feature11" Type="Boolean" Nullable="false" />
+          <Property Name="Feature12" Type="Boolean" Nullable="false" />
+          <Property Name="Feature13" Type="Boolean" Nullable="false" />
+          <Property Name="Feature14" Type="Boolean" Nullable="false" />
+          <Property Name="Feature15" Type="Boolean" Nullable="false" />
+          <Property Name="Feature16" Type="Boolean" Nullable="false" />
+          <Property Name="Feature17" Type="Boolean" Nullable="false" />
+          <Property Name="Feature18" Type="Boolean" Nullable="false" />
+          <Property Name="Feature19" Type="Boolean" Nullable="false" />
+          <Property Name="Feature20" Type="Boolean" Nullable="false" />
+          <Property Name="Feature21" Type="Boolean" Nullable="false" />
+          <Property Name="Feature22" Type="Boolean" Nullable="false" />
+          <Property Name="Feature23" Type="Boolean" Nullable="false" />
+          <Property Name="Feature24" Type="Boolean" Nullable="false" />
+          <Property Name="Feature25" Type="Boolean" Nullable="false" />
+          <Property Name="Feature26" Type="Boolean" Nullable="false" />
+          <Property Name="Feature27" Type="Boolean" Nullable="false" />
+          <Property Name="Feature28" Type="Boolean" Nullable="false" />
+          <Property Name="Feature29" Type="Boolean" Nullable="false" />
+          <Property Name="Feature30" Type="Boolean" Nullable="false" />
+          <Property Name="Feature31" Type="Boolean" Nullable="false" />
+          <Property Name="Feature32" Type="Boolean" Nullable="false" />
+          <Property Name="Feature33" Type="Boolean" Nullable="false" />
+          <Property Name="Feature34" Type="Boolean" Nullable="false" />
+          <Property Name="Feature35" Type="Boolean" Nullable="false" />
+          <Property Name="Feature36" Type="Boolean" Nullable="false" />
+          <Property Name="Feature37" Type="Boolean" Nullable="false" />
+          <Property Name="Feature38" Type="Boolean" Nullable="false" />
+          <Property Name="Feature39" Type="Boolean" Nullable="false" />
+          <Property Name="Feature40" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedFeatures" FromRole="tEnhancedFeatures" ToRole="tDVD" />
+        </EntityType>
         <EntityType Name="tEnhancedFeaturesMetaData">
           <Key>
             <PropertyRef Name="EnhancedFeaturesFieldName" />
           </Key>
-          <Property Name="EnhancedFeaturesFieldName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EnhancedFeaturesFieldName" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tEnhancedNotes">
+          <Key>
+            <PropertyRef Name="EnhancedNotesId" />
+          </Key>
+          <Property Name="EnhancedNotesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note1isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note2isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note3isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note4isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note5isHtml" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedNotes" FromRole="tEnhancedNotes" ToRole="tDVD" />
         </EntityType>
         <EntityType Name="tEnhancedPurchaseInfo">
           <Key>
@@ -5189,18 +5011,162 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Date5" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedPurchaseInfo" FromRole="tEnhancedPurchaseInfo" ToRole="tDVD" />
         </EntityType>
-        <Association Name="FK_EnhancedPurchaseInfo">
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
-          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tDVD">
-              <PropertyRef Name="DVDId" />
-            </Principal>
-            <Dependent Role="tEnhancedPurchaseInfo">
-              <PropertyRef Name="DVDId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="tEnhancedPurchaseInfoMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedPurchaseInfoFieldName" />
+          </Key>
+          <Property Name="EnhancedPurchaseInfoFieldName" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tEnhancedTitles">
+          <Key>
+            <PropertyRef Name="EnhancedTitlesId" />
+          </Key>
+          <Property Name="EnhancedTitlesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tDVD" Relationship="DoenaSoft.DVDProfiler.SQLDatabase.FK_EnhancedTitles" FromRole="tEnhancedTitles" ToRole="tDVD" />
+        </EntityType>
+        <EntityType Name="tEnhancedTitlesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedTitlesFieldName" />
+          </Key>
+          <Property Name="EnhancedTitlesFieldName" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vDigitalDownloadInfo">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Company" />
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vEnhancedFeatures">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Feature1" />
+            <PropertyRef Name="Feature2" />
+            <PropertyRef Name="Feature3" />
+            <PropertyRef Name="Feature4" />
+            <PropertyRef Name="Feature5" />
+            <PropertyRef Name="Feature6" />
+            <PropertyRef Name="Feature7" />
+            <PropertyRef Name="Feature8" />
+            <PropertyRef Name="Feature9" />
+            <PropertyRef Name="Feature10" />
+            <PropertyRef Name="Feature11" />
+            <PropertyRef Name="Feature12" />
+            <PropertyRef Name="Feature13" />
+            <PropertyRef Name="Feature14" />
+            <PropertyRef Name="Feature15" />
+            <PropertyRef Name="Feature16" />
+            <PropertyRef Name="Feature17" />
+            <PropertyRef Name="Feature18" />
+            <PropertyRef Name="Feature19" />
+            <PropertyRef Name="Feature20" />
+            <PropertyRef Name="Feature21" />
+            <PropertyRef Name="Feature22" />
+            <PropertyRef Name="Feature23" />
+            <PropertyRef Name="Feature24" />
+            <PropertyRef Name="Feature25" />
+            <PropertyRef Name="Feature26" />
+            <PropertyRef Name="Feature27" />
+            <PropertyRef Name="Feature28" />
+            <PropertyRef Name="Feature29" />
+            <PropertyRef Name="Feature30" />
+            <PropertyRef Name="Feature31" />
+            <PropertyRef Name="Feature32" />
+            <PropertyRef Name="Feature33" />
+            <PropertyRef Name="Feature34" />
+            <PropertyRef Name="Feature35" />
+            <PropertyRef Name="Feature36" />
+            <PropertyRef Name="Feature37" />
+            <PropertyRef Name="Feature38" />
+            <PropertyRef Name="Feature39" />
+            <PropertyRef Name="Feature40" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Feature1" Type="Boolean" Nullable="false" />
+          <Property Name="Feature2" Type="Boolean" Nullable="false" />
+          <Property Name="Feature3" Type="Boolean" Nullable="false" />
+          <Property Name="Feature4" Type="Boolean" Nullable="false" />
+          <Property Name="Feature5" Type="Boolean" Nullable="false" />
+          <Property Name="Feature6" Type="Boolean" Nullable="false" />
+          <Property Name="Feature7" Type="Boolean" Nullable="false" />
+          <Property Name="Feature8" Type="Boolean" Nullable="false" />
+          <Property Name="Feature9" Type="Boolean" Nullable="false" />
+          <Property Name="Feature10" Type="Boolean" Nullable="false" />
+          <Property Name="Feature11" Type="Boolean" Nullable="false" />
+          <Property Name="Feature12" Type="Boolean" Nullable="false" />
+          <Property Name="Feature13" Type="Boolean" Nullable="false" />
+          <Property Name="Feature14" Type="Boolean" Nullable="false" />
+          <Property Name="Feature15" Type="Boolean" Nullable="false" />
+          <Property Name="Feature16" Type="Boolean" Nullable="false" />
+          <Property Name="Feature17" Type="Boolean" Nullable="false" />
+          <Property Name="Feature18" Type="Boolean" Nullable="false" />
+          <Property Name="Feature19" Type="Boolean" Nullable="false" />
+          <Property Name="Feature20" Type="Boolean" Nullable="false" />
+          <Property Name="Feature21" Type="Boolean" Nullable="false" />
+          <Property Name="Feature22" Type="Boolean" Nullable="false" />
+          <Property Name="Feature23" Type="Boolean" Nullable="false" />
+          <Property Name="Feature24" Type="Boolean" Nullable="false" />
+          <Property Name="Feature25" Type="Boolean" Nullable="false" />
+          <Property Name="Feature26" Type="Boolean" Nullable="false" />
+          <Property Name="Feature27" Type="Boolean" Nullable="false" />
+          <Property Name="Feature28" Type="Boolean" Nullable="false" />
+          <Property Name="Feature29" Type="Boolean" Nullable="false" />
+          <Property Name="Feature30" Type="Boolean" Nullable="false" />
+          <Property Name="Feature31" Type="Boolean" Nullable="false" />
+          <Property Name="Feature32" Type="Boolean" Nullable="false" />
+          <Property Name="Feature33" Type="Boolean" Nullable="false" />
+          <Property Name="Feature34" Type="Boolean" Nullable="false" />
+          <Property Name="Feature35" Type="Boolean" Nullable="false" />
+          <Property Name="Feature36" Type="Boolean" Nullable="false" />
+          <Property Name="Feature37" Type="Boolean" Nullable="false" />
+          <Property Name="Feature38" Type="Boolean" Nullable="false" />
+          <Property Name="Feature39" Type="Boolean" Nullable="false" />
+          <Property Name="Feature40" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnhancedNotes">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Note1isHtml" />
+            <PropertyRef Name="Note2isHtml" />
+            <PropertyRef Name="Note3isHtml" />
+            <PropertyRef Name="Note4isHtml" />
+            <PropertyRef Name="Note5isHtml" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Note1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note1isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note2isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note3isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note4isHtml" Type="Boolean" Nullable="false" />
+          <Property Name="Note5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note5isHtml" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="vEnhancedPurchaseInfo">
           <Key>
             <PropertyRef Name="DVDId" />
@@ -5233,6 +5199,88 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
           <Property Name="Date3" Type="DateTime" Precision="0" />
           <Property Name="Date4" Type="DateTime" Precision="0" />
           <Property Name="Date5" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="vEnhancedTitles">
+          <Key>
+            <PropertyRef Name="DVDId" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="DVDId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DistTrait" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Title1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DigitalDownloadInfo">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo" Role="tDigitalDownloadInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tDigitalDownloadInfo">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnhancedFeatures">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures" Role="tEnhancedFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tEnhancedFeatures">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnhancedNotes">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes" Role="tEnhancedNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tEnhancedNotes">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnhancedPurchaseInfo">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfo" Role="tEnhancedPurchaseInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tEnhancedPurchaseInfo">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnhancedTitles">
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tDVD" Role="tDVD" Multiplicity="1" />
+          <End Type="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles" Role="tEnhancedTitles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tDVD">
+              <PropertyRef Name="DVDId" />
+            </Principal>
+            <Dependent Role="tEnhancedTitles">
+              <PropertyRef Name="DVDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tEnhancedNotesMetaData">
+          <Key>
+            <PropertyRef Name="EnhancedNotesFieldName" />
+          </Key>
+          <Property Name="EnhancedNotesFieldName" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -5321,16 +5369,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDBVersion">
               <MappingFragment StoreEntitySet="tDBVersion">
                 <ScalarProperty Name="Version" ColumnName="Version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tDigitalDownloadInfo">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo">
-              <MappingFragment StoreEntitySet="tDigitalDownloadInfo">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="DigitalDownloadInfoId" ColumnName="DigitalDownloadInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5486,85 +5524,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
                 <ScalarProperty Name="TagId" ColumnName="TagId" />
                 <ScalarProperty Name="DVDid" ColumnName="DVDid" />
                 <ScalarProperty Name="DVDxTagId" ColumnName="DVDxTagId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tEnhancedFeatures">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures">
-              <MappingFragment StoreEntitySet="tEnhancedFeatures">
-                <ScalarProperty Name="Feature40" ColumnName="Feature40" />
-                <ScalarProperty Name="Feature39" ColumnName="Feature39" />
-                <ScalarProperty Name="Feature38" ColumnName="Feature38" />
-                <ScalarProperty Name="Feature37" ColumnName="Feature37" />
-                <ScalarProperty Name="Feature36" ColumnName="Feature36" />
-                <ScalarProperty Name="Feature35" ColumnName="Feature35" />
-                <ScalarProperty Name="Feature34" ColumnName="Feature34" />
-                <ScalarProperty Name="Feature33" ColumnName="Feature33" />
-                <ScalarProperty Name="Feature32" ColumnName="Feature32" />
-                <ScalarProperty Name="Feature31" ColumnName="Feature31" />
-                <ScalarProperty Name="Feature30" ColumnName="Feature30" />
-                <ScalarProperty Name="Feature29" ColumnName="Feature29" />
-                <ScalarProperty Name="Feature28" ColumnName="Feature28" />
-                <ScalarProperty Name="Feature27" ColumnName="Feature27" />
-                <ScalarProperty Name="Feature26" ColumnName="Feature26" />
-                <ScalarProperty Name="Feature25" ColumnName="Feature25" />
-                <ScalarProperty Name="Feature24" ColumnName="Feature24" />
-                <ScalarProperty Name="Feature23" ColumnName="Feature23" />
-                <ScalarProperty Name="Feature22" ColumnName="Feature22" />
-                <ScalarProperty Name="Feature21" ColumnName="Feature21" />
-                <ScalarProperty Name="Feature20" ColumnName="Feature20" />
-                <ScalarProperty Name="Feature19" ColumnName="Feature19" />
-                <ScalarProperty Name="Feature18" ColumnName="Feature18" />
-                <ScalarProperty Name="Feature17" ColumnName="Feature17" />
-                <ScalarProperty Name="Feature16" ColumnName="Feature16" />
-                <ScalarProperty Name="Feature15" ColumnName="Feature15" />
-                <ScalarProperty Name="Feature14" ColumnName="Feature14" />
-                <ScalarProperty Name="Feature13" ColumnName="Feature13" />
-                <ScalarProperty Name="Feature12" ColumnName="Feature12" />
-                <ScalarProperty Name="Feature11" ColumnName="Feature11" />
-                <ScalarProperty Name="Feature10" ColumnName="Feature10" />
-                <ScalarProperty Name="Feature9" ColumnName="Feature9" />
-                <ScalarProperty Name="Feature8" ColumnName="Feature8" />
-                <ScalarProperty Name="Feature7" ColumnName="Feature7" />
-                <ScalarProperty Name="Feature6" ColumnName="Feature6" />
-                <ScalarProperty Name="Feature5" ColumnName="Feature5" />
-                <ScalarProperty Name="Feature4" ColumnName="Feature4" />
-                <ScalarProperty Name="Feature3" ColumnName="Feature3" />
-                <ScalarProperty Name="Feature2" ColumnName="Feature2" />
-                <ScalarProperty Name="Feature1" ColumnName="Feature1" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="EnhancedFeatureId" ColumnName="EnhancedFeatureId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tEnhancedNotes">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes">
-              <MappingFragment StoreEntitySet="tEnhancedNotes">
-                <ScalarProperty Name="Note15sHtml" ColumnName="Note15sHtml" />
-                <ScalarProperty Name="Note5" ColumnName="Note5" />
-                <ScalarProperty Name="Note4isHtml" ColumnName="Note4isHtml" />
-                <ScalarProperty Name="Note4" ColumnName="Note4" />
-                <ScalarProperty Name="Note3isHtml" ColumnName="Note3isHtml" />
-                <ScalarProperty Name="Note3" ColumnName="Note3" />
-                <ScalarProperty Name="Note2isHtml" ColumnName="Note2isHtml" />
-                <ScalarProperty Name="Note2" ColumnName="Note2" />
-                <ScalarProperty Name="Note1isHtml" ColumnName="Note1isHtml" />
-                <ScalarProperty Name="Note1" ColumnName="Note1" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="EnhancedNotesId" ColumnName="EnhancedNotesId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tEnhancedTitles">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles">
-              <MappingFragment StoreEntitySet="tEnhancedTitles">
-                <ScalarProperty Name="Title5" ColumnName="Title5" />
-                <ScalarProperty Name="Title4" ColumnName="Title4" />
-                <ScalarProperty Name="Title3" ColumnName="Title3" />
-                <ScalarProperty Name="Title2" ColumnName="Title2" />
-                <ScalarProperty Name="Title1" ColumnName="Title1" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-                <ScalarProperty Name="EnhancedTitlesId" ColumnName="EnhancedTitlesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5826,18 +5785,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vDigitalDownloadInfo">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo">
-              <MappingFragment StoreEntitySet="vDigitalDownloadInfo">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vDVD">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVD">
               <MappingFragment StoreEntitySet="vDVD">
@@ -5998,91 +5945,6 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDVDxTag">
               <MappingFragment StoreEntitySet="vDVDxTag">
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vEnhancedFeatures">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures">
-              <MappingFragment StoreEntitySet="vEnhancedFeatures">
-                <ScalarProperty Name="Feature40" ColumnName="Feature40" />
-                <ScalarProperty Name="Feature39" ColumnName="Feature39" />
-                <ScalarProperty Name="Feature38" ColumnName="Feature38" />
-                <ScalarProperty Name="Feature37" ColumnName="Feature37" />
-                <ScalarProperty Name="Feature36" ColumnName="Feature36" />
-                <ScalarProperty Name="Feature35" ColumnName="Feature35" />
-                <ScalarProperty Name="Feature34" ColumnName="Feature34" />
-                <ScalarProperty Name="Feature33" ColumnName="Feature33" />
-                <ScalarProperty Name="Feature32" ColumnName="Feature32" />
-                <ScalarProperty Name="Feature31" ColumnName="Feature31" />
-                <ScalarProperty Name="Feature30" ColumnName="Feature30" />
-                <ScalarProperty Name="Feature29" ColumnName="Feature29" />
-                <ScalarProperty Name="Feature28" ColumnName="Feature28" />
-                <ScalarProperty Name="Feature27" ColumnName="Feature27" />
-                <ScalarProperty Name="Feature26" ColumnName="Feature26" />
-                <ScalarProperty Name="Feature25" ColumnName="Feature25" />
-                <ScalarProperty Name="Feature24" ColumnName="Feature24" />
-                <ScalarProperty Name="Feature23" ColumnName="Feature23" />
-                <ScalarProperty Name="Feature22" ColumnName="Feature22" />
-                <ScalarProperty Name="Feature21" ColumnName="Feature21" />
-                <ScalarProperty Name="Feature20" ColumnName="Feature20" />
-                <ScalarProperty Name="Feature19" ColumnName="Feature19" />
-                <ScalarProperty Name="Feature18" ColumnName="Feature18" />
-                <ScalarProperty Name="Feature17" ColumnName="Feature17" />
-                <ScalarProperty Name="Feature16" ColumnName="Feature16" />
-                <ScalarProperty Name="Feature15" ColumnName="Feature15" />
-                <ScalarProperty Name="Feature14" ColumnName="Feature14" />
-                <ScalarProperty Name="Feature13" ColumnName="Feature13" />
-                <ScalarProperty Name="Feature12" ColumnName="Feature12" />
-                <ScalarProperty Name="Feature11" ColumnName="Feature11" />
-                <ScalarProperty Name="Feature10" ColumnName="Feature10" />
-                <ScalarProperty Name="Feature9" ColumnName="Feature9" />
-                <ScalarProperty Name="Feature8" ColumnName="Feature8" />
-                <ScalarProperty Name="Feature7" ColumnName="Feature7" />
-                <ScalarProperty Name="Feature6" ColumnName="Feature6" />
-                <ScalarProperty Name="Feature5" ColumnName="Feature5" />
-                <ScalarProperty Name="Feature4" ColumnName="Feature4" />
-                <ScalarProperty Name="Feature3" ColumnName="Feature3" />
-                <ScalarProperty Name="Feature2" ColumnName="Feature2" />
-                <ScalarProperty Name="Feature1" ColumnName="Feature1" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vEnhancedNotes">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes">
-              <MappingFragment StoreEntitySet="vEnhancedNotes">
-                <ScalarProperty Name="Note15sHtml" ColumnName="Note15sHtml" />
-                <ScalarProperty Name="Note5" ColumnName="Note5" />
-                <ScalarProperty Name="Note4isHtml" ColumnName="Note4isHtml" />
-                <ScalarProperty Name="Note4" ColumnName="Note4" />
-                <ScalarProperty Name="Note3isHtml" ColumnName="Note3isHtml" />
-                <ScalarProperty Name="Note3" ColumnName="Note3" />
-                <ScalarProperty Name="Note2isHtml" ColumnName="Note2isHtml" />
-                <ScalarProperty Name="Note2" ColumnName="Note2" />
-                <ScalarProperty Name="Note1isHtml" ColumnName="Note1isHtml" />
-                <ScalarProperty Name="Note1" ColumnName="Note1" />
-                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
-                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vEnhancedTitles">
-            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles">
-              <MappingFragment StoreEntitySet="vEnhancedTitles">
-                <ScalarProperty Name="Title5" ColumnName="Title5" />
-                <ScalarProperty Name="Title4" ColumnName="Title4" />
-                <ScalarProperty Name="Title3" ColumnName="Title3" />
-                <ScalarProperty Name="Title2" ColumnName="Title2" />
-                <ScalarProperty Name="Title1" ColumnName="Title1" />
                 <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
                 <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -6396,11 +6258,87 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tDigitalDownloadInfo">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tDigitalDownloadInfo">
+              <MappingFragment StoreEntitySet="tDigitalDownloadInfo">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="DigitalDownloadInfoId" ColumnName="DigitalDownloadInfoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedFeatures">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeatures">
+              <MappingFragment StoreEntitySet="tEnhancedFeatures">
+                <ScalarProperty Name="Feature40" ColumnName="Feature40" />
+                <ScalarProperty Name="Feature39" ColumnName="Feature39" />
+                <ScalarProperty Name="Feature38" ColumnName="Feature38" />
+                <ScalarProperty Name="Feature37" ColumnName="Feature37" />
+                <ScalarProperty Name="Feature36" ColumnName="Feature36" />
+                <ScalarProperty Name="Feature35" ColumnName="Feature35" />
+                <ScalarProperty Name="Feature34" ColumnName="Feature34" />
+                <ScalarProperty Name="Feature33" ColumnName="Feature33" />
+                <ScalarProperty Name="Feature32" ColumnName="Feature32" />
+                <ScalarProperty Name="Feature31" ColumnName="Feature31" />
+                <ScalarProperty Name="Feature30" ColumnName="Feature30" />
+                <ScalarProperty Name="Feature29" ColumnName="Feature29" />
+                <ScalarProperty Name="Feature28" ColumnName="Feature28" />
+                <ScalarProperty Name="Feature27" ColumnName="Feature27" />
+                <ScalarProperty Name="Feature26" ColumnName="Feature26" />
+                <ScalarProperty Name="Feature25" ColumnName="Feature25" />
+                <ScalarProperty Name="Feature24" ColumnName="Feature24" />
+                <ScalarProperty Name="Feature23" ColumnName="Feature23" />
+                <ScalarProperty Name="Feature22" ColumnName="Feature22" />
+                <ScalarProperty Name="Feature21" ColumnName="Feature21" />
+                <ScalarProperty Name="Feature20" ColumnName="Feature20" />
+                <ScalarProperty Name="Feature19" ColumnName="Feature19" />
+                <ScalarProperty Name="Feature18" ColumnName="Feature18" />
+                <ScalarProperty Name="Feature17" ColumnName="Feature17" />
+                <ScalarProperty Name="Feature16" ColumnName="Feature16" />
+                <ScalarProperty Name="Feature15" ColumnName="Feature15" />
+                <ScalarProperty Name="Feature14" ColumnName="Feature14" />
+                <ScalarProperty Name="Feature13" ColumnName="Feature13" />
+                <ScalarProperty Name="Feature12" ColumnName="Feature12" />
+                <ScalarProperty Name="Feature11" ColumnName="Feature11" />
+                <ScalarProperty Name="Feature10" ColumnName="Feature10" />
+                <ScalarProperty Name="Feature9" ColumnName="Feature9" />
+                <ScalarProperty Name="Feature8" ColumnName="Feature8" />
+                <ScalarProperty Name="Feature7" ColumnName="Feature7" />
+                <ScalarProperty Name="Feature6" ColumnName="Feature6" />
+                <ScalarProperty Name="Feature5" ColumnName="Feature5" />
+                <ScalarProperty Name="Feature4" ColumnName="Feature4" />
+                <ScalarProperty Name="Feature3" ColumnName="Feature3" />
+                <ScalarProperty Name="Feature2" ColumnName="Feature2" />
+                <ScalarProperty Name="Feature1" ColumnName="Feature1" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedFeatureId" ColumnName="EnhancedFeatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tEnhancedFeaturesMetaData">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedFeaturesMetaData">
               <MappingFragment StoreEntitySet="tEnhancedFeaturesMetaData">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EnhancedFeaturesFieldName" ColumnName="EnhancedFeaturesFieldName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedNotes">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotes">
+              <MappingFragment StoreEntitySet="tEnhancedNotes">
+                <ScalarProperty Name="Note5isHtml" ColumnName="Note5isHtml" />
+                <ScalarProperty Name="Note5" ColumnName="Note5" />
+                <ScalarProperty Name="Note4isHtml" ColumnName="Note4isHtml" />
+                <ScalarProperty Name="Note4" ColumnName="Note4" />
+                <ScalarProperty Name="Note3isHtml" ColumnName="Note3isHtml" />
+                <ScalarProperty Name="Note3" ColumnName="Note3" />
+                <ScalarProperty Name="Note2isHtml" ColumnName="Note2isHtml" />
+                <ScalarProperty Name="Note2" ColumnName="Note2" />
+                <ScalarProperty Name="Note1isHtml" ColumnName="Note1isHtml" />
+                <ScalarProperty Name="Note1" ColumnName="Note1" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedNotesId" ColumnName="EnhancedNotesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6435,6 +6373,117 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedPurchaseInfoMetaData">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedPurchaseInfoMetaData">
+              <MappingFragment StoreEntitySet="tEnhancedPurchaseInfoMetaData">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnhancedPurchaseInfoFieldName" ColumnName="EnhancedPurchaseInfoFieldName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedTitles">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitles">
+              <MappingFragment StoreEntitySet="tEnhancedTitles">
+                <ScalarProperty Name="Title5" ColumnName="Title5" />
+                <ScalarProperty Name="Title4" ColumnName="Title4" />
+                <ScalarProperty Name="Title3" ColumnName="Title3" />
+                <ScalarProperty Name="Title2" ColumnName="Title2" />
+                <ScalarProperty Name="Title1" ColumnName="Title1" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+                <ScalarProperty Name="EnhancedTitlesId" ColumnName="EnhancedTitlesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedTitlesMetaData">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedTitlesMetaData">
+              <MappingFragment StoreEntitySet="tEnhancedTitlesMetaData">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnhancedTitlesFieldName" ColumnName="EnhancedTitlesFieldName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vDigitalDownloadInfo">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vDigitalDownloadInfo">
+              <MappingFragment StoreEntitySet="vDigitalDownloadInfo">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnhancedFeatures">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedFeatures">
+              <MappingFragment StoreEntitySet="vEnhancedFeatures">
+                <ScalarProperty Name="Feature40" ColumnName="Feature40" />
+                <ScalarProperty Name="Feature39" ColumnName="Feature39" />
+                <ScalarProperty Name="Feature38" ColumnName="Feature38" />
+                <ScalarProperty Name="Feature37" ColumnName="Feature37" />
+                <ScalarProperty Name="Feature36" ColumnName="Feature36" />
+                <ScalarProperty Name="Feature35" ColumnName="Feature35" />
+                <ScalarProperty Name="Feature34" ColumnName="Feature34" />
+                <ScalarProperty Name="Feature33" ColumnName="Feature33" />
+                <ScalarProperty Name="Feature32" ColumnName="Feature32" />
+                <ScalarProperty Name="Feature31" ColumnName="Feature31" />
+                <ScalarProperty Name="Feature30" ColumnName="Feature30" />
+                <ScalarProperty Name="Feature29" ColumnName="Feature29" />
+                <ScalarProperty Name="Feature28" ColumnName="Feature28" />
+                <ScalarProperty Name="Feature27" ColumnName="Feature27" />
+                <ScalarProperty Name="Feature26" ColumnName="Feature26" />
+                <ScalarProperty Name="Feature25" ColumnName="Feature25" />
+                <ScalarProperty Name="Feature24" ColumnName="Feature24" />
+                <ScalarProperty Name="Feature23" ColumnName="Feature23" />
+                <ScalarProperty Name="Feature22" ColumnName="Feature22" />
+                <ScalarProperty Name="Feature21" ColumnName="Feature21" />
+                <ScalarProperty Name="Feature20" ColumnName="Feature20" />
+                <ScalarProperty Name="Feature19" ColumnName="Feature19" />
+                <ScalarProperty Name="Feature18" ColumnName="Feature18" />
+                <ScalarProperty Name="Feature17" ColumnName="Feature17" />
+                <ScalarProperty Name="Feature16" ColumnName="Feature16" />
+                <ScalarProperty Name="Feature15" ColumnName="Feature15" />
+                <ScalarProperty Name="Feature14" ColumnName="Feature14" />
+                <ScalarProperty Name="Feature13" ColumnName="Feature13" />
+                <ScalarProperty Name="Feature12" ColumnName="Feature12" />
+                <ScalarProperty Name="Feature11" ColumnName="Feature11" />
+                <ScalarProperty Name="Feature10" ColumnName="Feature10" />
+                <ScalarProperty Name="Feature9" ColumnName="Feature9" />
+                <ScalarProperty Name="Feature8" ColumnName="Feature8" />
+                <ScalarProperty Name="Feature7" ColumnName="Feature7" />
+                <ScalarProperty Name="Feature6" ColumnName="Feature6" />
+                <ScalarProperty Name="Feature5" ColumnName="Feature5" />
+                <ScalarProperty Name="Feature4" ColumnName="Feature4" />
+                <ScalarProperty Name="Feature3" ColumnName="Feature3" />
+                <ScalarProperty Name="Feature2" ColumnName="Feature2" />
+                <ScalarProperty Name="Feature1" ColumnName="Feature1" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnhancedNotes">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedNotes">
+              <MappingFragment StoreEntitySet="vEnhancedNotes">
+                <ScalarProperty Name="Note5isHtml" ColumnName="Note5isHtml" />
+                <ScalarProperty Name="Note5" ColumnName="Note5" />
+                <ScalarProperty Name="Note4isHtml" ColumnName="Note4isHtml" />
+                <ScalarProperty Name="Note4" ColumnName="Note4" />
+                <ScalarProperty Name="Note3isHtml" ColumnName="Note3isHtml" />
+                <ScalarProperty Name="Note3" ColumnName="Note3" />
+                <ScalarProperty Name="Note2isHtml" ColumnName="Note2isHtml" />
+                <ScalarProperty Name="Note2" ColumnName="Note2" />
+                <ScalarProperty Name="Note1isHtml" ColumnName="Note1isHtml" />
+                <ScalarProperty Name="Note1" ColumnName="Note1" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vEnhancedPurchaseInfo">
             <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedPurchaseInfo">
               <MappingFragment StoreEntitySet="vEnhancedPurchaseInfo">
@@ -6465,6 +6514,29 @@ warning 6002: The table/view 'D:\GIT\DVDPROFILERTOSQL\DVDPROFILERTOSQL\SQLDATABA
                 <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnhancedTitles">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.vEnhancedTitles">
+              <MappingFragment StoreEntitySet="vEnhancedTitles">
+                <ScalarProperty Name="Title5" ColumnName="Title5" />
+                <ScalarProperty Name="Title4" ColumnName="Title4" />
+                <ScalarProperty Name="Title3" ColumnName="Title3" />
+                <ScalarProperty Name="Title2" ColumnName="Title2" />
+                <ScalarProperty Name="Title1" ColumnName="Title1" />
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
+                <ScalarProperty Name="DistTrait" ColumnName="DistTrait" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DVDId" ColumnName="DVDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tEnhancedNotesMetaData">
+            <EntityTypeMapping TypeName="DoenaSoft.DVDProfiler.SQLDatabase.tEnhancedNotesMetaData">
+              <MappingFragment StoreEntitySet="tEnhancedNotesMetaData">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnhancedNotesFieldName" ColumnName="EnhancedNotesFieldName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

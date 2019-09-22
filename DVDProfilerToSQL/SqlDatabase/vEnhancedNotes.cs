@@ -27,6 +27,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public string Note4 { get; set; }
         public bool Note4isHtml { get; set; }
         public string Note5 { get; set; }
-        public bool Note15sHtml { get; set; }
+        public bool Note5isHtml { get; set; }
     }
 }

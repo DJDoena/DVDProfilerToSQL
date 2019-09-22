@@ -119,7 +119,7 @@ CREATE TABLE [dbo].[tEnhancedNotes](
 	[Note4] [ntext] NULL,
 	[Note4isHtml] [bit] NOT NULL,
 	[Note5] [ntext] NULL,
-	[Note15sHtml] [bit] NOT NULL,
+	[Note5isHtml] [bit] NOT NULL,
  CONSTRAINT [PK_tEnhancedNotes] PRIMARY KEY CLUSTERED 
 (
 	[EnhancedNotesId] ASC
@@ -165,7 +165,7 @@ GO
 CREATE VIEW [dbo].[vEnhancedNotes]
 AS
 SELECT        dbo.tDVD.DVDId, dbo.tDVD.Title, dbo.tDVD.DistTrait, dbo.tCollectionType.Type AS CollectionType, dbo.tEnhancedNotes.Note1, dbo.tEnhancedNotes.Note1isHtml, dbo.tEnhancedNotes.Note2, dbo.tEnhancedNotes.Note2isHtml, 
-                         dbo.tEnhancedNotes.Note3, dbo.tEnhancedNotes.Note3isHtml, dbo.tEnhancedNotes.Note4, dbo.tEnhancedNotes.Note4isHtml, dbo.tEnhancedNotes.Note5, dbo.tEnhancedNotes.Note15sHtml
+                         dbo.tEnhancedNotes.Note3, dbo.tEnhancedNotes.Note3isHtml, dbo.tEnhancedNotes.Note4, dbo.tEnhancedNotes.Note4isHtml, dbo.tEnhancedNotes.Note5, dbo.tEnhancedNotes.Note5isHtml
 FROM            dbo.tDVD INNER JOIN
                          dbo.tCollectionType ON dbo.tDVD.CollectionTypeId = dbo.tCollectionType.CollectionTypeId INNER JOIN
                          dbo.tEnhancedNotes ON dbo.tDVD.DVDId = dbo.tEnhancedNotes.DVDId
@@ -177,29 +177,29 @@ GO
 CREATE TABLE [dbo].[tEnhancedPurchaseInfo](
 	[EnhancedPurchaseInfoId] [int] IDENTITY(1,1) NOT NULL,
 	[DVDId] [nvarchar](50) NOT NULL,
-	[OriginalPriceDenomination] [nvarchar](50) NULL,
-	[OriginalPriceValue] [decimal](18, 2) NULL,
-	[ShippingCostDenomination] [nvarchar](50) NULL,
-	[ShippingCostValue] [decimal](18, 2) NULL,
-	[CreditCardChargeDenomination] [nvarchar](50) NULL,
-	[CreditCardChargeValue] [decimal](18, 2) NULL,
-	[CreditCardFeesDenomination] [nvarchar](50) NULL,
-	[CreditCardFeesValue] [decimal](18, 2) NULL,
-	[DiscountDenomination] [nvarchar](50) NULL,
-	[DiscountValue] [decimal](18, 2) NULL,
-	[CustomsFeesDenomination] [nvarchar](50) NULL,
-	[CustomsFeesValue] [decimal](18, 2) NULL,
+	[Price1Denomination] [nvarchar](50) NULL,
+	[Price1Value] [decimal](18, 2) NULL,
+	[Price2Denomination] [nvarchar](50) NULL,
+	[Price2Value] [decimal](18, 2) NULL,
+	[Price3Denomination] [nvarchar](50) NULL,
+	[Price3Value] [decimal](18, 2) NULL,
+	[Price4Denomination] [nvarchar](50) NULL,
+	[Price4Value] [decimal](18, 2) NULL,
+	[Price5Denomination] [nvarchar](50) NULL,
+	[Price5Value] [decimal](18, 2) NULL,
+	[Price6Denomination] [nvarchar](50) NULL,
+	[Price6Value] [decimal](18, 2) NULL,
 	[CouponType] [nvarchar](100) NULL,
 	[CouponCode] [nvarchar](100) NULL,
-	[AdditionalPrice1Denomination] [nvarchar](50) NULL,
-	[AdditionalPrice1Value] [decimal](18, 2) NULL,
-	[AdditionalPrice2Denomination] [nvarchar](50) NULL,
-	[AdditionalPrice2Value] [decimal](18, 2) NULL,
-	[OrderDate] [date] NULL,
-	[ShippingDate] [date] NULL,
-	[DeliveryDate] [date] NULL,
-	[AdditionalDate1] [date] NULL,
-	[AdditionalDate2] [date] NULL,
+	[Price7Denomination] [nvarchar](50) NULL,
+	[Price7Value] [decimal](18, 2) NULL,
+	[Price8Denomination] [nvarchar](50) NULL,
+	[Price8Value] [decimal](18, 2) NULL,
+	[Date1] [date] NULL,
+	[Date2] [date] NULL,
+	[Date3] [date] NULL,
+	[Date4] [date] NULL,
+	[Date5] [date] NULL,
  CONSTRAINT [PK_tEnhancedPurchaseInfo] PRIMARY KEY CLUSTERED 
 (
 	[EnhancedPurchaseInfoId] ASC
@@ -212,12 +212,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE VIEW [dbo].[vEnhancedPurchaseInfo]
 AS
-SELECT        dbo.tDVD.DVDId, dbo.tDVD.Title, dbo.tDVD.DistTrait, dbo.tCollectionType.Type AS CollectionType, dbo.tEnhancedPurchaseInfo.OriginalPriceDenomination, dbo.tEnhancedPurchaseInfo.OriginalPriceValue, 
-                         dbo.tEnhancedPurchaseInfo.ShippingCostDenomination, dbo.tEnhancedPurchaseInfo.ShippingCostValue, dbo.tEnhancedPurchaseInfo.CreditCardChargeDenomination, dbo.tEnhancedPurchaseInfo.CreditCardChargeValue, 
-                         dbo.tEnhancedPurchaseInfo.CreditCardFeesDenomination, dbo.tEnhancedPurchaseInfo.CreditCardFeesValue, dbo.tEnhancedPurchaseInfo.DiscountDenomination, dbo.tEnhancedPurchaseInfo.DiscountValue, 
-                         dbo.tEnhancedPurchaseInfo.CustomsFeesDenomination, dbo.tEnhancedPurchaseInfo.CustomsFeesValue, dbo.tEnhancedPurchaseInfo.CouponType, dbo.tEnhancedPurchaseInfo.CouponCode, 
-                         dbo.tEnhancedPurchaseInfo.AdditionalPrice1Denomination, dbo.tEnhancedPurchaseInfo.AdditionalPrice1Value, dbo.tEnhancedPurchaseInfo.AdditionalPrice2Denomination, dbo.tEnhancedPurchaseInfo.AdditionalPrice2Value, 
-                         dbo.tEnhancedPurchaseInfo.OrderDate, dbo.tEnhancedPurchaseInfo.ShippingDate, dbo.tEnhancedPurchaseInfo.DeliveryDate, dbo.tEnhancedPurchaseInfo.AdditionalDate1, dbo.tEnhancedPurchaseInfo.AdditionalDate2
+SELECT        dbo.tDVD.DVDId, dbo.tDVD.Title, dbo.tDVD.DistTrait, dbo.tCollectionType.Type AS CollectionType, dbo.tEnhancedPurchaseInfo.Price1Denomination, dbo.tEnhancedPurchaseInfo.Price1Value, 
+                         dbo.tEnhancedPurchaseInfo.Price2Denomination, dbo.tEnhancedPurchaseInfo.Price2Value, dbo.tEnhancedPurchaseInfo.Price3Denomination, dbo.tEnhancedPurchaseInfo.Price3Value, 
+                         dbo.tEnhancedPurchaseInfo.Price4Denomination, dbo.tEnhancedPurchaseInfo.Price4Value, dbo.tEnhancedPurchaseInfo.Price5Denomination, dbo.tEnhancedPurchaseInfo.Price5Value, 
+                         dbo.tEnhancedPurchaseInfo.Price6Denomination, dbo.tEnhancedPurchaseInfo.Price6Value, dbo.tEnhancedPurchaseInfo.CouponType, dbo.tEnhancedPurchaseInfo.CouponCode, dbo.tEnhancedPurchaseInfo.Price7Denomination, 
+                         dbo.tEnhancedPurchaseInfo.Price7Value, dbo.tEnhancedPurchaseInfo.Price8Denomination, dbo.tEnhancedPurchaseInfo.Price8Value, dbo.tEnhancedPurchaseInfo.Date1, dbo.tEnhancedPurchaseInfo.Date2, 
+                         dbo.tEnhancedPurchaseInfo.Date3, dbo.tEnhancedPurchaseInfo.Date4, dbo.tEnhancedPurchaseInfo.Date5
 FROM            dbo.tDVD INNER JOIN
                          dbo.tCollectionType ON dbo.tDVD.CollectionTypeId = dbo.tCollectionType.CollectionTypeId INNER JOIN
                          dbo.tEnhancedPurchaseInfo ON dbo.tDVD.DVDId = dbo.tEnhancedPurchaseInfo.DVDId
@@ -1403,6 +1403,58 @@ CREATE TABLE [dbo].[tDVDxSubtitle](
  CONSTRAINT [PK_tDVDxSubtitle] PRIMARY KEY CLUSTERED 
 (
 	[DVDxSubtitleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tEnhancedFeaturesMetaData](
+	[EnhancedFeaturesFieldName] [nvarchar](9) NOT NULL,
+	[Description] [nvarchar](255) NULL,
+ CONSTRAINT [PK_tEnhancedFeaturesMetaData] PRIMARY KEY CLUSTERED 
+(
+	[EnhancedFeaturesFieldName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tEnhancedNotesMetaData](
+	[EnhancedNotesFieldName] [nvarchar](11) NOT NULL,
+	[Description] [nvarchar](255) NULL,
+ CONSTRAINT [PK_tEnhancedNotesFieldNames] PRIMARY KEY CLUSTERED 
+(
+	[EnhancedNotesFieldName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tEnhancedPurchaseInfoMetaData](
+	[EnhancedPurchaseInfoFieldName] [nvarchar](18) NOT NULL,
+	[Description] [nvarchar](255) NULL,
+ CONSTRAINT [PK_tEnhancedPurchaseInfoMetaData] PRIMARY KEY CLUSTERED 
+(
+	[EnhancedPurchaseInfoFieldName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tEnhancedTitlesMetaData](
+	[EnhancedTitlesFieldName] [nvarchar](6) NOT NULL,
+	[Description] [nvarchar](255) NULL,
+ CONSTRAINT [PK_tEnhancedTitlesMetaData] PRIMARY KEY CLUSTERED 
+(
+	[EnhancedTitlesFieldName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -4645,7 +4697,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[41] 4[41] 2[3] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -4776,7 +4828,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[26] 4[47] 2[9] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -4882,7 +4934,7 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
+         Column = 7215
          Alias = 900
          Table = 1170
          Output = 720

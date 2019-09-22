@@ -17,7 +17,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tDVD()
         {
-            this.tDigitalDownloadInfo = new HashSet<tDigitalDownloadInfo>();
             this.tDVDxAudio = new HashSet<tDVDxAudio>();
             this.tDVDxCast = new HashSet<tDVDxCast>();
             this.tParentDVDxChildDVD = new HashSet<tParentDVDxChildDVD>();
@@ -25,9 +24,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             this.tDVDxCrew = new HashSet<tDVDxCrew>();
             this.tDVDxDisc = new HashSet<tDVDxDisc>();
             this.tDVDId = new HashSet<tDVDId>();
-            this.tEnhancedFeatures = new HashSet<tEnhancedFeatures>();
-            this.tEnhancedNotes = new HashSet<tEnhancedNotes>();
-            this.tEnhancedTitles = new HashSet<tEnhancedTitles>();
             this.tDVDxEvent = new HashSet<tDVDxEvent>();
             this.tFeatures = new HashSet<tFeatures>();
             this.tFormat = new HashSet<tFormat>();
@@ -46,7 +42,11 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
             this.tDVDxSubtitle = new HashSet<tDVDxSubtitle>();
             this.tDVDxTag = new HashSet<tDVDxTag>();
             this.tExclusions = new HashSet<tExclusions>();
+            this.tDigitalDownloadInfo = new HashSet<tDigitalDownloadInfo>();
+            this.tEnhancedFeatures = new HashSet<tEnhancedFeatures>();
+            this.tEnhancedNotes = new HashSet<tEnhancedNotes>();
             this.tEnhancedPurchaseInfo = new HashSet<tEnhancedPurchaseInfo>();
+            this.tEnhancedTitles = new HashSet<tEnhancedTitles>();
         }
     
         public string DVDId { get; set; }
@@ -74,8 +74,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual tCaseType tCaseType { get; set; }
         public virtual tCollectionType tCollectionType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tDigitalDownloadInfo> tDigitalDownloadInfo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDxAudio> tDVDxAudio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDxCast> tDVDxCast { get; set; }
@@ -89,12 +87,6 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         public virtual ICollection<tDVDxDisc> tDVDxDisc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDId> tDVDId { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tEnhancedFeatures> tEnhancedFeatures { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tEnhancedNotes> tEnhancedNotes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tEnhancedTitles> tEnhancedTitles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDVDxEvent> tDVDxEvent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -132,6 +124,14 @@ namespace DoenaSoft.DVDProfiler.SQLDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tExclusions> tExclusions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tDigitalDownloadInfo> tDigitalDownloadInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tEnhancedFeatures> tEnhancedFeatures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tEnhancedNotes> tEnhancedNotes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tEnhancedPurchaseInfo> tEnhancedPurchaseInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tEnhancedTitles> tEnhancedTitles { get; set; }
     }
 }

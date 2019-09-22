@@ -197,10 +197,19 @@
     <Compile Include="tEnhancedNotes.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tEnhancedNotesMetaData.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tEnhancedPurchaseInfo.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tEnhancedPurchaseInfoMetaData.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tEnhancedTitles.cs">
+      <DependentUpon>CollectionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tEnhancedTitlesMetaData.cs">
       <DependentUpon>CollectionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tEventType.cs">
