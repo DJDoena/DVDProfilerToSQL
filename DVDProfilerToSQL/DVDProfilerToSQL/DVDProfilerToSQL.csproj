@@ -57,12 +57,6 @@
     <ApplicationIcon>DJDSOFT.ICO</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -98,37 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DigitalDownloadInfoLibrary\DigitalDownloadInfoLibrary\DigitalDownloadInfoLibrary.csproj">
-      <Project>{5ca4049e-5e29-4c8c-90e2-1fe91147baeb}</Project>
-      <Name>DigitalDownloadInfoLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DVDProfilerXML\DVDProfilerHelper\DVDProfilerHelper\DVDProfilerHelper.csproj">
-      <Project>{461DACCA-8EBF-4C03-AD1A-C438E4EB3B36}</Project>
-      <Name>DVDProfilerHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DVDProfilerXML\DVDProfilerXML\DVDProfilerXML.csproj">
-      <Project>{2e90cc6f-892e-45b3-8812-ee52ffa3b222}</Project>
-      <Name>DVDProfilerXML</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EnhancedFeaturesLibrary\EnhancedFeaturesLibrary\EnhancedFeaturesLibrary.csproj">
-      <Project>{b045c2a8-cda6-4491-a88e-8817f504a072}</Project>
-      <Name>EnhancedFeaturesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EnhancedNotesLibrary\EnhancedNotesLibrary\EnhancedNotesLibrary.csproj">
-      <Project>{3f3cbe6f-7cde-4a89-9685-09b65394d171}</Project>
-      <Name>EnhancedNotesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EnhancedPurchaseInfoLibrary\EnhancedPurchaseInfoLibrary\EnhancedPurchaseInfoLibrary.csproj">
-      <Project>{9cb8d714-d5d6-440a-aa59-eb0c5d1fed26}</Project>
-      <Name>EnhancedPurchaseInfoLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EnhancedTitlesLibrary\EnhancedTitlesLibrary\EnhancedTitlesLibrary.csproj">
-      <Project>{b77fcd17-ef8c-4849-9ffe-7ea0a9fe11c5}</Project>
-      <Name>EnhancedTitlesLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SqlDatabase\SqlDatabase.csproj">
       <Project>{6999764b-1ebb-4dfe-8eb8-4a69e272c983}</Project>
       <Name>SqlDatabase</Name>
@@ -136,6 +101,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DJDSOFT.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DoenaSoft.DigitalDownloadInfo.Interface">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="DoenaSoft.DVDProfilerXML">
+      <Version>4.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="DoenaSoft.EnhancedFeatures.Interface">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="DoenaSoft.EnhancedNotes.Interface">
+      <Version>1.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="DoenaSoft.EnhancedPurchaseInfo.Interface">
+      <Version>1.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="DoenaSoft.EnhancedTitles.Interface">
+      <Version>1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
