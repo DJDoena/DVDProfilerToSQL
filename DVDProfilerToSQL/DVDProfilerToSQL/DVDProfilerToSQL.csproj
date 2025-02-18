@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DoenaSoft.DVDProfiler.DVDProfilerToSQL</RootNamespace>
     <AssemblyName>DVDProfilerToSQL</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -122,12 +122,12 @@
       <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="EntityFramework">
-      <Version>6.4.4</Version>
+      <Version>6.5.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /y ..\..\..\..\SqlDatabase\Collection.mdf .
-copy /y ..\..\..\..\SqlDatabase\Collection_log.ldf .</PreBuildEvent>
+    <PreBuildEvent>rem copy /y ..\..\..\..\SqlDatabase\Collection.mdf .
+rem copy /y ..\..\..\..\SqlDatabase\Collection_log.ldf .</PreBuildEvent>
   </PropertyGroup>
 </Project>
